@@ -1,120 +1,190 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-class SliderItem {
-  final String name;
-  final Color color;
-  final int minRange; // Início do intervalo
-  final int maxRange; // Fim do intervalo
-
-  SliderItem(this.name, this.color, this.minRange, this.maxRange);
-}
-
-// Ajustei os itens para terem intervalos de 10000 números cada
-final List<SliderItem> _items = [
-  SliderItem('Item 1', Colors.red, 1, 1000), // 1% (1.000 números)
-  SliderItem('Item 2', Colors.blue, 1001, 12000), // 11% (11.000 números)
-  SliderItem('Item 3', Colors.green, 12001, 23000), // 11% (11.000 números)
-  SliderItem('Item 4', Colors.yellow, 23001, 34000), // 11% (11.000 números)
-  SliderItem('Item 5', Colors.orange, 34001, 45000), // 11% (11.000 números)
-  SliderItem('Item 6', Colors.purple, 45001, 56000), // 11% (11.000 números)
-  SliderItem('Item 7', Colors.pink, 56001, 67000), // 11% (11.000 números)
-  SliderItem('Item 8', Colors.teal, 67001, 78000), // 11% (11.000 números)
-  SliderItem('Item 9', Colors.brown, 78001, 89000), // 11% (11.000 números)
-  SliderItem('Item 10', Colors.cyan, 89001, 100000), // 11% (11.000 números)
+final List<SliderItem> sliderItems = [
+  SliderItem(
+      index: 0,
+      title: 'Title 1',
+      color: Colors.red,
+      minRange: 1,
+      maxRange: 100),
+  SliderItem(
+      index: 1,
+      title: 'Title 2',
+      color: Colors.blue,
+      minRange: 101,
+      maxRange: 200),
+  SliderItem(
+      index: 2,
+      title: 'Title 3',
+      color: Colors.green,
+      minRange: 201,
+      maxRange: 300),
+  SliderItem(
+      index: 3,
+      title: 'Title 4',
+      color: Colors.orange,
+      minRange: 301,
+      maxRange: 400),
+  SliderItem(
+      index: 4,
+      title: 'Title 5',
+      color: Colors.purple,
+      minRange: 401,
+      maxRange: 500),
+  SliderItem(
+      index: 5,
+      title: 'Title 6',
+      color: Colors.yellow,
+      minRange: 501,
+      maxRange: 600),
+  SliderItem(
+      index: 6,
+      title: 'Title 7',
+      color: Colors.pink,
+      minRange: 601,
+      maxRange: 700),
+  SliderItem(
+      index: 7,
+      title: 'Title 8',
+      color: Colors.teal,
+      minRange: 701,
+      maxRange: 800),
+  SliderItem(
+      index: 8,
+      title: 'Title 9',
+      color: Colors.cyan,
+      minRange: 801,
+      maxRange: 900),
+  SliderItem(
+      index: 9,
+      title: 'Title 10',
+      color: Colors.brown,
+      minRange: 901,
+      maxRange: 1000),
 ];
 
-class SliderExample extends StatefulWidget {
-  const SliderExample({super.key});
+class GenieSlider extends StatefulWidget {
+  const GenieSlider({super.key});
 
   @override
-  SliderExampleState createState() => SliderExampleState();
+  State<GenieSlider> createState() => _GenieSliderState();
 }
 
-class SliderExampleState extends State<SliderExample> {
-  late ScrollController _scrollController;
-  final double _itemWidth = 100;
-
-  int _randomNumber = 0;
-
-  // Função para encontrar o item baseado no número sorteado
-  SliderItem _findItemByNumber(int number) {
-    return _items.firstWhere(
-      (item) => number >= item.minRange && number <= item.maxRange,
-      orElse: () => _items[0], // Default caso não encontre (não deve ocorrer)
-    );
-  }
-
-  void _generateRandomNumber() {
-    setState(() {
-      _randomNumber =
-          Random().nextInt(100000) + 1; // Gera número entre 1 e 100000
-      SliderItem selectedItem = _findItemByNumber(_randomNumber);
-      print('Número sorteado: $_randomNumber');
-      print('Item sorteado: ${selectedItem.name}');
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController =
-        ScrollController(initialScrollOffset: _itemWidth * 1000);
-  }
+class _GenieSliderState extends State<GenieSlider> {
+  int? randomNumber;
+  SliderItem? selectedItem;
+  final PageController _pageController = PageController(viewportFraction: 0.3);
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Infinite Random Slider'),
-      ),
       body: Column(
         children: [
-          Icon(
-            Icons.arrow_drop_down,
-            color: Colors.red,
-            size: 30,
-          ),
           SizedBox(
             height: 120,
-            child: ListView.builder(
-              controller: _scrollController,
-              scrollDirection: Axis.horizontal,
-              itemCount: null, // Lista infinita
-              itemBuilder: (context, index) {
-                final displayIndex = index % _items.length;
-                return Container(
-                  width: _itemWidth,
-                  margin: EdgeInsets.all(8),
-                  color: _items[displayIndex].color,
-                  child: Center(
-                    child: Text(
-                      _items[displayIndex].name,
-                      style: TextStyle(color: Colors.white),
-                    ),
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: 100,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: sliderItems.length,
+                    itemBuilder: (context, index) {
+                      final item = sliderItems[index];
+                      return Container(
+                        width: 100,
+                        color: item.color,
+                        child: Center(child: Text(item.title!)),
+                      );
+                    },
                   ),
-                );
-              },
+                ),
+                Positioned(
+                  top: 0,
+                  left: MediaQuery.of(context).size.width / 2 - 20,
+                  child: const Icon(
+                    Icons.arrow_drop_down_circle_sharp,
+                    color: Colors.red,
+                    size: 30,
+                  ),
+                ),
+              ],
             ),
           ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: _generateRandomNumber,
-            child: Text('Girar Slider'),
-          ),
-          SizedBox(height: 20),
-          Text('Último número sorteado: $_randomNumber'),
-          Text(
-            'Item sorteado: ${_randomNumber > 0 ? _findItemByNumber(_randomNumber).name : "Nenhum"}',
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      randomNumber = Random().nextInt(1000) + 1;
+                      // Find the corresponding item based on the random number
+                      selectedItem = sliderItems.firstWhere(
+                        (item) =>
+                            randomNumber! >= item.minRange! &&
+                            randomNumber! <= item.maxRange!,
+                        orElse: () => sliderItems.first,
+                      );
+                      // Animate to the selected item's page
+                      _pageController.animateToPage(
+                        selectedItem!.index!,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    });
+                  },
+                  child: const Text('Sortear Número'),
+                ),
+                if (randomNumber != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Número sorteado: $randomNumber',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        Text(
+                          'Item correspondente: ${selectedItem!.title} '
+                          '(${selectedItem!.minRange}-${selectedItem!.maxRange})',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
+}
+
+class SliderItem {
+  int? index; // Added index
+  String? image;
+  String? title;
+  String? description;
+  Color? color;
+  int? minRange;
+  int? maxRange;
+
+  SliderItem({
+    this.index,
+    this.image,
+    this.title,
+    this.description,
+    this.color,
+    this.minRange,
+    this.maxRange,
+  });
 }

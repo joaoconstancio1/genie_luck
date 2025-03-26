@@ -4,7 +4,7 @@ import 'package:genie_luck/genie_slider.dart';
 void main() {
   runApp(
     MaterialApp(
-      home: SliderExample(),
+      home: GenieSlider(),
     ),
   );
 }
