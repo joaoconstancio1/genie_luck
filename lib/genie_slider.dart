@@ -74,40 +74,32 @@ class GenieSlider extends StatefulWidget {
 class _GenieSliderState extends State<GenieSlider> {
   int? randomNumber;
   SliderItem? selectedItem;
-  final PageController _pageController = PageController(
-    viewportFraction: 0.3,
-    initialPage: 1000,
-  );
+  PageController? _pageController;
+  double itemWidth =
+      100.0; // Largura inicial dos itens, será ajustada dinamicamente
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController?.dispose();
     super.dispose();
   }
 
   Future<void> _animateToItem(int targetIndex) async {
     int itemsCount = sliderItems.length;
-    const int loops = 3; // 3 voltas completas
+    const int loops = 3;
 
-    // Get the current page (as an integer)
-    int currentPage =
-        _pageController.page?.round() ?? _pageController.initialPage;
-
-    // Normalize the current page to a value within the range of sliderItems
+    int currentPage = _pageController!.page?.round() ?? 1000;
     int currentIndex = currentPage % itemsCount;
 
-    // Calculate how many steps to reach the target index after 3 loops
     int stepsToTarget = targetIndex - currentIndex;
     if (stepsToTarget < 0) {
-      stepsToTarget += itemsCount; // Ensure we move forward
+      stepsToTarget += itemsCount;
     }
 
-    // Total steps: 3 full loops + steps to the target
     final int totalSteps = (itemsCount * loops) + stepsToTarget;
     final int targetPage = currentPage + totalSteps;
 
-    // Animate to the target page
-    await _pageController.animateToPage(
+    await _pageController!.animateToPage(
       targetPage,
       duration: const Duration(milliseconds: 4000),
       curve: Curves.easeOutExpo,
@@ -116,6 +108,24 @@ class _GenieSliderState extends State<GenieSlider> {
 
   @override
   Widget build(BuildContext context) {
+    // Número de itens que queremos visíveis ao mesmo tempo
+    const int visibleItems = 5; // Ajustado para 5 itens visíveis
+
+    // Calcula a largura da tela
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // Calcula a largura dos itens para que 5 itens sejam visíveis ao mesmo tempo
+    itemWidth = screenWidth / visibleItems;
+
+    // Calcula o viewportFraction com base na largura dos itens
+    double viewportFraction = itemWidth / screenWidth;
+
+    // Inicializa o PageController
+    _pageController ??= PageController(
+      initialPage: 1000,
+      viewportFraction: viewportFraction,
+    );
+
     return Scaffold(
       body: Column(
         children: [
@@ -129,10 +139,22 @@ class _GenieSliderState extends State<GenieSlider> {
                     controller: _pageController,
                     itemBuilder: (context, index) {
                       final item = sliderItems[index % sliderItems.length];
-                      return Container(
-                        width: 100,
-                        color: item.color,
-                        child: Center(child: Text(item.title!)),
+                      return SizedBox(
+                        width: itemWidth, // Largura ajustada dinamicamente
+                        height: 80, // Altura fixa
+                        child: Container(
+                          color: item.color,
+                          child: Center(
+                            child: Text(
+                              item.title!,
+                              style: TextStyle(
+                                fontSize: 16 *
+                                    (itemWidth /
+                                        100), // Ajusta o tamanho da fonte proporcionalmente
+                              ),
+                            ),
+                          ),
+                        ),
                       );
                     },
                   ),
