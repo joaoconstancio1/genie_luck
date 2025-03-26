@@ -110,7 +110,7 @@ class _GenieSliderState extends State<GenieSlider> {
     await _pageController.animateToPage(
       targetPage,
       duration: const Duration(milliseconds: 4000),
-      curve: Curves.easeInOut,
+      curve: Curves.easeOutExpo,
     );
   }
 
