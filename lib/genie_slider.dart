@@ -74,12 +74,44 @@ class GenieSlider extends StatefulWidget {
 class _GenieSliderState extends State<GenieSlider> {
   int? randomNumber;
   SliderItem? selectedItem;
-  final PageController _pageController = PageController(viewportFraction: 0.3);
+  final PageController _pageController = PageController(
+    viewportFraction: 0.3,
+    initialPage: 1000,
+  );
 
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  Future<void> _animateToItem(int targetIndex) async {
+    int itemsCount = sliderItems.length;
+    const int loops = 3; // 3 voltas completas
+
+    // Get the current page (as an integer)
+    int currentPage =
+        _pageController.page?.round() ?? _pageController.initialPage;
+
+    // Normalize the current page to a value within the range of sliderItems
+    int currentIndex = currentPage % itemsCount;
+
+    // Calculate how many steps to reach the target index after 3 loops
+    int stepsToTarget = targetIndex - currentIndex;
+    if (stepsToTarget < 0) {
+      stepsToTarget += itemsCount; // Ensure we move forward
+    }
+
+    // Total steps: 3 full loops + steps to the target
+    final int totalSteps = (itemsCount * loops) + stepsToTarget;
+    final int targetPage = currentPage + totalSteps;
+
+    // Animate to the target page
+    await _pageController.animateToPage(
+      targetPage,
+      duration: const Duration(milliseconds: 4000),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -95,9 +127,8 @@ class _GenieSliderState extends State<GenieSlider> {
                   height: 100,
                   child: PageView.builder(
                     controller: _pageController,
-                    itemCount: sliderItems.length,
                     itemBuilder: (context, index) {
-                      final item = sliderItems[index];
+                      final item = sliderItems[index % sliderItems.length];
                       return Container(
                         width: 100,
                         color: item.color,
@@ -123,23 +154,17 @@ class _GenieSliderState extends State<GenieSlider> {
             child: Column(
               children: [
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       randomNumber = Random().nextInt(1000) + 1;
-                      // Find the corresponding item based on the random number
                       selectedItem = sliderItems.firstWhere(
                         (item) =>
                             randomNumber! >= item.minRange! &&
                             randomNumber! <= item.maxRange!,
                         orElse: () => sliderItems.first,
                       );
-                      // Animate to the selected item's page
-                      _pageController.animateToPage(
-                        selectedItem!.index!,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
                     });
+                    await _animateToItem(selectedItem!.index!);
                   },
                   child: const Text('Sortear Número'),
                 ),
@@ -170,7 +195,7 @@ class _GenieSliderState extends State<GenieSlider> {
 }
 
 class SliderItem {
-  int? index; // Added index
+  int? index;
   String? image;
   String? title;
   String? description;
