@@ -15,7 +15,7 @@ class _GenieSliderState extends State<GenieSlider> {
   SliderItem? selectedItem;
   PageController? _pageController;
   double itemWidth = 100.0;
-  double userBalance = 5.0; // Saldo inicial mockado de R$ 5,00
+  double userBalance = 11; // Saldo inicial mockado de R$ 11,00
   bool isSpinning = false; // Controla se a roleta está girando
 
   @override
@@ -132,6 +132,7 @@ class _GenieSliderState extends State<GenieSlider> {
                       (userBalance >= costToPlay && !isSpinning)
                           ? () async {
                             setState(() {
+                              userBalance -= costToPlay; // Diminui o saldo
                               randomNumber = Random().nextInt(1000) + 1;
                               selectedItem = SliderItem.sliderItems.firstWhere(
                                 (item) =>
