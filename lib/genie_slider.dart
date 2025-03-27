@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:genie_luck/slider_itens.dart';
+import 'package:genie_luck/slider_itens.dart'; // Ajuste o caminho conforme necessário
 
 class GenieSlider extends StatefulWidget {
   const GenieSlider({super.key});
@@ -11,11 +11,11 @@ class GenieSlider extends StatefulWidget {
 }
 
 class _GenieSliderState extends State<GenieSlider> {
-  int? randomNumber;
+  double? randomNumber; // Valor entre 0 e 100
   SliderItem? selectedItem;
   PageController? _pageController;
   double itemWidth = 100.0;
-  double userBalance = 11; // Saldo inicial mockado de R$ 11,00
+  double userBalance = 20; // Saldo inicial mockado de R$ 20,00
   bool isSpinning = false; // Controla se a roleta está girando
 
   @override
@@ -132,7 +132,6 @@ class _GenieSliderState extends State<GenieSlider> {
                       (userBalance >= costToPlay && !isSpinning)
                           ? () async {
                             setState(() {
-                              userBalance -= costToPlay; // Diminui o saldo
                               randomNumber = Random().nextInt(1000) + 1;
                               selectedItem = SliderItem.sliderItems.firstWhere(
                                 (item) =>
@@ -156,12 +155,12 @@ class _GenieSliderState extends State<GenieSlider> {
                     child: Column(
                       children: [
                         Text(
-                          'Número sorteado: $randomNumber',
+                          'Número sorteado: ${randomNumber!.toStringAsFixed(2)}',
                           style: const TextStyle(fontSize: 16),
                         ),
                         Text(
                           'Item correspondente: ${selectedItem!.title} '
-                          '(${selectedItem!.minRange}-${selectedItem!.maxRange})',
+                          '(Intervalo: ${selectedItem!.minRange!.toStringAsFixed(2)} - ${selectedItem!.maxRange!.toStringAsFixed(2)})',
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],

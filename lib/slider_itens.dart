@@ -6,8 +6,8 @@ class SliderItem {
   String? title;
   String? description;
   Color? color;
-  int? minRange;
-  int? maxRange;
+  double? minRange; // Valor mínimo do intervalo
+  double? maxRange; // Valor máximo do intervalo
 
   SliderItem({
     this.index,
@@ -51,7 +51,7 @@ class SliderItem {
     SliderItem(
       index: 4,
       title: 'PlayStation 5',
-      image: 'assets/images/playstation5.png',
+      image: 'assets/images/ps5.png',
       minRange: 401,
       maxRange: 500,
     ),
