@@ -106,12 +106,14 @@ class _GenieSliderState extends State<GenieSlider> {
                                     fit: BoxFit.contain,
                                   )
                                   : null,
+                          border: Border.all(color: Colors.grey, width: 0.5),
                         ),
                       ),
                     ),
+
                     Flexible(
                       child: Text(
-                        item.title!,
+                        item.title ?? '',
                         style: const TextStyle(fontSize: 16),
                         textAlign: TextAlign.center,
                         maxLines: 1,
