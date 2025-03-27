@@ -1,5 +1,5 @@
 {
   "dart.flutterSdkPath": ".fvm/versions/stable",
   "editor.wordWrap": "wordWrapColumn",
-  "editor.wordWrapColumn": 120
+  "editor.wordWrapColumn": 80,
 }
