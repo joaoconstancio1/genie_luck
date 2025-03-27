@@ -54,26 +54,6 @@ class _GenieSliderState extends State<GenieSlider> {
     });
   }
 
-  SliderItem _selectItemByPercentage() {
-    final random = Random();
-    double totalPercentage = SliderItem.sliderItems.fold(
-      0,
-      (sum, item) => sum + item.percentage!,
-    );
-    double randomValue = random.nextDouble() * totalPercentage;
-
-    double cumulative = 0;
-    for (var item in SliderItem.sliderItems) {
-      cumulative += item.percentage!;
-      if (randomValue <= cumulative) {
-        return item;
-      }
-    }
-    return SliderItem
-        .sliderItems
-        .last; // Fallback (não deve ocorrer se as porcentagens somam 100)
-  }
-
   @override
   Widget build(BuildContext context) {
     const int visibleItems = 5;
@@ -152,12 +132,13 @@ class _GenieSliderState extends State<GenieSlider> {
                       (userBalance >= costToPlay && !isSpinning)
                           ? () async {
                             setState(() {
-                              selectedItem = _selectItemByPercentage();
-                              randomNumber =
-                                  Random().nextInt(1000) +
-                                  1; // Mantido apenas para exibição
-                              userBalance -=
-                                  costToPlay; // Deduz o custo do saldo
+                              randomNumber = Random().nextInt(1000) + 1;
+                              selectedItem = SliderItem.sliderItems.firstWhere(
+                                (item) =>
+                                    randomNumber! >= item.minRange! &&
+                                    randomNumber! <= item.maxRange!,
+                                orElse: () => SliderItem.sliderItems.first,
+                              );
                             });
                             await _animateToItem(selectedItem!.index!);
                           }
@@ -179,7 +160,7 @@ class _GenieSliderState extends State<GenieSlider> {
                         ),
                         Text(
                           'Item correspondente: ${selectedItem!.title} '
-                          '(${selectedItem!.percentage}%)',
+                          '(${selectedItem!.minRange}-${selectedItem!.maxRange})',
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],
