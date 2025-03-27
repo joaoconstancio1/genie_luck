@@ -85,8 +85,9 @@ class _GenieSliderState extends State<GenieSlider> {
   int? randomNumber;
   SliderItem? selectedItem;
   PageController? _pageController;
-  double itemWidth =
-      100.0; // Largura inicial dos itens, será ajustada dinamicamente
+  double itemWidth = 100.0;
+  double userBalance = 5.0; // Saldo inicial mockado de R$ 5,00
+  bool isSpinning = false; // Controla se a roleta está girando
 
   @override
   void dispose() {
@@ -109,36 +110,48 @@ class _GenieSliderState extends State<GenieSlider> {
     final int totalSteps = (itemsCount * loops) + stepsToTarget;
     final int targetPage = currentPage + totalSteps;
 
+    // Inicia a animação
+    setState(() {
+      isSpinning = true; // Bloqueia o botão
+    });
+
     await _pageController!.animateToPage(
       targetPage,
       duration: const Duration(milliseconds: 4000),
       curve: Curves.easeOutExpo,
     );
+
+    // Termina a animação
+    setState(() {
+      isSpinning = false; // Desbloqueia o botão
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Número de itens que queremos visíveis ao mesmo tempo
-    const int visibleItems = 5; // Ajustado para 5 itens visíveis
-
-    // Calcula a largura da tela
+    const int visibleItems = 5;
     double screenWidth = MediaQuery.of(context).size.width;
-
-    // Calcula a largura dos itens para que 5 itens sejam visíveis ao mesmo tempo
     itemWidth = screenWidth / visibleItems;
-
-    // Calcula o viewportFraction com base na largura dos itens
     double viewportFraction = itemWidth / screenWidth;
 
-    // Inicializa o PageController
     _pageController ??= PageController(
       initialPage: 1000,
       viewportFraction: viewportFraction,
     );
 
+    const double costToPlay = 2.0; // Custo fixo de R$ 2,00
+
     return Scaffold(
       body: Column(
         children: [
+          // Exibição do saldo no topo
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Saldo: R\$ ${userBalance.toStringAsFixed(2)}',
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
           const Icon(
             Icons.arrow_drop_down_circle_sharp,
             color: Colors.red,
@@ -154,8 +167,7 @@ class _GenieSliderState extends State<GenieSlider> {
                   children: [
                     SizedBox(
                       width: itemWidth,
-                      height:
-                          100, // Reduzindo a altura da imagem para dar mais espaço ao texto
+                      height: 100,
                       child: Container(
                         decoration: BoxDecoration(
                           color: item.color ?? Colors.grey[300],
@@ -183,25 +195,33 @@ class _GenieSliderState extends State<GenieSlider> {
               },
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 ElevatedButton(
-                  onPressed: () async {
-                    setState(() {
-                      randomNumber = Random().nextInt(1000) + 1;
-                      selectedItem = sliderItems.firstWhere(
-                        (item) =>
-                            randomNumber! >= item.minRange! &&
-                            randomNumber! <= item.maxRange!,
-                        orElse: () => sliderItems.first,
-                      );
-                    });
-                    await _animateToItem(selectedItem!.index!);
-                  },
-                  child: const Text('Sortear Número'),
+                  onPressed:
+                      (userBalance >= costToPlay && !isSpinning)
+                          ? () async {
+                            setState(() {
+                              randomNumber = Random().nextInt(1000) + 1;
+                              selectedItem = sliderItems.firstWhere(
+                                (item) =>
+                                    randomNumber! >= item.minRange! &&
+                                    randomNumber! <= item.maxRange!,
+                                orElse: () => sliderItems.first,
+                              );
+                              userBalance -=
+                                  costToPlay; // Deduz o custo do saldo
+                            });
+                            await _animateToItem(selectedItem!.index!);
+                          }
+                          : null, // Botão desabilitado se saldo insuficiente ou girando
+                  child: Text(
+                    userBalance >= costToPlay
+                        ? 'Sortear Número (R\$ 2,00)'
+                        : 'Saldo insuficiente',
+                  ),
                 ),
                 if (randomNumber != null)
                   Padding(
@@ -247,4 +267,8 @@ class SliderItem {
     this.minRange,
     this.maxRange,
   });
+}
+
+void main() {
+  runApp(const MaterialApp(home: GenieSlider()));
 }
