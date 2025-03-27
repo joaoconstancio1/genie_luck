@@ -8,6 +8,7 @@ class SliderItem {
   Color? color;
   double? minRange; // Valor mínimo do intervalo
   double? maxRange; // Valor máximo do intervalo
+  double? value; // Valor atual do item
 
   SliderItem({
     this.index,
@@ -17,6 +18,7 @@ class SliderItem {
     this.color,
     this.minRange,
     this.maxRange,
+    this.value,
   });
 
   static final List<SliderItem> sliderItems = [
@@ -26,6 +28,7 @@ class SliderItem {
       image: 'assets/images/money.png',
       minRange: 1,
       maxRange: 100,
+      value: 2, // Mesmo valor do título
     ),
     SliderItem(
       index: 1,
@@ -33,6 +36,7 @@ class SliderItem {
       image: 'assets/images/money.png',
       minRange: 101,
       maxRange: 200,
+      value: 5, // Mesmo valor do título
     ),
     SliderItem(
       index: 2,
@@ -40,6 +44,7 @@ class SliderItem {
       image: 'assets/images/iphone16.png',
       minRange: 201,
       maxRange: 300,
+      value: 5500, // Valor aproximado
     ),
     SliderItem(
       index: 3,
@@ -47,6 +52,7 @@ class SliderItem {
       image: 'assets/images/money.png',
       minRange: 301,
       maxRange: 400,
+      value: 10, // Mesmo valor do título
     ),
     SliderItem(
       index: 4,
@@ -54,6 +60,7 @@ class SliderItem {
       image: 'assets/images/ps5.png',
       minRange: 401,
       maxRange: 500,
+      value: 3200, // Valor aproximado
     ),
     SliderItem(
       index: 5,
@@ -61,6 +68,7 @@ class SliderItem {
       image: 'assets/images/money.png',
       minRange: 501,
       maxRange: 600,
+      value: 50, // Mesmo valor do título
     ),
     SliderItem(
       index: 6,
@@ -68,6 +76,7 @@ class SliderItem {
       image: 'assets/images/money.png',
       minRange: 601,
       maxRange: 700,
+      value: 100, // Mesmo valor do título
     ),
     SliderItem(
       index: 7,
@@ -75,20 +84,8 @@ class SliderItem {
       image: 'assets/images/money.png',
       minRange: 701,
       maxRange: 800,
-    ),
-    SliderItem(
-      index: 8,
-      title: 'R\$ 5,00',
-      image: 'assets/images/money.png',
-      minRange: 801,
-      maxRange: 900,
-    ),
-    SliderItem(
-      index: 9,
-      title: 'R\$ 5,00',
-      image: 'assets/images/money.png',
-      minRange: 901,
-      maxRange: 1000,
+
+      value: 5, // Mesmo valor do título
     ),
   ];
 }

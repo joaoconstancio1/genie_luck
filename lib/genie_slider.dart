@@ -134,7 +134,7 @@ class _GenieSliderState extends State<GenieSlider> {
                       (userBalance >= costToPlay && !isSpinning)
                           ? () async {
                             setState(() {
-                              randomNumber = Random().nextInt(1000) + 1;
+                              randomNumber = Random().nextInt(1000).toDouble();
                               selectedItem = SliderItem.sliderItems.firstWhere(
                                 (item) =>
                                     randomNumber! >= item.minRange! &&
