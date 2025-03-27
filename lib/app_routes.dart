@@ -1,26 +1,34 @@
+// app_routes.dart
 import 'package:flutter/material.dart';
-import 'package:genie_luck/genie_slider.dart';
-import 'package:genie_luck/login/pages/login_page.dart';
+import 'package:genie_luck/register/pages/register_page.dart';
+import 'package:go_router/go_router.dart';
+import 'genie_slider.dart';
 
 class AppRoutes {
-  static const String login = '/';
+  // Defina os caminhos de forma estática para facilitar o uso
+  static const String login = '/login';
   static const String genieSlider = '/genie-slider';
+  static const String notFound = '/404';
 
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case login:
-        return MaterialPageRoute(builder: (_) => LoginPage());
-      case genieSlider:
-        return MaterialPageRoute(builder: (_) => GenieSlider());
-      default:
-        return MaterialPageRoute(
+  // Método para criar o GoRouter
+  static GoRouter get router {
+    return GoRouter(
+      initialLocation: login, // Rota inicial
+      routes: [
+        GoRoute(path: login, builder: (context, state) => RegisterPage()),
+        GoRoute(path: genieSlider, builder: (context, state) => GenieSlider()),
+        // Rota padrão para páginas não encontradas
+        GoRoute(
+          path: notFound,
           builder:
-              (_) => Scaffold(
-                body: Center(
-                  child: Text('Rota não encontrada: ${settings.name}'),
-                ),
+              (context, state) => Scaffold(
+                body: Center(child: Text('Rota inválida: ${state.uri}')),
               ),
-        );
-    }
+        ),
+      ],
+      errorBuilder: (context, state) {
+        return Scaffold(body: Center(child: Text('Página não encontrada')));
+      },
+    );
   }
 }

@@ -3,10 +3,9 @@ import 'package:genie_luck/app_routes.dart';
 
 void main() {
   runApp(
-    MaterialApp(
+    MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.login,
-      onGenerateRoute: AppRoutes.generateRoute,
+      routerConfig: AppRoutes.router,
     ),
   );
 }
