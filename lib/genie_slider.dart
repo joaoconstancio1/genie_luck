@@ -207,54 +207,6 @@ class _GenieSliderState extends State<GenieSlider> {
                       ],
                     ),
                   ),
-                Positioned(
-                  top: 0,
-                  left: MediaQuery.of(context).size.width / 2 - 20,
-                  child: const Icon(
-                    Icons.arrow_drop_down_circle_sharp,
-                    color: Colors.red,
-                    size: 30,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    setState(() {
-                      randomNumber = Random().nextInt(1000) + 1;
-                      selectedItem = sliderItems.firstWhere(
-                        (item) =>
-                            randomNumber! >= item.minRange! &&
-                            randomNumber! <= item.maxRange!,
-                        orElse: () => sliderItems.first,
-                      );
-                    });
-                    await _animateToItem(selectedItem!.index!);
-                  },
-                  child: const Text('Sortear Número'),
-                ),
-                if (randomNumber != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Número sorteado: $randomNumber',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        Text(
-                          'Item correspondente: ${selectedItem!.title} '
-                          '(${selectedItem!.minRange}-${selectedItem!.maxRange})',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    ),
-                  ),
               ],
             ),
           ),
