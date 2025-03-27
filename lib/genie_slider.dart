@@ -4,71 +4,71 @@ import 'dart:math';
 final List<SliderItem> sliderItems = [
   SliderItem(
     index: 0,
-    title: 'Title 1',
-    color: Colors.red,
+    title: 'R\$ 2,00',
+    image: 'assets/images/money.png',
     minRange: 1,
     maxRange: 100,
   ),
   SliderItem(
     index: 1,
-    title: 'Title 2',
-    color: Colors.blue,
+    title: 'R\$ 5,00',
+    image: 'assets/images/money.png',
     minRange: 101,
     maxRange: 200,
   ),
   SliderItem(
     index: 2,
-    title: 'Title 3',
-    color: Colors.green,
+    title: 'iPhone 16',
+    image: 'assets/images/iphone16.png',
     minRange: 201,
     maxRange: 300,
   ),
   SliderItem(
     index: 3,
-    title: 'Title 4',
-    color: Colors.orange,
+    title: 'R\$ 10,00',
+    image: 'assets/images/money.png',
     minRange: 301,
     maxRange: 400,
   ),
   SliderItem(
     index: 4,
-    title: 'Title 5',
-    color: Colors.purple,
+    title: 'PlayStation 5',
+    image: 'assets/images/playstation5.png',
     minRange: 401,
     maxRange: 500,
   ),
   SliderItem(
     index: 5,
-    title: 'Title 6',
-    color: Colors.yellow,
+    title: 'R\$ 50,00',
+    image: 'assets/images/money.png',
     minRange: 501,
     maxRange: 600,
   ),
   SliderItem(
     index: 6,
-    title: 'Title 7',
-    color: Colors.pink,
+    title: 'R\$ 100,00',
+    image: 'assets/images/money.png',
     minRange: 601,
     maxRange: 700,
   ),
   SliderItem(
     index: 7,
-    title: 'Title 8',
-    color: Colors.teal,
+    title: 'R\$ 5,00',
+    image: 'assets/images/money.png',
     minRange: 701,
     maxRange: 800,
   ),
   SliderItem(
     index: 8,
-    title: 'Title 9',
-    color: Colors.cyan,
+    title: 'R\$ 5,00',
+    image: 'assets/images/money.png',
     minRange: 801,
     maxRange: 900,
   ),
   SliderItem(
     index: 9,
-    title: 'Title 10',
-    color: Colors.brown,
+    title: 'R\$ 5,00',
+    image: 'assets/images/money.png',
     minRange: 901,
     maxRange: 1000,
   ),
@@ -139,49 +139,51 @@ class _GenieSliderState extends State<GenieSlider> {
     return Scaffold(
       body: Column(
         children: [
+          const Icon(
+            Icons.arrow_drop_down_circle_sharp,
+            color: Colors.red,
+            size: 30,
+          ),
           SizedBox(
             height: 120,
-            child: Stack(
-              children: [
-                SizedBox(
-                  height: 100,
-                  child: PageView.builder(
-                    controller: _pageController,
-                    itemBuilder: (context, index) {
-                      final item = sliderItems[index % sliderItems.length];
-                      return SizedBox(
-                        width: itemWidth, // Largura ajustada dinamicamente
-                        height: 80, // Altura fixa
-                        child: Container(
-                          color: item.color,
-                          child: Center(
-                            child: Text(
-                              item.title!,
-                              style: TextStyle(
-                                fontSize:
-                                    16 *
-                                    (itemWidth /
-                                        100), // Ajusta o tamanho da fonte proporcionalmente
-                              ),
-                            ),
-                          ),
+            child: PageView.builder(
+              controller: _pageController,
+              itemBuilder: (context, index) {
+                final item = sliderItems[index % sliderItems.length];
+                return Column(
+                  children: [
+                    SizedBox(
+                      width: itemWidth,
+                      height:
+                          100, // Reduzindo a altura da imagem para dar mais espaço ao texto
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: item.color ?? Colors.grey[300],
+                          image:
+                              item.image != null
+                                  ? DecorationImage(
+                                    image: AssetImage(item.image!),
+                                    fit: BoxFit.contain,
+                                  )
+                                  : null,
                         ),
-                      );
-                    },
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  left: MediaQuery.of(context).size.width / 2 - 20,
-                  child: const Icon(
-                    Icons.arrow_drop_down_circle_sharp,
-                    color: Colors.red,
-                    size: 30,
-                  ),
-                ),
-              ],
+                      ),
+                    ),
+                    Flexible(
+                      child: Text(
+                        item.title!,
+                        style: const TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
