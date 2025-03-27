@@ -41,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (value == null || value.isEmpty) {
       errors.add('Informe uma senha');
     } else {
-      if (value.length < 6) {
+      if (value.length < 8) {
         errors.add('A senha deve ter no mínimo 6 caracteres');
       }
 
