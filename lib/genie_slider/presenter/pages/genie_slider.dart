@@ -73,6 +73,7 @@ class _GenieSliderState extends State<GenieSlider> {
     );
 
     const double costToPlay = 2.0;
+    const double defaultPadding = 16.0;
 
     return Scaffold(
       body: ListView(
@@ -95,150 +96,154 @@ class _GenieSliderState extends State<GenieSlider> {
               controller: _pageController,
               itemBuilder: (context, index) {
                 final item = sliderItems[index % sliderItems.length];
-                return Column(
-                  children: [
-                    SizedBox(
-                      width: itemWidth,
-                      height: 100,
+                return SizedBox(
+                  width: itemWidth,
+                  height: 100,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          item.image.isNotEmpty
+                              ? item.image
+                              : 'assets/images/genie.jpg',
+                        ),
+                        fit: BoxFit.contain,
+                      ),
+                      border: Border.all(color: Colors.grey, width: 0.5),
+                    ),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
                       child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                              item.image.isNotEmpty
-                                  ? item.image
-                                  : 'assets/images/genie.jpg',
-                            ),
-                            fit: BoxFit.contain,
+                        color: Colors.black.withAlpha(150),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 2.0,
+                          horizontal: 4.0,
+                        ),
+                        child: Text(
+                          item.title,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.white,
                           ),
-                          border: Border.all(color: Colors.grey, width: 0.5),
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
-                    Flexible(
-                      child: Text(
-                        item.title,
-                        style: const TextStyle(fontSize: 16),
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
+                  ),
                 );
               },
             ),
           ),
+          Column(
+            children: [
+              ElevatedButton(
+                onPressed:
+                    (userBalance >= costToPlay && !isSpinning)
+                        ? () async {
+                          setState(() {
+                            userBalance -= costToPlay;
+                            randomNumber = Random().nextInt(100000).toDouble();
+                            selectedItem = sliderItems.firstWhere(
+                              (item) =>
+                                  randomNumber! >= item.minRange &&
+                                  randomNumber! <= item.maxRange,
+                              orElse: () => sliderItems.first,
+                            );
+                          });
+                          await _animateToItem(selectedItem!.index);
+                        }
+                        : null,
+                child: Text(
+                  userBalance >= costToPlay
+                      ? 'Sortear Número (R\$ 2,00)'
+                      : 'Saldo insuficiente',
+                ),
+              ),
+              if (randomNumber != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Número sorteado: ${randomNumber!}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        'Item correspondente: ${selectedItem!.title} '
+                        '(Intervalo: ${selectedItem!.minRange} - ${selectedItem!.maxRange})',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      if (selectedItem?.value != null)
+                        Text(
+                          'Prêmio: R\$ ${selectedItem!.value.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                    ],
+                  ),
+                ),
+              SizedBox(height: 20),
+            ],
+          ),
+
           Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                ElevatedButton(
-                  onPressed:
-                      (userBalance >= costToPlay && !isSpinning)
-                          ? () async {
-                            setState(() {
-                              userBalance -= costToPlay;
-                              randomNumber =
-                                  Random().nextInt(100000).toDouble();
-                              selectedItem = sliderItems.firstWhere(
-                                (item) =>
-                                    randomNumber! >= item.minRange &&
-                                    randomNumber! <= item.maxRange,
-                                orElse: () => sliderItems.first,
-                              );
-                            });
-                            await _animateToItem(selectedItem!.index);
-                          }
-                          : null,
-                  child: Text(
-                    userBalance >= costToPlay
-                        ? 'Sortear Número (R\$ 2,00)'
-                        : 'Saldo insuficiente',
+            padding: EdgeInsets.all(defaultPadding),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount:
+                    (MediaQuery.of(context).size.width ~/ 130).toInt(),
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8.0,
+                childAspectRatio: 0.6,
+              ),
+              itemCount: sliderItems.length,
+              itemBuilder: (context, index) {
+                final item = sliderItems[index];
+                return Container(
+                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: Colors.grey, width: 0.5),
                   ),
-                ),
-                if (randomNumber != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Número sorteado: ${randomNumber!}',
-                          style: const TextStyle(fontSize: 16),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          '${item.probability}%',
+                          style: TextStyle(
+                            color: Colors.black.withAlpha((180)),
+                            fontSize: 12,
+                          ),
                         ),
-                        Text(
-                          'Item correspondente: ${selectedItem!.title} '
-                          '(Intervalo: ${selectedItem!.minRange} - ${selectedItem!.maxRange})',
-                          style: const TextStyle(fontSize: 16),
+                      ),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                item.image.isNotEmpty
+                                    ? item.image
+                                    : 'assets/images/genie.jpg',
+                              ),
+                              fit: BoxFit.contain,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                         ),
-                        if (selectedItem?.value != null)
-                          Text(
-                            'Prêmio: R\$ ${selectedItem!.value.toStringAsFixed(2)}',
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                      ],
-                    ),
+                      ),
+                      Text(
+                        formatTitlePlusValue(item.title, item.value),
+                        style: const TextStyle(fontSize: 14),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
-                SizedBox(height: 20),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount:
-                        (MediaQuery.of(context).size.width ~/ 120).toInt(),
-                    crossAxisSpacing: 8.0,
-                    mainAxisSpacing: 8.0,
-                    childAspectRatio: 0.8,
-                  ),
-                  itemCount: sliderItems.length,
-                  itemBuilder: (context, index) {
-                    final item = sliderItems[index];
-                    return Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 6,
-                        horizontal: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(color: Colors.grey, width: 0.5),
-                      ),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              '${item.probability}%',
-                              style: TextStyle(
-                                color: Colors.black.withAlpha((180)),
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                    item.image.isNotEmpty
-                                        ? item.image
-                                        : 'assets/images/genie.jpg',
-                                  ),
-                                  fit: BoxFit.contain,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            formatTitlePlusValue(item.title, item.value),
-                            style: const TextStyle(fontSize: 14),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ],
+                );
+              },
             ),
           ),
         ],
