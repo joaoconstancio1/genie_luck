@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:genie_luck/genie_slider/data/slider_items_model.dart'; // Ajuste o caminho conforme necessário
+import 'package:genie_luck/genie_slider/data/slider_items_model.dart';
 
 class GenieSlider extends StatefulWidget {
   const GenieSlider({super.key});
@@ -15,7 +15,6 @@ class _GenieSliderState extends State<GenieSlider> {
   SliderItemModel? selectedItem;
   PageController? _pageController;
   double itemWidth = 100.0;
-  double userBalance = 20; // Saldo inicial mockado de R$ 20,00
   bool isSpinning = false; // Controla se a roleta está girando
 
   @override
@@ -67,11 +66,12 @@ class _GenieSliderState extends State<GenieSlider> {
       initialPage: 1000,
       viewportFraction: viewportFraction,
     );
+    double userBalance = 200; // Saldo inicial mockado de R$ 20,00
 
     const double costToPlay = 2.0; // Custo fixo de R$ 2,00
 
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),

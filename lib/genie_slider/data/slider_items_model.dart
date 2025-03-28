@@ -99,8 +99,16 @@ class SliderItemModel {
       item.index = i;
       item.minRange = currentMin;
       item.maxRange = currentMin + (totalRange * (item.probability / 100));
-      currentMin = item.maxRange!;
+      currentMin = item.maxRange! + 1;
     }
+
+    //Verificar items
+
+    // for (var item in items) {
+    //   debugPrint(
+    //     'Index: ${item.index}, Title: ${item.title}, Value: ${item.value}, Probability: ${item.probability}, MinRange: ${item.minRange}, MaxRange: ${item.maxRange}',
+    //   );
+    // }
 
     return items;
   }
