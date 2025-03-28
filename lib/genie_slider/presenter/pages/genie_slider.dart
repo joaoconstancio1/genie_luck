@@ -55,7 +55,7 @@ class _GenieSliderState extends State<GenieSlider> {
     setState(() {
       isSpinning = false;
       if (selectedItem?.value != null) {
-        userBalance += selectedItem!.value!;
+        userBalance += selectedItem!.value;
       }
     });
   }
@@ -102,21 +102,21 @@ class _GenieSliderState extends State<GenieSlider> {
                       height: 100,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: item.color ?? Colors.grey[300],
-                          image:
-                              item.image != null
-                                  ? DecorationImage(
-                                    image: AssetImage(item.image!),
-                                    fit: BoxFit.contain,
-                                  )
-                                  : null,
+                          image: DecorationImage(
+                            image: AssetImage(
+                              item.image.isNotEmpty
+                                  ? item.image
+                                  : 'assets/images/genie.jpg',
+                            ),
+                            fit: BoxFit.contain,
+                          ),
                           border: Border.all(color: Colors.grey, width: 0.5),
                         ),
                       ),
                     ),
                     Flexible(
                       child: Text(
-                        item.title ?? '',
+                        item.title,
                         style: const TextStyle(fontSize: 16),
                         textAlign: TextAlign.center,
                         maxLines: 1,
@@ -142,12 +142,12 @@ class _GenieSliderState extends State<GenieSlider> {
                                   Random().nextInt(100000).toDouble();
                               selectedItem = sliderItems.firstWhere(
                                 (item) =>
-                                    randomNumber! >= item.minRange! &&
-                                    randomNumber! <= item.maxRange!,
+                                    randomNumber! >= item.minRange &&
+                                    randomNumber! <= item.maxRange,
                                 orElse: () => sliderItems.first,
                               );
                             });
-                            await _animateToItem(selectedItem!.index!);
+                            await _animateToItem(selectedItem!.index);
                           }
                           : null,
                   child: Text(
@@ -167,12 +167,12 @@ class _GenieSliderState extends State<GenieSlider> {
                         ),
                         Text(
                           'Item correspondente: ${selectedItem!.title} '
-                          '(Intervalo: ${selectedItem!.minRange!} - ${selectedItem!.maxRange!})',
+                          '(Intervalo: ${selectedItem!.minRange} - ${selectedItem!.maxRange})',
                           style: const TextStyle(fontSize: 16),
                         ),
                         if (selectedItem?.value != null)
                           Text(
-                            'Prêmio: R\$ ${selectedItem!.value!.toStringAsFixed(2)}',
+                            'Prêmio: R\$ ${selectedItem!.value.toStringAsFixed(2)}',
                             style: const TextStyle(fontSize: 16),
                           ),
                       ],
@@ -199,14 +199,14 @@ class _GenieSliderState extends State<GenieSlider> {
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: item.color ?? Colors.grey[300],
-                                  image:
-                                      item.image != null
-                                          ? DecorationImage(
-                                            image: AssetImage(item.image!),
-                                            fit: BoxFit.contain,
-                                          )
-                                          : null,
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      item.image.isNotEmpty
+                                          ? item.image
+                                          : 'assets/images/genie.jpg',
+                                    ),
+                                    fit: BoxFit.contain,
+                                  ),
                                   borderRadius: BorderRadius.circular(8.0),
                                   border: Border.all(
                                     color: Colors.grey,
@@ -218,7 +218,7 @@ class _GenieSliderState extends State<GenieSlider> {
                             Padding(
                               padding: const EdgeInsets.only(top: 4.0),
                               child: Text(
-                                item.title ?? '',
+                                item.title,
                                 style: const TextStyle(fontSize: 14),
                                 textAlign: TextAlign.center,
                               ),
