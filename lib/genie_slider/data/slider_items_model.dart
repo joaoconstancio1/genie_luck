@@ -28,7 +28,7 @@ class SliderItemModel {
         title: 'R\$ 0,75',
         value: 0.75,
         image: 'assets/images/money.png',
-        probability: 19.033,
+        probability: 19.133,
       ),
       SliderItemModel(
         index: 1,
@@ -63,14 +63,14 @@ class SliderItemModel {
         title: 'iPhone 16',
         image: 'assets/images/iphone16.png',
         value: 5500,
-        probability: 0.005,
+        probability: 0.015,
       ),
       SliderItemModel(
         index: 6,
         title: 'PlayStation 5',
         image: 'assets/images/ps5.png',
         value: 3200,
-        probability: 0.007,
+        probability: 0.017,
       ),
     ];
 

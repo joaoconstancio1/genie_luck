@@ -169,6 +169,81 @@ class _GenieSliderState extends State<GenieSlider> {
                       ],
                     ),
                   ),
+                SizedBox(height: 20),
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount:
+                        (MediaQuery.of(context).size.width ~/ 120).toInt(),
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                    childAspectRatio: 0.8,
+                  ),
+                  itemCount: sliderItems.length,
+                  itemBuilder: (context, index) {
+                    final item = sliderItems[index];
+                    return Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: item.color ?? Colors.grey[300],
+                                  image:
+                                      item.image != null
+                                          ? DecorationImage(
+                                            image: AssetImage(item.image!),
+                                            fit: BoxFit.cover,
+                                          )
+                                          : null,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  border: Border.all(
+                                    color: Colors.grey,
+                                    width: 0.5,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4.0),
+                              child: Text(
+                                item.title ?? '',
+                                style: const TextStyle(fontSize: 14),
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Positioned(
+                          top: 4,
+                          right: 4,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0,
+                              vertical: 2.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(0, 0, 0, 0.7),
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Text(
+                              '${item.probability}%',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ],
             ),
           ),
