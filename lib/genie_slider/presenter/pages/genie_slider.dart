@@ -15,7 +15,8 @@ class _GenieSliderState extends State<GenieSlider> {
   SliderItemModel? selectedItem;
   PageController? _pageController;
   double itemWidth = 100.0;
-  bool isSpinning = false; // Controla se a roleta está girando
+  bool isSpinning = false;
+  double userBalance = 200.0;
 
   @override
   void dispose() {
@@ -41,7 +42,7 @@ class _GenieSliderState extends State<GenieSlider> {
     final int targetPage = currentPage + totalSteps;
 
     setState(() {
-      isSpinning = true; // Bloqueia o botão
+      isSpinning = true;
     });
 
     await _pageController!.animateToPage(
@@ -50,8 +51,12 @@ class _GenieSliderState extends State<GenieSlider> {
       curve: Curves.easeOutExpo,
     );
 
+    // Após a animação, adiciona o valor do item ao saldo
     setState(() {
-      isSpinning = false; // Desbloqueia o botão
+      isSpinning = false;
+      if (selectedItem?.value != null) {
+        userBalance += selectedItem!.value!;
+      }
     });
   }
 
@@ -66,9 +71,8 @@ class _GenieSliderState extends State<GenieSlider> {
       initialPage: 1000,
       viewportFraction: viewportFraction,
     );
-    double userBalance = 200; // Saldo inicial mockado de R$ 20,00
 
-    const double costToPlay = 2.0; // Custo fixo de R$ 2,00
+    const double costToPlay = 2.0;
 
     return Scaffold(
       body: ListView(
@@ -110,7 +114,6 @@ class _GenieSliderState extends State<GenieSlider> {
                         ),
                       ),
                     ),
-
                     Flexible(
                       child: Text(
                         item.title ?? '',
@@ -134,6 +137,7 @@ class _GenieSliderState extends State<GenieSlider> {
                       (userBalance >= costToPlay && !isSpinning)
                           ? () async {
                             setState(() {
+                              userBalance -= costToPlay;
                               randomNumber =
                                   Random().nextInt(100000).toDouble();
                               selectedItem = sliderItems.firstWhere(
@@ -166,6 +170,11 @@ class _GenieSliderState extends State<GenieSlider> {
                           '(Intervalo: ${selectedItem!.minRange!} - ${selectedItem!.maxRange!})',
                           style: const TextStyle(fontSize: 16),
                         ),
+                        if (selectedItem?.value != null)
+                          Text(
+                            'Prêmio: R\$ ${selectedItem!.value!.toStringAsFixed(2)}',
+                            style: const TextStyle(fontSize: 16),
+                          ),
                       ],
                     ),
                   ),
