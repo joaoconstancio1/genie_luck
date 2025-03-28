@@ -192,62 +192,49 @@ class _GenieSliderState extends State<GenieSlider> {
                   itemCount: sliderItems.length,
                   itemBuilder: (context, index) {
                     final item = sliderItems[index];
-                    return Stack(
-                      children: [
-                        Column(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      item.image.isNotEmpty
-                                          ? item.image
-                                          : 'assets/images/genie.jpg',
-                                    ),
-                                    fit: BoxFit.contain,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 0.5,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4.0),
-                              child: Text(
-                                item.title,
-                                style: const TextStyle(fontSize: 14),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Positioned(
-                          top: 4,
-                          right: 4,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6.0,
-                              vertical: 2.0,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(0, 0, 0, 0.7),
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
+                    return Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 6,
+                        horizontal: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(color: Colors.grey, width: 0.5),
+                      ),
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerRight,
                             child: Text(
                               '${item.probability}%',
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: Colors.black.withAlpha((180)),
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    item.image.isNotEmpty
+                                        ? item.image
+                                        : 'assets/images/genie.jpg',
+                                  ),
+                                  fit: BoxFit.contain,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            item.title,
+                            style: const TextStyle(fontSize: 14),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
