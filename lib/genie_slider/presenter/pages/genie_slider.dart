@@ -195,7 +195,7 @@ class _GenieSliderState extends State<GenieSlider> {
                                       item.image != null
                                           ? DecorationImage(
                                             image: AssetImage(item.image!),
-                                            fit: BoxFit.cover,
+                                            fit: BoxFit.contain,
                                           )
                                           : null,
                                   borderRadius: BorderRadius.circular(8.0),
@@ -212,8 +212,6 @@ class _GenieSliderState extends State<GenieSlider> {
                                 item.title ?? '',
                                 style: const TextStyle(fontSize: 14),
                                 textAlign: TextAlign.center,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],

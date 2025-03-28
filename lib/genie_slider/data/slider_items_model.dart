@@ -24,60 +24,79 @@ class SliderItemModel {
   static List<SliderItemModel> generateItems() {
     List<SliderItemModel> items = [
       SliderItemModel(
-        index: 0,
-        title: 'R\$ 0,75',
-        value: 0.75,
+        title: 'R\$ 0,50',
+        value: 0.50,
         image: 'assets/images/money.png',
         probability: 19.133,
       ),
       SliderItemModel(
-        index: 1,
+        title: 'R\$ 0,75',
+        value: 0.75,
+        image: 'assets/images/money.png',
+        probability: 17.133,
+      ),
+      SliderItemModel(
         title: 'R\$ 1,25',
         value: 1.25,
         image: 'assets/images/money.png',
         probability: 12.143,
       ),
       SliderItemModel(
-        index: 2,
         title: 'R\$ 1,50',
         value: 1.50,
         image: 'assets/images/money.png',
         probability: 14.733,
       ),
       SliderItemModel(
-        index: 3,
         title: 'R\$ 1,75',
         image: 'assets/images/money.png',
         value: 1.75,
         probability: 14.453,
       ),
       SliderItemModel(
-        index: 4,
         title: 'R\$ 2,00',
         image: 'assets/images/money.png',
         value: 2.00,
         probability: 14.487,
       ),
       SliderItemModel(
-        index: 5,
-        title: 'iPhone 16',
+        title: 'iPhone 16 (R\$ 5.200)',
         image: 'assets/images/iphone16.png',
-        value: 5500,
+        value: 5200,
         probability: 0.015,
       ),
       SliderItemModel(
-        index: 6,
-        title: 'PlayStation 5',
+        title: 'PlayStation 5 (R\$ 3.200)',
         image: 'assets/images/ps5.png',
         value: 3200,
         probability: 0.017,
+      ),
+      SliderItemModel(
+        title: 'Vale-Compras R\$ 50',
+        value: 50.00,
+        image: 'assets/images/voucher.png',
+        probability: 2.12,
+      ),
+      SliderItemModel(
+        title: 'Fone de Ouvido Bluetooth (R\$ 150)',
+        value: 150.00,
+        image: 'assets/images/headphone.png',
+        probability: 1.25,
+      ),
+      SliderItemModel(
+        title: 'Smartwatch (R\$ 100)',
+        value: 100.00,
+        image: 'assets/images/smartwatch.png',
+        probability: 1.1,
       ),
     ];
 
     double totalRange = 100000;
     double currentMin = 0;
 
-    for (var item in items) {
+    for (int i = 0; i < items.length; i++) {
+      var item = items[i];
+      item.index = i;
       item.minRange = currentMin;
       item.maxRange = currentMin + (totalRange * (item.probability / 100));
       currentMin = item.maxRange!;
