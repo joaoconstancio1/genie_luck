@@ -229,7 +229,7 @@ class _GenieSliderState extends State<GenieSlider> {
                             ),
                           ),
                           Text(
-                            item.title,
+                            formatTitlePlusValue(item.title, item.value),
                             style: const TextStyle(fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
@@ -244,5 +244,14 @@ class _GenieSliderState extends State<GenieSlider> {
         ],
       ),
     );
+  }
+
+  String formatTitlePlusValue(String title, double value) {
+    String formattedValue = value.toStringAsFixed(2).replaceAll('.', ',');
+    formattedValue = formattedValue.replaceAllMapped(
+      RegExp(r'(\d)(?=(\d{3})+,)'),
+      (Match m) => '${m[1]}.',
+    );
+    return '$title\n(R\$ $formattedValue)';
   }
 }
