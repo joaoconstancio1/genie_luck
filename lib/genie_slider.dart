@@ -11,7 +11,7 @@ class GenieSlider extends StatefulWidget {
 }
 
 class _GenieSliderState extends State<GenieSlider> {
-  double? randomNumber; // Valor entre 0 e 100
+  double? randomNumber;
   SliderItem? selectedItem;
   PageController? _pageController;
   double itemWidth = 100.0;
@@ -24,8 +24,10 @@ class _GenieSliderState extends State<GenieSlider> {
     super.dispose();
   }
 
+  List<SliderItem> sliderItems = SliderItem.generateItems();
+
   Future<void> _animateToItem(int targetIndex) async {
-    int itemsCount = SliderItem.sliderItems.length;
+    int itemsCount = sliderItems.length;
     const int loops = 3;
 
     int currentPage = _pageController!.page?.round() ?? 1000;
@@ -88,9 +90,7 @@ class _GenieSliderState extends State<GenieSlider> {
             child: PageView.builder(
               controller: _pageController,
               itemBuilder: (context, index) {
-                final item =
-                    SliderItem.sliderItems[index %
-                        SliderItem.sliderItems.length];
+                final item = sliderItems[index % sliderItems.length];
                 return Column(
                   children: [
                     SizedBox(
@@ -136,11 +136,11 @@ class _GenieSliderState extends State<GenieSlider> {
                             setState(() {
                               randomNumber =
                                   Random().nextInt(100000).toDouble();
-                              selectedItem = SliderItem.sliderItems.firstWhere(
+                              selectedItem = sliderItems.firstWhere(
                                 (item) =>
                                     randomNumber! >= item.minRange! &&
                                     randomNumber! <= item.maxRange!,
-                                orElse: () => SliderItem.sliderItems.first,
+                                orElse: () => sliderItems.first,
                               );
                             });
                             await _animateToItem(selectedItem!.index!);
@@ -158,12 +158,12 @@ class _GenieSliderState extends State<GenieSlider> {
                     child: Column(
                       children: [
                         Text(
-                          'Número sorteado: ${randomNumber!.toStringAsFixed(2)}',
+                          'Número sorteado: ${randomNumber!}',
                           style: const TextStyle(fontSize: 16),
                         ),
                         Text(
                           'Item correspondente: ${selectedItem!.title} '
-                          '(Intervalo: ${selectedItem!.minRange!.toStringAsFixed(2)} - ${selectedItem!.maxRange!.toStringAsFixed(2)})',
+                          '(Intervalo: ${selectedItem!.minRange!} - ${selectedItem!.maxRange!})',
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],
