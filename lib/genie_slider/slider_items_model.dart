@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SliderItem {
+class SliderItemModel {
   int? index;
   String? image;
   String? title;
@@ -11,7 +11,7 @@ class SliderItem {
   double? value; // Valor do item
   double probability; // Probabilidade em %
 
-  SliderItem({
+  SliderItemModel({
     this.index,
     this.image,
     this.title,
@@ -21,51 +21,51 @@ class SliderItem {
     required this.probability,
   });
 
-  static List<SliderItem> generateItems() {
-    List<SliderItem> items = [
-      SliderItem(
+  static List<SliderItemModel> generateItems() {
+    List<SliderItemModel> items = [
+      SliderItemModel(
         index: 0,
         title: 'R\$ 0,75',
         value: 0.75,
         image: 'assets/images/money.png',
         probability: 19.033,
       ),
-      SliderItem(
+      SliderItemModel(
         index: 1,
         title: 'R\$ 1,25',
         value: 1.25,
         image: 'assets/images/money.png',
         probability: 12.143,
       ),
-      SliderItem(
+      SliderItemModel(
         index: 2,
         title: 'R\$ 1,50',
         value: 1.50,
         image: 'assets/images/money.png',
         probability: 14.733,
       ),
-      SliderItem(
+      SliderItemModel(
         index: 3,
         title: 'R\$ 1,75',
         image: 'assets/images/money.png',
         value: 1.75,
         probability: 14.453,
       ),
-      SliderItem(
+      SliderItemModel(
         index: 4,
         title: 'R\$ 2,00',
         image: 'assets/images/money.png',
         value: 2.00,
         probability: 14.487,
       ),
-      SliderItem(
+      SliderItemModel(
         index: 5,
         title: 'iPhone 16',
         image: 'assets/images/iphone16.png',
         value: 5500,
         probability: 0.005,
       ),
-      SliderItem(
+      SliderItemModel(
         index: 6,
         title: 'PlayStation 5',
         image: 'assets/images/ps5.png',

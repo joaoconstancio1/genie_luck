@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:genie_luck/slider_itens.dart'; // Ajuste o caminho conforme necessário
+import 'package:genie_luck/genie_slider/slider_items_model.dart'; // Ajuste o caminho conforme necessário
 
 class GenieSlider extends StatefulWidget {
   const GenieSlider({super.key});
@@ -12,7 +12,7 @@ class GenieSlider extends StatefulWidget {
 
 class _GenieSliderState extends State<GenieSlider> {
   double? randomNumber;
-  SliderItem? selectedItem;
+  SliderItemModel? selectedItem;
   PageController? _pageController;
   double itemWidth = 100.0;
   double userBalance = 20; // Saldo inicial mockado de R$ 20,00
@@ -24,7 +24,7 @@ class _GenieSliderState extends State<GenieSlider> {
     super.dispose();
   }
 
-  List<SliderItem> sliderItems = SliderItem.generateItems();
+  List<SliderItemModel> sliderItems = SliderItemModel.generateItems();
 
   Future<void> _animateToItem(int targetIndex) async {
     int itemsCount = sliderItems.length;
