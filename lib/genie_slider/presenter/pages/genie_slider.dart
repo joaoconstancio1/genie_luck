@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:genie_luck/genie_slider/slider_items_model.dart'; // Ajuste o caminho conforme necessário
+import 'package:genie_luck/genie_slider/data/slider_items_model.dart'; // Ajuste o caminho conforme necessário
 
 class GenieSlider extends StatefulWidget {
   const GenieSlider({super.key});
