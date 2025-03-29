@@ -194,10 +194,10 @@ class _GenieSliderState extends State<GenieSlider> {
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
-                    (MediaQuery.of(context).size.width ~/ 130).toInt(),
+                    (MediaQuery.of(context).size.width ~/ 120).toInt(),
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
-                childAspectRatio: 0.6,
+                childAspectRatio: 0.8,
               ),
               itemCount: sliderItems.length,
               itemBuilder: (context, index) {
