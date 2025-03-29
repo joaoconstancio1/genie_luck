@@ -201,7 +201,9 @@ class _GenieSliderState extends State<GenieSlider> {
               ),
               itemCount: sliderItems.length,
               itemBuilder: (context, index) {
-                final item = sliderItems[index];
+                final sortedItems = List<SliderItemModel>.from(sliderItems)
+                  ..sort((a, b) => b.value.compareTo(a.value));
+                final item = sortedItems[index];
                 return Container(
                   padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
                   decoration: BoxDecoration(
