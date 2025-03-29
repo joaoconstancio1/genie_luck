@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:genie_luck/core/design/gl_text_form_field.dart';
+import 'package:genie_luck/core/utils/formatters.dart';
+import 'package:genie_luck/core/utils/validators.dart';
 import 'package:go_router/go_router.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -16,10 +19,15 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+  final Validators _validators = Validators();
+  final FocusNode _dateFocus = FocusNode();
   bool _acceptTerms = false;
   bool? _receivePromotions = false;
 
   bool _obscureText = true;
+
+  DateTime? selectedDate;
 
   void _register() {
     if (_formKey.currentState!.validate()) {
@@ -27,199 +35,197 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  String? _validateEmail(String? value) {
-    if (value == null || value.isEmpty) return 'Informe um e-mail';
-    final emailRegex = RegExp(
-      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-    );
-    if (!emailRegex.hasMatch(value)) return 'E-mail inválido';
-    return null;
+  @override
+  void initState() {
+    super.initState();
+    _dateFocus.addListener(() {
+      if (!_dateFocus.hasFocus) {
+        _formKey.currentState?.validate();
+      }
+    });
   }
 
-  String? _validatePassword(String? value) {
-    List<String?> errors = [];
-    if (value == null || value.isEmpty) {
-      errors.add('Informe uma senha');
-    } else {
-      if (value.length < 8) {
-        errors.add('A senha deve ter no mínimo 6 caracteres');
-      }
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _dateFocus.dispose();
+    super.dispose();
+  }
 
-      final hasUppercase = value.contains(RegExp(r'[A-Z]'));
-      final hasLowercase = value.contains(RegExp(r'[a-z]'));
-      final hasNumber = value.contains(RegExp(r'[0-9]'));
-      final hasSpecialChar = value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
-
-      if (!hasUppercase) errors.add('A senha deve ter uma letra maiúscula');
-      if (!hasLowercase) errors.add('A senha deve ter uma letra minúscula');
-      if (!hasNumber) errors.add('A senha deve ter um número');
-      if (!hasSpecialChar) errors.add('A senha deve ter um caractere especial');
-    }
-
-    if (errors.isEmpty) return null;
-    return errors.join('\n');
+  Future<void> _showDataPicker() async {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          child: Center(
+            child: SizedBox(
+              child: CupertinoDatePicker(
+                use24hFormat: true,
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime:
+                    selectedDate ??
+                    DateTime.now().subtract(Duration(days: 365 * 18)),
+                maximumYear: DateTime.now().year - 18,
+                minimumYear: DateTime.now().year - 100,
+                onDateTimeChanged: (DateTime dateValue) {
+                  selectedDate = dateValue;
+                  setState(() {
+                    _dateController.value = TextEditingValue(
+                      text:
+                          '${dateValue.day.toString().padLeft(2, '0')}/${dateValue.month.toString().padLeft(2, '0')}/${dateValue.year}',
+                    );
+                  });
+                },
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Crie sua Conta e Entre na Ação!')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SafeArea(
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            padding: const EdgeInsets.all(16.0),
+            shrinkWrap: true,
             children: [
-              TextFormField(
-                controller: _nameController,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(labelText: 'Nome Completo'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Informe seu nome completo';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(labelText: 'E-mail'),
-                validator: _validateEmail,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _passwordController,
-                obscureText: _obscureText,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  labelText: 'Senha',
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GlTextFormField(
+                      controller: _nameController,
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(labelText: 'Nome Completo'),
+                      validator: (value) {
+                        return _validators.nameValidator(value);
+                      },
                     ),
-                    onPressed:
-                        () => setState(() => _obscureText = !_obscureText),
-                  ),
-                ),
-                validator: _validatePassword,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _confirmPasswordController,
-                obscureText: _obscureText,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  labelText: 'Confirme a Senha',
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                    GlTextFormField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(labelText: 'E-mail'),
+                      validator: (value) {
+                        return _validators.validateEmail(value);
+                      },
                     ),
-                    onPressed:
-                        () => setState(() => _obscureText = !_obscureText),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Confirme sua senha';
-                  }
-                  if (value != _passwordController.text) {
-                    return 'As senhas não coincidem';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                keyboardType: TextInputType.datetime,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  TextInputFormatter.withFunction((oldValue, newValue) {
-                    final text = newValue.text;
-                    if (text.length > 10) return oldValue;
-                    String formatted = text;
-                    if (text.length >= 3) {
-                      formatted =
-                          '${text.substring(0, 2)}/${text.substring(2)}';
-                    }
-                    if (text.length >= 4) {
-                      formatted =
-                          '${text.substring(0, 2)}/${text.substring(2, 4)}/${text.substring(4, text.length > 8 ? 8 : text.length)}';
-                    }
-                    return TextEditingValue(
-                      text: formatted,
-                      selection: TextSelection.collapsed(
-                        offset: formatted.length,
+                    GlTextFormField(
+                      controller: _passwordController,
+                      obscureText: _obscureText,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        labelText: 'Senha',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed:
+                              () =>
+                                  setState(() => _obscureText = !_obscureText),
+                        ),
                       ),
-                    );
-                  }),
-                ],
-                decoration: InputDecoration(
-                  labelText: 'Data de Nascimento (DD/MM/AAAA)',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Informe sua data de nascimento';
-                  }
-                  final dateRegex = RegExp(r'^\d{2}/\d{2}/\d{4}$');
-                  if (!dateRegex.hasMatch(value)) {
-                    return 'Formato inválido. Use DD/MM/AAAA';
-                  }
-                  try {
-                    final parts = value.split('/');
-                    final day = int.parse(parts[0]);
-                    final month = int.parse(parts[1]);
-                    final year = int.parse(parts[2]);
-                    final birthDate = DateTime(year, month, day);
-                    final today = DateTime.now();
-                    final age =
-                        today.year -
-                        birthDate.year -
-                        ((today.month < birthDate.month ||
-                                (today.month == birthDate.month &&
-                                    today.day < birthDate.day))
-                            ? 1
-                            : 0);
-                    if (age < 18) {
-                      return 'Você deve ter pelo menos 18 anos';
-                    }
-                  } catch (e) {
-                    return 'Data inválida';
-                  }
-                  return null;
-                },
-              ),
+                      validator: (value) {
+                        return _validators.validatePassword(value);
+                      },
+                    ),
+                    GlTextFormField(
+                      controller: _confirmPasswordController,
+                      obscureText: _obscureText,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        labelText: 'Confirme a Senha',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed:
+                              () =>
+                                  setState(() => _obscureText = !_obscureText),
+                        ),
+                      ),
+                      validator: (value) {
+                        return _validators.validateConfirmPassword(
+                          value,
+                          _passwordController.text,
+                        );
+                      },
+                    ),
 
-              SizedBox(height: 24),
-              CheckboxListTile(
-                title: Text('Aceitar Termos e Condições'),
-                value: _acceptTerms,
-                onChanged: (bool? value) {
-                  setState(() {
-                    _acceptTerms = value ?? false;
-                  });
-                },
-                controlAffinity: ListTileControlAffinity.leading,
-              ),
-              CheckboxListTile(
-                title: Text('Receber Promoções'),
-                value: _receivePromotions,
-                onChanged: (bool? value) {
-                  setState(() {
-                    _receivePromotions = value ?? false;
-                  });
-                },
-                controlAffinity: ListTileControlAffinity.leading,
-              ),
-              Center(
-                child: ElevatedButton(
-                  onPressed:
-                      (_formKey.currentState?.validate() ?? false) &&
-                              _acceptTerms
-                          ? _register
-                          : null,
-                  child: Text('Registrar Agora'),
+                    GlTextFormField(
+                      keyboardType: TextInputType.datetime,
+                      inputFormatters: Formatters().dateFormatter,
+                      controller: _dateController,
+                      focusNode: _dateFocus,
+                      decoration: InputDecoration(
+                        labelText: 'Data de Nascimento (DD/MM/AAAA)',
+                      ),
+                      validator: (value) {
+                        return _validators.validateDate(value);
+                      },
+                      onTap: () => _showDataPicker(),
+                    ),
+                    GlTextFormField(
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                        labelText: 'Número de Telefone',
+                        prefixIcon: IconButton(
+                          icon: Icon(Icons.flag),
+                          onPressed: () {
+                            // Implementar lógica para selecionar a bandeira do país
+                          },
+                        ),
+                        prefixText: '+55 ', // Exemplo de prefixo para o Brasil
+                      ),
+                      validator: (value) {
+                        return _validators.validatePhoneNumber(value);
+                      },
+                    ),
+
+                    CheckboxListTile(
+                      title: Text('Aceitar Termos e Condições'),
+                      value: _acceptTerms,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _acceptTerms = value ?? false;
+                        });
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,
+                    ),
+                    CheckboxListTile(
+                      title: Text('Receber Promoções'),
+                      value: _receivePromotions,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _receivePromotions = value ?? false;
+                        });
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed:
+                            (_formKey.currentState?.validate() ?? false) &&
+                                    _acceptTerms
+                                ? _register
+                                : null,
+                        child: Text('Registrar Agora'),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
