@@ -11,7 +11,7 @@ class GenieSlider extends StatefulWidget {
 }
 
 class _GenieSliderState extends State<GenieSlider> {
-  double? randomNumber;
+  int? randomNumber;
   SliderItemModel? selectedItem;
   PageController? _pageController;
   double itemWidth = 100.0;
@@ -72,7 +72,7 @@ class _GenieSliderState extends State<GenieSlider> {
       viewportFraction: viewportFraction,
     );
 
-    const double costToPlay = 2.0;
+    const double costToPlay = 5;
     const double defaultPadding = 16.0;
 
     return Scaffold(
@@ -144,7 +144,7 @@ class _GenieSliderState extends State<GenieSlider> {
                         ? () async {
                           setState(() {
                             userBalance -= costToPlay;
-                            randomNumber = Random().nextInt(100000).toDouble();
+                            randomNumber = Random().nextInt(100000);
                             selectedItem = sliderItems.firstWhere(
                               (item) =>
                                   randomNumber! >= item.minRange &&
@@ -157,7 +157,7 @@ class _GenieSliderState extends State<GenieSlider> {
                         : null,
                 child: Text(
                   userBalance >= costToPlay
-                      ? 'Sortear Número (R\$ 2,00)'
+                      ? 'Sortear Número (R\$ 5,00)'
                       : 'Saldo insuficiente',
                 ),
               ),

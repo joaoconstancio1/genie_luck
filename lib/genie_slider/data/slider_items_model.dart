@@ -73,7 +73,7 @@ class SliderItemModel {
         title: 'Vale-Compras',
         value: 50.00,
         image: 'assets/images/voucher.png',
-        probability: 0.62,
+        probability: 1.12,
       ),
       SliderItemModel(
         title: 'Fone de Ouvido Bluetooth',
@@ -85,7 +85,7 @@ class SliderItemModel {
         title: 'Smartwatch',
         value: 100.00,
         image: 'assets/images/smartwatch.png',
-        probability: 0.35,
+        probability: 0.75,
       ),
     ];
 
