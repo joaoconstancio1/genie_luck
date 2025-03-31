@@ -17,7 +17,8 @@ class _GenieSliderState extends State<GenieSlider> {
   double itemWidth = 100.0;
   bool isSpinning = false;
   double userBalance = 200.0;
-
+  double costToPlay = 5;
+  double defaultPadding = 16.0;
   @override
   void dispose() {
     _pageController?.dispose();
@@ -71,9 +72,6 @@ class _GenieSliderState extends State<GenieSlider> {
       initialPage: 1000,
       viewportFraction: viewportFraction,
     );
-
-    const double costToPlay = 5;
-    const double defaultPadding = 16.0;
 
     return Scaffold(
       body: ListView(
