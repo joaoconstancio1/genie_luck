@@ -6,16 +6,16 @@ import 'genie_slider.dart';
 
 class AppRoutes {
   // Defina os caminhos de forma estática para facilitar o uso
-  static const String login = '/login';
+  static const String register = '/register';
   static const String genieSlider = '/genie-slider';
   static const String notFound = '/404';
 
   // Método para criar o GoRouter
   static GoRouter get router {
     return GoRouter(
-      initialLocation: login, // Rota inicial
+      initialLocation: register, // Rota inicial
       routes: [
-        GoRoute(path: login, builder: (context, state) => RegisterPage()),
+        GoRoute(path: register, builder: (context, state) => RegisterPage()),
         GoRoute(path: genieSlider, builder: (context, state) => GenieSlider()),
         // Rota padrão para páginas não encontradas
         GoRoute(
