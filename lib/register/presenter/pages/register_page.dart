@@ -7,6 +7,7 @@ import 'package:genie_luck/register/data/models/user_model.dart';
 import 'package:genie_luck/register/presenter/cubit/register_cubit.dart';
 import 'package:genie_luck/register/presenter/cubit/register_states.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -76,13 +77,12 @@ class _RegisterPageView1State extends State<RegisterPageView> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations? local = AppLocalizations.of(context);
+
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text('Crie sua Conta e Entre na Ação!'),
-          ),
+          appBar: AppBar(centerTitle: true, title: Text(local!.registerTitle)),
 
           body: SafeArea(
             child: BlocBuilder<RegisterCubit, RegisterState>(

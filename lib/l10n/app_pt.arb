@@ -1,0 +1,11 @@
+{
+    "@@locale": "pt",
+    "registerTitle" : "Crie Sua Conta e Entre em Ação!",
+    "@registerTitle": {
+        "description": "Mensagem exibida na página de registro"
+    },
+    "labelCompleteName" : "Nome Completo",
+    "@labelCompleteName": {
+        "description": "Label do campo Nome Completo"
+    }
+}
