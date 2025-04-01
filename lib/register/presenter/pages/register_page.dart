@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/formatters.dart';
 import 'package:genie_luck/core/utils/validators.dart';
+import 'package:genie_luck/register/data/models/user_model.dart';
 import 'package:genie_luck/register/presenter/cubit/register_cubit.dart';
 import 'package:genie_luck/register/presenter/cubit/register_states.dart';
 import 'package:get_it/get_it.dart';
@@ -216,22 +217,26 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                           context
                                               .read<RegisterCubit>()
                                               .registerUser(
-                                                fullName: _nameController.text,
-                                                email: _emailController.text,
-                                                password:
-                                                    _passwordController.text,
-                                                birthDate: selectedDate!,
-                                                phoneNumber:
-                                                    _dateController.text,
-                                                zipCode: '00000-000',
-                                                address: 'Rua Exemplo',
-                                                addressNumber: '123',
-                                                city: 'São Paulo',
-                                                state: 'SP',
-                                                country: 'Brasil',
-                                                termsAccepted: _acceptTerms,
-                                                receivePromotions:
-                                                    _receivePromotions!,
+                                                UserModel(
+                                                  fullName:
+                                                      _nameController.text,
+                                                  email: _emailController.text,
+                                                  password:
+                                                      _passwordController.text,
+                                                  birthDate:
+                                                      _dateController.text,
+                                                  phoneNumber:
+                                                      _dateController.text,
+                                                  zipCode: '00000-000',
+                                                  address: 'Rua Exemplo',
+                                                  addressNumber: '123',
+                                                  city: 'São Paulo',
+                                                  state: 'SP',
+                                                  country: 'Brasil',
+                                                  termsAccepted: _acceptTerms,
+                                                  receivePromotions:
+                                                      _receivePromotions,
+                                                ),
                                               );
                                         }
                                       }

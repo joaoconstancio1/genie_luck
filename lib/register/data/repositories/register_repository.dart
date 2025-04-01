@@ -7,37 +7,9 @@ class RegisterRepository {
 
   RegisterRepository(this.datasource);
 
-  Future<Result<UserModel>> registerUser({
-    required String fullName,
-    required String email,
-    required String password,
-    required DateTime birthDate,
-    required String phoneNumber,
-    required String zipCode,
-    required String address,
-    required String addressNumber,
-    required String city,
-    required String state,
-    required String country,
-    required bool termsAccepted,
-    required bool receivePromotions,
-  }) async {
+  Future<Result<UserModel>> registerUser(UserModel userModel) async {
     try {
-      final result = await datasource.registerUser(
-        fullName: fullName,
-        email: email,
-        password: password,
-        birthDate: birthDate,
-        phoneNumber: phoneNumber,
-        zipCode: zipCode,
-        address: address,
-        addressNumber: addressNumber,
-        city: city,
-        state: state,
-        country: country,
-        termsAccepted: termsAccepted,
-        receivePromotions: receivePromotions,
-      );
+      final result = await datasource.registerUser(userModel);
 
       return Success((result));
     } catch (e) {

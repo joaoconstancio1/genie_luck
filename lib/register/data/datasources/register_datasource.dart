@@ -8,44 +8,14 @@ class RegisterDatasource {
 
   RegisterDatasource(this.client);
 
-  Future<UserModel> registerUser({
-    required String fullName,
-    required String email,
-    required String password,
-    required DateTime birthDate,
-    required String phoneNumber,
-    required String zipCode,
-    required String address,
-    required String addressNumber,
-    required String city,
-    required String state,
-    required String country,
-    required bool termsAccepted,
-    required bool receivePromotions,
-  }) async {
+  Future<UserModel> registerUser(UserModel? userModel) async {
     final url = 'http://192.168.0.106:5000/users/register';
     final headers = {'Content-Type': 'application/json'};
-    final body = jsonEncode({
-      'full_name': fullName,
-      'email': email,
-      'password': password,
-      'birth_date': birthDate.toIso8601String(),
-      'phone_number': phoneNumber,
-      'zip_code': zipCode,
-      'address': address,
-      'address_number': addressNumber,
-      'city': city,
-      'state': state,
-      'country': country,
-      'terms_accepted': termsAccepted,
-      'receive_promotions': receivePromotions,
-    });
+    final body = jsonEncode(userModel?.toJson());
 
     try {
       final response = await client.post(url, headers: headers, data: body);
-      final result = UserModel.fromJson(
-        response['user'] as Map<String, dynamic>,
-      );
+      final result = UserModel.fromJson(response as Map<String, dynamic>);
       return result;
     } catch (e) {
       if (e is HttpClientException) {

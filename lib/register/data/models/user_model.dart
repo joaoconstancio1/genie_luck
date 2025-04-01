@@ -6,6 +6,7 @@ class UserModel {
   String? country;
   String? email;
   String? fullName;
+  String? password;
   int? id;
   String? phoneNumber;
   bool? receivePromotions;
@@ -21,6 +22,7 @@ class UserModel {
     this.country,
     this.email,
     this.fullName,
+    this.password,
     this.id,
     this.phoneNumber,
     this.receivePromotions,
@@ -37,6 +39,7 @@ class UserModel {
     country = json['country'];
     email = json['email'];
     fullName = json['full_name'];
+    password = json['password'];
     id = json['id'];
     phoneNumber = json['phone_number'];
     receivePromotions = json['receive_promotions'];
@@ -54,6 +57,7 @@ class UserModel {
     data['country'] = country;
     data['email'] = email;
     data['full_name'] = fullName;
+    data['password'] = password;
     data['id'] = id;
     data['phone_number'] = phoneNumber;
     data['receive_promotions'] = receivePromotions;
