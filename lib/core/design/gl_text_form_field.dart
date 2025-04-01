@@ -14,6 +14,8 @@ class GlTextFormField extends StatelessWidget {
     this.focusNode,
     this.onTap,
     this.readOnly = false,
+    this.labelText,
+    this.hintText,
   });
 
   final TextEditingController? controller;
@@ -26,24 +28,22 @@ class GlTextFormField extends StatelessWidget {
   final FocusNode? focusNode;
   final GestureTapCallback? onTap;
   final bool readOnly;
+  final String? labelText;
+  final String? hintText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      decoration: InputDecoration(
+        labelText: labelText,
+        hintText: hintText,
+        hintStyle: TextStyle(color: Colors.grey),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
       controller: controller,
       keyboardType: keyboardType,
       readOnly: readOnly,
-      decoration:
-          decoration?.copyWith(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-          ) ??
-          InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-          ),
       validator: validator,
       autovalidateMode: autovalidateMode,
       inputFormatters: inputFormatters,

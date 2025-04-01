@@ -54,6 +54,28 @@ class _RegisterPageView1State extends State<RegisterPageView> {
   bool? _receivePromotions = false;
   DateTime? selectedDate;
 
+  void _onRegisterButtonPressed(BuildContext context) {
+    if (_formKey.currentState?.validate() ?? false) {
+      context.read<RegisterCubit>().registerUser(
+        UserModel(
+          fullName: _nameController.text,
+          email: _emailController.text,
+          password: _passwordController.text,
+          birthDate: selectedDate,
+          phoneNumber: '111111111',
+          zipCode: '00000-000',
+          address: 'Rua Exemplo',
+          addressNumber: '123',
+          city: 'São Paulo',
+          state: 'SP',
+          country: 'Brasil',
+          termsAccepted: _acceptTerms,
+          receivePromotions: _receivePromotions,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterCubit, RegisterState>(
@@ -94,16 +116,18 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                               GlTextFormField(
                                 controller: _nameController,
                                 keyboardType: TextInputType.name,
-                                decoration: InputDecoration(
-                                  labelText: 'Nome Completo',
-                                ),
+
+                                labelText: 'Nome Completo',
+
+                                validator: _validators.nameValidator,
                               ),
                               GlTextFormField(
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
-                                decoration: InputDecoration(
-                                  labelText: 'E-mail',
-                                ),
+
+                                labelText: 'E-mail',
+                                hintText: 'example@email.com',
+                                validator: _validators.validateEmail,
                               ),
                               GlTextFormField(
                                 controller: _passwordController,
@@ -170,31 +194,11 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                     ListTileControlAffinity.leading,
                               ),
 
-                              Center(
+                              SizedBox(
+                                width: double.infinity,
                                 child: ElevatedButton(
                                   onPressed:
-                                      () => context
-                                          .read<RegisterCubit>()
-                                          .registerUser(
-                                            UserModel(
-                                              fullName: _nameController.text,
-                                              email: _emailController.text,
-                                              password:
-                                                  _passwordController.text,
-                                              birthDate: selectedDate,
-                                              phoneNumber: '111111111',
-                                              zipCode: '00000-000',
-                                              address: 'Rua Exemplo',
-                                              addressNumber: '123',
-                                              city: 'São Paulo',
-                                              state: 'SP',
-                                              country: 'Brasil',
-                                              termsAccepted: _acceptTerms,
-                                              receivePromotions:
-                                                  _receivePromotions,
-                                            ),
-                                          ),
-
+                                      () => _onRegisterButtonPressed(context),
                                   child: Text('Registrar Agora'),
                                 ),
                               ),
