@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
+import 'package:genie_luck/core/utils/data_picker.dart';
 import 'package:genie_luck/core/utils/formatters.dart';
 import 'package:genie_luck/core/utils/validators.dart';
 import 'package:genie_luck/register/data/models/user_model.dart';
@@ -34,6 +35,12 @@ class RegisterPageView extends StatefulWidget {
 }
 
 class _RegisterPageView1State extends State<RegisterPageView> {
+  @override
+  void initState() {
+    super.initState();
+    _dataPicker = DataPicker(dateController: _dateController);
+  }
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -42,52 +49,20 @@ class _RegisterPageView1State extends State<RegisterPageView> {
       TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final Validators _validators = Validators();
-  final FocusNode _dateFocus = FocusNode();
+  DataPicker _dataPicker = DataPicker();
   bool _acceptTerms = false;
   bool? _receivePromotions = false;
-
-  bool _obscureText = true;
-
   DateTime? selectedDate;
-
-  Future<void> _showDataPicker() async {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          child: Center(
-            child: SizedBox(
-              child: CupertinoDatePicker(
-                use24hFormat: true,
-                mode: CupertinoDatePickerMode.date,
-                initialDateTime:
-                    selectedDate ??
-                    DateTime.now().subtract(Duration(days: 365 * 18)),
-                maximumYear: DateTime.now().year - 18,
-                minimumYear: DateTime.now().year - 100,
-                onDateTimeChanged: (DateTime dateValue) {
-                  selectedDate = dateValue;
-                  setState(() {
-                    _dateController.value = TextEditingValue(
-                      text:
-                          '${dateValue.day.toString().padLeft(2, '0')}/${dateValue.month.toString().padLeft(2, '0')}/${dateValue.year}',
-                    );
-                  });
-                },
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(title: Text('Crie sua Conta e Entre na Ação!')),
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text('Crie sua Conta e Entre na Ação!'),
+          ),
 
           body: SafeArea(
             child: BlocBuilder<RegisterCubit, RegisterState>(
@@ -104,149 +79,130 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                 } else if (state is RegisterSuccessState) {
                   return Center(child: Text('Registro realizado com sucesso!'));
                 }
-                return Form(
-                  key: _formKey,
-                  child: ListView(
-                    padding: const EdgeInsets.all(16.0),
-                    shrinkWrap: true,
-                    children: [
-                      Column(
-                        spacing: 16,
+                return Center(
+                  child: SizedBox(
+                    width: 600,
+                    child: Form(
+                      key: _formKey,
+                      child: ListView(
+                        padding: const EdgeInsets.all(16.0),
+                        shrinkWrap: true,
                         children: [
-                          GlTextFormField(
-                            controller: _nameController,
-                            keyboardType: TextInputType.name,
-                            decoration: InputDecoration(
-                              labelText: 'Nome Completo',
-                            ),
-                            validator: (value) {
-                              return _validators.nameValidator(value);
-                            },
-                          ),
-                          GlTextFormField(
-                            controller: _emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(labelText: 'E-mail'),
-                            validator: (value) {
-                              return _validators.validateEmail(value);
-                            },
-                          ),
-                          GlTextFormField(
-                            controller: _passwordController,
-                            obscureText: _obscureText,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            decoration: InputDecoration(labelText: 'Senha'),
-                            validator: (value) {
-                              return _validators.validatePassword(value);
-                            },
-                          ),
-                          GlTextFormField(
-                            controller: _confirmPasswordController,
-                            obscureText: _obscureText,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            decoration: InputDecoration(
-                              labelText: 'Confirme a Senha',
-                            ),
-                            validator: (value) {
-                              return _validators.validateConfirmPassword(
-                                value,
-                                _passwordController.text,
-                              );
-                            },
-                          ),
-                          GlTextFormField(
-                            keyboardType: TextInputType.datetime,
-                            inputFormatters: Formatters().dateFormatter,
-                            controller: _dateController,
-                            focusNode: _dateFocus,
-                            decoration: InputDecoration(
-                              labelText: 'Data de Nascimento (DD/MM/AAAA)',
-                            ),
-                            validator: (value) {
-                              return _validators.validateDate(value);
-                            },
-                            onTap: () => _showDataPicker(),
-                          ),
-                          GlTextFormField(
-                            keyboardType: TextInputType.phone,
-                            decoration: InputDecoration(
-                              labelText: 'Número de Telefone',
-                              prefixIcon: IconButton(
-                                icon: Icon(Icons.phone),
-                                onPressed: () {
-                                  // Implementar lógica para selecionar a bandeira do país
-                                },
+                          Column(
+                            spacing: 16,
+                            children: [
+                              GlTextFormField(
+                                controller: _nameController,
+                                keyboardType: TextInputType.name,
+                                decoration: InputDecoration(
+                                  labelText: 'Nome Completo',
+                                ),
                               ),
-                              prefixText:
-                                  '+55 ', // Exemplo de prefixo para o Brasil
-                            ),
-                            validator: (value) {
-                              return _validators.validatePhoneNumber(value);
-                            },
-                          ),
-                          CheckboxListTile(
-                            title: Text('Aceitar Termos e Condições'),
-                            value: _acceptTerms,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _acceptTerms = value ?? false;
-                              });
-                            },
-                            controlAffinity: ListTileControlAffinity.leading,
-                          ),
-                          CheckboxListTile(
-                            title: Text('Receber Promoções'),
-                            value: _receivePromotions,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _receivePromotions = value ?? false;
-                              });
-                            },
-                            controlAffinity: ListTileControlAffinity.leading,
-                          ),
-                          Center(
-                            child: ElevatedButton(
-                              onPressed:
-                                  (_formKey.currentState?.validate() ??
-                                              false) &&
-                                          _acceptTerms
-                                      ? () {
-                                        if (_formKey.currentState!.validate()) {
-                                          context
-                                              .read<RegisterCubit>()
-                                              .registerUser(
-                                                UserModel(
-                                                  fullName:
-                                                      _nameController.text,
-                                                  email: _emailController.text,
-                                                  password:
-                                                      _passwordController.text,
-                                                  birthDate:
-                                                      _dateController.text,
-                                                  phoneNumber:
-                                                      _dateController.text,
-                                                  zipCode: '00000-000',
-                                                  address: 'Rua Exemplo',
-                                                  addressNumber: '123',
-                                                  city: 'São Paulo',
-                                                  state: 'SP',
-                                                  country: 'Brasil',
-                                                  termsAccepted: _acceptTerms,
-                                                  receivePromotions:
-                                                      _receivePromotions,
-                                                ),
-                                              );
-                                        }
-                                      }
-                                      : null,
-                              child: Text('Registrar Agora'),
-                            ),
+                              GlTextFormField(
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: InputDecoration(
+                                  labelText: 'E-mail',
+                                ),
+                              ),
+                              GlTextFormField(
+                                controller: _passwordController,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                decoration: InputDecoration(labelText: 'Senha'),
+                              ),
+                              GlTextFormField(
+                                controller: _confirmPasswordController,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                decoration: InputDecoration(
+                                  labelText: 'Confirme a Senha',
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap:
+                                    () =>
+                                        _dataPicker.displayDatePicker(context),
+                                child: AbsorbPointer(
+                                  child: GlTextFormField(
+                                    controller: _dateController,
+                                    keyboardType: TextInputType.none,
+                                    readOnly: true,
+                                    decoration: InputDecoration(
+                                      labelText: 'Data de Nascimento',
+                                      suffixIcon: Icon(Icons.calendar_today),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              GlTextFormField(
+                                keyboardType: TextInputType.phone,
+                                decoration: InputDecoration(
+                                  labelText: 'Número de Telefone',
+                                  prefixIcon: IconButton(
+                                    icon: Icon(Icons.phone),
+                                    onPressed: () {},
+                                  ),
+                                  prefixText: '+55 ',
+                                ),
+                              ),
+                              CheckboxListTile(
+                                title: Text('Aceitar Termos e Condições'),
+                                value: _acceptTerms,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _acceptTerms = value ?? false;
+                                  });
+                                },
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                              ),
+                              CheckboxListTile(
+                                title: Text('Receber Promoções'),
+                                value: _receivePromotions,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _receivePromotions = value ?? false;
+                                  });
+                                },
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                              ),
+
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed:
+                                      () => context
+                                          .read<RegisterCubit>()
+                                          .registerUser(
+                                            UserModel(
+                                              fullName: _nameController.text,
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text,
+                                              birthDate: selectedDate,
+                                              phoneNumber: '111111111',
+                                              zipCode: '00000-000',
+                                              address: 'Rua Exemplo',
+                                              addressNumber: '123',
+                                              city: 'São Paulo',
+                                              state: 'SP',
+                                              country: 'Brasil',
+                                              termsAccepted: _acceptTerms,
+                                              receivePromotions:
+                                                  _receivePromotions,
+                                            ),
+                                          ),
+
+                                  child: Text('Registrar Agora'),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 );
               },

@@ -1,7 +1,7 @@
 class UserModel {
   String? address;
   String? addressNumber;
-  String? birthDate;
+  DateTime? birthDate;
   String? city;
   String? country;
   String? email;
@@ -34,7 +34,8 @@ class UserModel {
   UserModel.fromJson(Map<String, dynamic> json) {
     address = json['address'];
     addressNumber = json['address_number'];
-    birthDate = json['birth_date'];
+    birthDate =
+        json['birth_date'] != null ? DateTime.parse(json['birth_date']) : null;
     city = json['city'];
     country = json['country'];
     email = json['email'];
@@ -52,7 +53,7 @@ class UserModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['address'] = address;
     data['address_number'] = addressNumber;
-    data['birth_date'] = birthDate;
+    data['birth_date'] = birthDate?.toIso8601String();
     data['city'] = city;
     data['country'] = country;
     data['email'] = email;

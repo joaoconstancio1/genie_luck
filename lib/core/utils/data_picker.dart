@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DataPicker {
@@ -6,33 +5,19 @@ class DataPicker {
   DateTime? selectedDate;
   DataPicker({this.dateController, this.selectedDate});
 
-  Future<void> showDataPicker(BuildContext context) async {
-    showModalBottomSheet(
+  Future<void> displayDatePicker(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
       context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          child: Center(
-            child: SizedBox(
-              child: CupertinoDatePicker(
-                use24hFormat: true,
-                mode: CupertinoDatePickerMode.date,
-                initialDateTime:
-                    selectedDate ??
-                    DateTime.now().subtract(Duration(days: 365 * 18)),
-                maximumYear: DateTime.now().year - 18,
-                minimumYear: DateTime.now().year - 100,
-                onDateTimeChanged: (DateTime dateValue) {
-                  selectedDate = dateValue;
-                  dateController?.value = TextEditingValue(
-                    text:
-                        '${dateValue.day.toString().padLeft(2, '0')}/${dateValue.month.toString().padLeft(2, '0')}/${dateValue.year}',
-                  );
-                },
-              ),
-            ),
-          ),
-        );
-      },
+      initialDate:
+          selectedDate ?? DateTime.now().subtract(Duration(days: 365 * 18)),
+      firstDate: DateTime.now().subtract(Duration(days: 365 * 100)),
+      lastDate: DateTime.now().subtract(Duration(days: 365 * 18)),
     );
+
+    if (pickedDate != null && pickedDate != selectedDate) {
+      selectedDate = pickedDate;
+      dateController?.text =
+          '${pickedDate.day.toString().padLeft(2, '0')}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.year}';
+    }
   }
 }

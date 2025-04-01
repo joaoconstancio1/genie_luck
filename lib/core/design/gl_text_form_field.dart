@@ -13,6 +13,7 @@ class GlTextFormField extends StatelessWidget {
     this.obscureText,
     this.focusNode,
     this.onTap,
+    this.readOnly = false,
   });
 
   final TextEditingController? controller;
@@ -24,12 +25,14 @@ class GlTextFormField extends StatelessWidget {
   final bool? obscureText;
   final FocusNode? focusNode;
   final GestureTapCallback? onTap;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
+      readOnly: readOnly,
       decoration:
           decoration?.copyWith(
             border: OutlineInputBorder(
