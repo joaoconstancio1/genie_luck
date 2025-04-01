@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
+import 'package:genie_luck/l10n/generated/app_localizations.dart';
 import 'package:genie_luck/register/data/models/user_model.dart';
 import 'package:genie_luck/register/presenter/cubit/register_cubit.dart';
 import 'package:genie_luck/register/presenter/cubit/register_states.dart';
@@ -61,13 +62,12 @@ class _RegisterPageView1State extends State<RegisterPageView> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations? local = AppLocalizations.of(context);
+
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text('Crie sua Conta e Entre na Ação!'),
-          ),
+          appBar: AppBar(centerTitle: true, title: Text(local!.registerTitle)),
 
           body: SafeArea(
             child: BlocBuilder<RegisterCubit, RegisterState>(

@@ -9,7 +9,7 @@ class RegisterDatasource {
   RegisterDatasource(this.client);
 
   Future<UserModel> registerUser(UserModel? userModel) async {
-    final url = 'http://192.168.0.106:5000/users/register';
+    final url = 'http://127.0.0.1:5050/users/register';
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode(userModel?.toJson());
 
