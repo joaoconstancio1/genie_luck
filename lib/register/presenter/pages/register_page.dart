@@ -40,39 +40,24 @@ class _RegisterPageView1State extends State<RegisterPageView> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController(
+    text: 'João Vitor',
+  );
+  final TextEditingController _emailController = TextEditingController(
+    text: 'joao.vitor@example.com',
+  );
+  final TextEditingController _passwordController = TextEditingController(
+    text: 'Senha123!',
+  );
   final TextEditingController _confirmPasswordController =
-      TextEditingController();
+      TextEditingController(text: 'Senha123!');
   final TextEditingController _dateController = TextEditingController();
+
   final Validators _validators = Validators();
   DataPicker _dataPicker = DataPicker();
   bool _acceptTerms = false;
   bool? _receivePromotions = false;
   DateTime? selectedDate;
-
-  void _onRegisterButtonPressed(BuildContext context) {
-    if (_formKey.currentState?.validate() ?? false) {
-      context.read<RegisterCubit>().registerUser(
-        UserModel(
-          fullName: _nameController.text,
-          email: _emailController.text,
-          password: _passwordController.text,
-          birthDate: selectedDate,
-          phoneNumber: '111111111',
-          zipCode: '00000-000',
-          address: 'Rua Exemplo',
-          addressNumber: '123',
-          city: 'São Paulo',
-          state: 'SP',
-          country: 'Brasil',
-          termsAccepted: _acceptTerms,
-          receivePromotions: _receivePromotions,
-        ),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,8 +136,12 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                               ),
                               GestureDetector(
                                 onTap:
-                                    () =>
-                                        _dataPicker.displayDatePicker(context),
+                                    () => _dataPicker
+                                        .displayDatePicker(context)
+                                        .then((value) {
+                                          selectedDate =
+                                              _dataPicker.selectedDate;
+                                        }),
                                 child: AbsorbPointer(
                                   child: GlTextFormField(
                                     controller: _dateController,
@@ -173,39 +162,36 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                 hintText: '99999-9999',
                                 prefixIcon: Icon(Icons.phone),
                               ),
-
-                              CheckboxListTile(
-                                title: Text('Aceitar Termos e Condições'),
-                                value: _acceptTerms,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    _acceptTerms = value ?? false;
-                                  });
-                                },
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                              ),
-                              CheckboxListTile(
-                                title: Text('Receber Promoções'),
-                                value: _receivePromotions,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    _receivePromotions = value ?? false;
-                                  });
-                                },
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                              ),
-
-                              SizedBox(
-                                width: double.infinity,
-                                child: ElevatedButton(
-                                  onPressed:
-                                      () => _onRegisterButtonPressed(context),
-                                  child: Text('Registrar Agora'),
-                                ),
-                              ),
                             ],
+                          ),
+                          CheckboxListTile(
+                            title: Text('Aceitar Termos e Condições'),
+                            value: _acceptTerms,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _acceptTerms = value ?? false;
+                              });
+                            },
+                            controlAffinity: ListTileControlAffinity.leading,
+                          ),
+                          CheckboxListTile(
+                            title: Text('Receber Promoções'),
+                            value: _receivePromotions,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _receivePromotions = value ?? false;
+                              });
+                            },
+                            controlAffinity: ListTileControlAffinity.leading,
+                          ),
+
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed:
+                                  () => _onRegisterButtonPressed(context),
+                              child: Text('Registrar Agora'),
+                            ),
                           ),
                         ],
                       ),
@@ -218,5 +204,27 @@ class _RegisterPageView1State extends State<RegisterPageView> {
         );
       },
     );
+  }
+
+  void _onRegisterButtonPressed(BuildContext context) {
+    if (_formKey.currentState?.validate() ?? false) {
+      context.read<RegisterCubit>().registerUser(
+        UserModel(
+          fullName: _nameController.text,
+          email: _emailController.text,
+          password: _passwordController.text,
+          birthDate: selectedDate,
+          phoneNumber: '111111111',
+          zipCode: '00000-000',
+          address: 'Rua Exemplo',
+          addressNumber: '123',
+          city: 'São Paulo',
+          state: 'SP',
+          country: 'Brasil',
+          termsAccepted: _acceptTerms,
+          receivePromotions: _receivePromotions,
+        ),
+      );
+    }
   }
 }
