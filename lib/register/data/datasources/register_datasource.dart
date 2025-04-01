@@ -23,7 +23,7 @@ class RegisterDatasource {
     required bool termsAccepted,
     required bool receivePromotions,
   }) async {
-    final url = 'http://localhost:5000/users/register';
+    final url = 'http://192.168.0.106:5000/users/register';
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
       'full_name': fullName,
@@ -45,6 +45,7 @@ class RegisterDatasource {
       final result = await client.post(url, headers: headers, data: body);
       return result;
     } catch (e) {
+      print('Erroraaaaaaaaaaa: $e');
       throw Exception('Error: $e');
     }
   }

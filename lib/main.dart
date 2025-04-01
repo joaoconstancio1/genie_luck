@@ -5,7 +5,7 @@ import 'package:genie_luck/core/app_initializer.dart.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  AppInitializer.initializeDependencies();
+  await AppInitializer.initializeDependencies();
 
   runApp(
     MaterialApp.router(

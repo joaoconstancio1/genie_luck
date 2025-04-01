@@ -8,7 +8,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   final RegisterRepository repository;
 
-  Future<void> init({
+  Future<void> registerUser({
     required String fullName,
     required String email,
     required String password,
