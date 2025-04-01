@@ -50,10 +50,7 @@ class Validators {
     if (value == null || value.isEmpty) {
       return 'Informe sua data de nascimento';
     }
-    final dateRegex = RegExp(r'^\d{2}/\d{2}/\d{4}$');
-    if (!dateRegex.hasMatch(value)) {
-      return 'Formato inválido. Use DD/MM/AAAA';
-    }
+
     try {
       final parts = value.split('/');
       final day = int.parse(parts[0]);

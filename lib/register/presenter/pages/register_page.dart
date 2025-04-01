@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/data_picker.dart';
-import 'package:genie_luck/core/utils/formatters.dart';
 import 'package:genie_luck/core/utils/validators.dart';
 import 'package:genie_luck/register/data/models/user_model.dart';
 import 'package:genie_luck/register/presenter/cubit/register_cubit.dart';
@@ -116,15 +114,13 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                               GlTextFormField(
                                 controller: _nameController,
                                 keyboardType: TextInputType.name,
-
                                 labelText: 'Nome Completo',
-
+                                hintText: 'Digite seu nome completo',
                                 validator: _validators.nameValidator,
                               ),
                               GlTextFormField(
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
-
                                 labelText: 'E-mail',
                                 hintText: 'example@email.com',
                                 validator: _validators.validateEmail,
@@ -133,15 +129,25 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                 controller: _passwordController,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-                                decoration: InputDecoration(labelText: 'Senha'),
+                                labelText: 'Senha',
+                                hintText: 'Digite sua senha',
+                                obscureText: true,
+                                validator: _validators.validatePassword,
                               ),
                               GlTextFormField(
                                 controller: _confirmPasswordController,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-                                decoration: InputDecoration(
-                                  labelText: 'Confirme a Senha',
-                                ),
+
+                                labelText: 'Confirme a Senha',
+                                hintText: 'Confirme sua senha',
+                                obscureText: true,
+                                validator:
+                                    (value) =>
+                                        _validators.validateConfirmPassword(
+                                          value,
+                                          _passwordController.text,
+                                        ),
                               ),
                               GestureDetector(
                                 onTap:
@@ -152,25 +158,22 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                     controller: _dateController,
                                     keyboardType: TextInputType.none,
                                     readOnly: true,
-                                    decoration: InputDecoration(
-                                      labelText: 'Data de Nascimento',
-                                      suffixIcon: Icon(Icons.calendar_today),
-                                    ),
+                                    labelText: 'Data de Nascimento',
+                                    hintText: '01/01/2000',
+                                    suffixIcon: Icon(Icons.calendar_today),
+                                    validator: _validators.validateDate,
                                   ),
                                 ),
                               ),
 
                               GlTextFormField(
                                 keyboardType: TextInputType.phone,
-                                decoration: InputDecoration(
-                                  labelText: 'Número de Telefone',
-                                  prefixIcon: IconButton(
-                                    icon: Icon(Icons.phone),
-                                    onPressed: () {},
-                                  ),
-                                  prefixText: '+55 ',
-                                ),
+
+                                labelText: 'Número de Telefone',
+                                hintText: '99999-9999',
+                                prefixIcon: Icon(Icons.phone),
                               ),
+
                               CheckboxListTile(
                                 title: Text('Aceitar Termos e Condições'),
                                 value: _acceptTerms,
