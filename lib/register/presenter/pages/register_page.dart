@@ -39,7 +39,7 @@ class RegisterPageView1 extends StatelessWidget {
               onPressed: () {
                 context.read<RegisterCubit>().registerUser(
                   fullName: 'joao',
-                  email: '',
+                  email: 'dsadasadsddsas',
                   password: '',
                   birthDate: DateTime(
                     2000,

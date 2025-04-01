@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:genie_luck/core/http_client/custom_http_client.dart';
+import 'package:genie_luck/core/http_client/http_client_exception.dart';
 import 'package:genie_luck/register/data/models/user_model.dart';
 
 class RegisterDatasource {
@@ -42,11 +42,17 @@ class RegisterDatasource {
     });
 
     try {
-      final result = await client.post(url, headers: headers, data: body);
+      final response = await client.post(url, headers: headers, data: body);
+      final result = UserModel.fromJson(
+        response['user'] as Map<String, dynamic>,
+      );
       return result;
     } catch (e) {
-      print('Erroraaaaaaaaaaa: $e');
-      throw Exception('Error: $e');
+      if (e is HttpClientException) {
+        throw Exception('Erro na requisição: ${e.message}');
+      } else {
+        throw Exception('Erro inesperado: $e');
+      }
     }
   }
 }
