@@ -1,6 +1,6 @@
 // app_routes.dart
 import 'package:flutter/material.dart';
-import 'package:genie_luck/register/pages/register_page.dart';
+import 'package:genie_luck/register/presenter/pages/register_page.dart';
 import 'package:go_router/go_router.dart';
 import 'genie_slider.dart';
 
