@@ -3,7 +3,8 @@ import 'package:genie_luck/register/data/repositories/register_repository.dart';
 import 'package:genie_luck/register/presenter/cubit/register_states.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit(this.repository) : super(const RegisterInitialState());
+  RegisterCubit({required this.repository})
+    : super(const RegisterInitialState());
 
   final RegisterRepository repository;
 

@@ -1,18 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/formatters.dart';
 import 'package:genie_luck/core/utils/validators.dart';
+import 'package:genie_luck/register/presenter/cubit/register_cubit.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => RegisterCubit(repository: GetIt.I()),
+          child: RegisterPageView(),
+        ),
+      ],
+      child: const RegisterPageView(),
+    );
+  }
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class RegisterPageView extends StatefulWidget {
+  const RegisterPageView({super.key});
+
+  @override
+  State<RegisterPageView> createState() => _RegisterPageViewState();
+}
+
+class _RegisterPageViewState extends State<RegisterPageView> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
