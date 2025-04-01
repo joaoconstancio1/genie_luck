@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DataPicker {
-  final TextEditingController dateController;
+  TextEditingController? dateController;
   DateTime? selectedDate;
-  DataPicker({required this.dateController, this.selectedDate});
+  DataPicker({this.dateController, this.selectedDate});
 
   Future<void> showDataPicker(BuildContext context) async {
     showModalBottomSheet(
@@ -23,7 +23,7 @@ class DataPicker {
                 minimumYear: DateTime.now().year - 100,
                 onDateTimeChanged: (DateTime dateValue) {
                   selectedDate = dateValue;
-                  dateController.value = TextEditingValue(
+                  dateController?.value = TextEditingValue(
                     text:
                         '${dateValue.day.toString().padLeft(2, '0')}/${dateValue.month.toString().padLeft(2, '0')}/${dateValue.year}',
                   );
