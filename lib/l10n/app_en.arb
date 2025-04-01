@@ -1,11 +1,4 @@
 {
-    "@@locale": "en",
-    "registerTitle" : "Create Your Account and Take Action!",
-    "@registerTitle": {
-        "description": "Message diaplayed on the register page"
-    },
-    "labelCompleteName" : "Complete Name",
-    "@labelCompleteName": {
-        "description": "Complete Name field Label"
-    }
+    "registerTitle": "Create Your Account and Take Action!",
+    "labelCompleteName": "Complete Name"
 }

@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
+import 'package:genie_luck/l10n/generated/app_localizations.dart';
 import 'package:genie_luck/register/data/models/user_model.dart';
 import 'package:genie_luck/register/presenter/cubit/register_cubit.dart';
 import 'package:genie_luck/register/presenter/cubit/register_states.dart';
 import 'package:get_it/get_it.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
