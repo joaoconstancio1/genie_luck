@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:genie_luck/genie_slider/data/slider_items_model.dart';
+import 'package:genie_luck/modules/genie_slider/data/slider_items_model.dart';
 
 class GenieSlider extends StatefulWidget {
   const GenieSlider({super.key});

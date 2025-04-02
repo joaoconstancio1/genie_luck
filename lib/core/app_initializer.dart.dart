@@ -1,4 +1,4 @@
-import 'package:genie_luck/register/register_dependency_injection.dart';
+import 'package:genie_luck/modules/register/register_dependency_injection.dart';
 
 class AppInitializer {
   static Future<void> initializeDependencies() async {

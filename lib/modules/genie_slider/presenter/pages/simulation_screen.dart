@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:genie_luck/genie_slider/data/slider_items_model.dart';
+import 'package:genie_luck/modules/genie_slider/data/slider_items_model.dart';
 
 class SimulationPage extends StatefulWidget {
   const SimulationPage({super.key});
