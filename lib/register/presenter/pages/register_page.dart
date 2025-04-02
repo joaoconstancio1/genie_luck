@@ -62,12 +62,12 @@ class _RegisterPageView1State extends State<RegisterPageView> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations? local = AppLocalizations.of(context);
+    final AppLocalizations locale = AppLocalizations.of(context)!;
 
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(centerTitle: true, title: Text(local!.registerTitle)),
+          appBar: AppBar(centerTitle: true, title: Text(locale.registerTitle)),
 
           body: SafeArea(
             child: BlocBuilder<RegisterCubit, RegisterState>(
@@ -99,7 +99,7 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                               GlTextFormField(
                                 controller: _nameController,
                                 keyboardType: TextInputType.name,
-                                labelText: 'Nome Completo',
+                                labelText: locale.labelCompleteName,
                                 hintText: 'Digite seu nome completo',
                                 validator: _validators.nameValidator,
                               ),
