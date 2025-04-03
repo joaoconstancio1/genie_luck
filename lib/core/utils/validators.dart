@@ -50,27 +50,6 @@ class Validators {
     if (value == null || value.isEmpty) {
       return 'Informe sua data de nascimento';
     }
-
-    try {
-      final parts = value.split('/');
-      final day = int.parse(parts[0]);
-      final month = int.parse(parts[1]);
-      final year = int.parse(parts[2]);
-      final birthDate = DateTime(year, month, day);
-      final today = DateTime.now();
-      final age =
-          today.year -
-          birthDate.year -
-          ((today.month < birthDate.month ||
-                  (today.month == birthDate.month && today.day < birthDate.day))
-              ? 1
-              : 0);
-      if (age < 18) {
-        return 'Você deve ter pelo menos 18 anos';
-      }
-    } catch (e) {
-      return 'Data inválida';
-    }
     return null;
   }
 

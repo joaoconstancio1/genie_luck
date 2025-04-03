@@ -1,5 +1,4 @@
 {
-  "dart.flutterSdkPath": ".fvm/versions/stable",
   "editor.wordWrap": "wordWrapColumn",
   "editor.wordWrapColumn": 80,
   "workbench.colorCustomizations": {

@@ -1,5 +1,5 @@
-import 'package:genie_luck/register/data/datasources/register_datasource.dart';
-import 'package:genie_luck/register/data/models/user_model.dart';
+import 'package:genie_luck/modules/register/data/datasources/register_datasource.dart';
+import 'package:genie_luck/modules/register/data/models/user_model.dart';
 import 'package:result_dart/result_dart.dart';
 
 class RegisterRepository {
