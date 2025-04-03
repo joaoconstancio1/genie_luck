@@ -108,6 +108,90 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Nome Completo'**
   String get labelCompleteName;
+
+  /// No description provided for @hintCompleteName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu nome completo'**
+  String get hintCompleteName;
+
+  /// No description provided for @labelEmail.
+  ///
+  /// In pt, this message translates to:
+  /// **'E-mail'**
+  String get labelEmail;
+
+  /// No description provided for @hintEmail.
+  ///
+  /// In pt, this message translates to:
+  /// **'example@email.com'**
+  String get hintEmail;
+
+  /// No description provided for @labelPassword.
+  ///
+  /// In pt, this message translates to:
+  /// **'Senha'**
+  String get labelPassword;
+
+  /// No description provided for @hintPassword.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite sua senha'**
+  String get hintPassword;
+
+  /// No description provided for @labelConfirmPassword.
+  ///
+  /// In pt, this message translates to:
+  /// **'Confirme a Senha'**
+  String get labelConfirmPassword;
+
+  /// No description provided for @hintConfirmPassword.
+  ///
+  /// In pt, this message translates to:
+  /// **'Confirme sua senha'**
+  String get hintConfirmPassword;
+
+  /// No description provided for @labelBirthDate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Data de Nascimento'**
+  String get labelBirthDate;
+
+  /// No description provided for @hintBirthDate.
+  ///
+  /// In pt, this message translates to:
+  /// **'01/01/2000'**
+  String get hintBirthDate;
+
+  /// No description provided for @labelPhoneNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'Número de Telefone'**
+  String get labelPhoneNumber;
+
+  /// No description provided for @hintPhoneNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'99999-9999'**
+  String get hintPhoneNumber;
+
+  /// No description provided for @labelAcceptTerms.
+  ///
+  /// In pt, this message translates to:
+  /// **'Aceitar Termos e Condições'**
+  String get labelAcceptTerms;
+
+  /// No description provided for @labelReceivePromotions.
+  ///
+  /// In pt, this message translates to:
+  /// **'Receber Promoções'**
+  String get labelReceivePromotions;
+
+  /// No description provided for @buttonRegisterNow.
+  ///
+  /// In pt, this message translates to:
+  /// **'Registrar Agora'**
+  String get buttonRegisterNow;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

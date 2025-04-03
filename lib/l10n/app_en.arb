@@ -1,4 +1,18 @@
 {
     "registerTitle": "Create Your Account and Take Action!",
-    "labelCompleteName": "Complete Name"
+    "labelCompleteName": "Complete Name",
+    "hintCompleteName": "Enter your full name",
+    "labelEmail": "Email",
+    "hintEmail": "example@email.com",
+    "labelPassword": "Password",
+    "hintPassword": "Enter your password",
+    "labelConfirmPassword": "Confirm Password",
+    "hintConfirmPassword": "Confirm your password",
+    "labelBirthDate": "Birth Date",
+    "hintBirthDate": "01/01/2000",
+    "labelPhoneNumber": "Phone Number",
+    "hintPhoneNumber": "99999-9999",
+    "labelAcceptTerms": "Accept Terms and Conditions",
+    "labelReceivePromotions": "Receive Promotions",
+    "buttonRegisterNow": "Register Now"
 }
