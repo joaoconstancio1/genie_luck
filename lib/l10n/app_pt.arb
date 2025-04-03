@@ -1,4 +1,18 @@
 {
     "registerTitle": "Crie Sua Conta e Entre em Ação!",
-    "labelCompleteName": "Nome Completo"
+    "labelCompleteName": "Nome Completo",
+    "hintCompleteName": "Digite seu nome completo",
+    "labelEmail": "E-mail",
+    "hintEmail": "example@email.com",
+    "labelPassword": "Senha",
+    "hintPassword": "Digite sua senha",
+    "labelConfirmPassword": "Confirme a Senha",
+    "hintConfirmPassword": "Confirme sua senha",
+    "labelBirthDate": "Data de Nascimento",
+    "hintBirthDate": "01/01/2000",
+    "labelPhoneNumber": "Número de Telefone",
+    "hintPhoneNumber": "99999-9999",
+    "labelAcceptTerms": "Aceitar Termos e Condições",
+    "labelReceivePromotions": "Receber Promoções",
+    "buttonRegisterNow": "Registrar Agora"
 }

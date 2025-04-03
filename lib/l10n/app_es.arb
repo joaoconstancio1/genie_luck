@@ -1,0 +1,18 @@
+{
+    "registerTitle": "Crea tu cuenta y entra en acción!",
+    "labelCompleteName": "Nombre Completo",
+    "hintCompleteName": "Introduce tu nombre completo",
+    "labelEmail": "Correo Electrónico",
+    "hintEmail": "example@email.com",
+    "labelPassword": "Contraseña",
+    "hintPassword": "Introduce tu contraseña",
+    "labelConfirmPassword": "Confirma la Contraseña",
+    "hintConfirmPassword": "Confirma tu contraseña",
+    "labelBirthDate": "Fecha de Nacimiento",
+    "hintBirthDate": "01/01/2000",
+    "labelPhoneNumber": "Número de Teléfono",
+    "hintPhoneNumber": "99999-9999",
+    "labelAcceptTerms": "Aceptar Términos y Condiciones",
+    "labelReceivePromotions": "Recibir Promociones",
+    "buttonRegisterNow": "Registrar Ahora"
+}

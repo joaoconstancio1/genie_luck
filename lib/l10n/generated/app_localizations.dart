@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
 import 'app_localizations_pt.dart';
 
 // ignore_for_file: type=lint
@@ -92,6 +93,7 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
+    Locale('es'),
     Locale('pt')
   ];
 
@@ -106,6 +108,90 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Nome Completo'**
   String get labelCompleteName;
+
+  /// No description provided for @hintCompleteName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu nome completo'**
+  String get hintCompleteName;
+
+  /// No description provided for @labelEmail.
+  ///
+  /// In pt, this message translates to:
+  /// **'E-mail'**
+  String get labelEmail;
+
+  /// No description provided for @hintEmail.
+  ///
+  /// In pt, this message translates to:
+  /// **'example@email.com'**
+  String get hintEmail;
+
+  /// No description provided for @labelPassword.
+  ///
+  /// In pt, this message translates to:
+  /// **'Senha'**
+  String get labelPassword;
+
+  /// No description provided for @hintPassword.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite sua senha'**
+  String get hintPassword;
+
+  /// No description provided for @labelConfirmPassword.
+  ///
+  /// In pt, this message translates to:
+  /// **'Confirme a Senha'**
+  String get labelConfirmPassword;
+
+  /// No description provided for @hintConfirmPassword.
+  ///
+  /// In pt, this message translates to:
+  /// **'Confirme sua senha'**
+  String get hintConfirmPassword;
+
+  /// No description provided for @labelBirthDate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Data de Nascimento'**
+  String get labelBirthDate;
+
+  /// No description provided for @hintBirthDate.
+  ///
+  /// In pt, this message translates to:
+  /// **'01/01/2000'**
+  String get hintBirthDate;
+
+  /// No description provided for @labelPhoneNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'Número de Telefone'**
+  String get labelPhoneNumber;
+
+  /// No description provided for @hintPhoneNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'99999-9999'**
+  String get hintPhoneNumber;
+
+  /// No description provided for @labelAcceptTerms.
+  ///
+  /// In pt, this message translates to:
+  /// **'Aceitar Termos e Condições'**
+  String get labelAcceptTerms;
+
+  /// No description provided for @labelReceivePromotions.
+  ///
+  /// In pt, this message translates to:
+  /// **'Receber Promoções'**
+  String get labelReceivePromotions;
+
+  /// No description provided for @buttonRegisterNow.
+  ///
+  /// In pt, this message translates to:
+  /// **'Registrar Agora'**
+  String get buttonRegisterNow;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -117,7 +203,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'pt'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'es', 'pt'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -129,6 +215,7 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en': return AppLocalizationsEn();
+    case 'es': return AppLocalizationsEs();
     case 'pt': return AppLocalizationsPt();
   }
 
