@@ -77,12 +77,12 @@ class _RegisterPageView1State extends State<RegisterPageView> {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations? local = AppLocalizations.of(context);
+    final AppLocalizations locale = AppLocalizations.of(context)!;
 
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(centerTitle: true, title: Text(local!.registerTitle)),
+          appBar: AppBar(centerTitle: true, title: Text(locale.registerTitle)),
 
           body: SafeArea(
             child: BlocBuilder<RegisterCubit, RegisterState>(
@@ -114,23 +114,23 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                               GlTextFormField(
                                 controller: _nameController,
                                 keyboardType: TextInputType.name,
-                                labelText: 'Nome Completo',
-                                hintText: 'Digite seu nome completo',
+                                labelText: locale.labelCompleteName,
+                                hintText: locale.hintCompleteName,
                                 validator: _validators.nameValidator,
                               ),
                               GlTextFormField(
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
-                                labelText: 'E-mail',
-                                hintText: 'example@email.com',
+                                labelText: locale.labelEmail,
+                                hintText: locale.hintEmail,
                                 validator: _validators.validateEmail,
                               ),
                               GlTextFormField(
                                 controller: _passwordController,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-                                labelText: 'Senha',
-                                hintText: 'Digite sua senha',
+                                labelText: locale.labelPassword,
+                                hintText: locale.hintPassword,
                                 obscureText: true,
                                 validator: _validators.validatePassword,
                               ),
@@ -139,8 +139,8 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
 
-                                labelText: 'Confirme a Senha',
-                                hintText: 'Confirme sua senha',
+                                labelText: locale.labelConfirmPassword,
+                                hintText: locale.hintConfirmPassword,
                                 obscureText: true,
                                 validator:
                                     (value) =>
@@ -158,8 +158,8 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                     controller: _dateController,
                                     keyboardType: TextInputType.none,
                                     readOnly: true,
-                                    labelText: 'Data de Nascimento',
-                                    hintText: '01/01/2000',
+                                    labelText: locale.labelBirthDate,
+                                    hintText: locale.hintBirthDate,
                                     suffixIcon: Icon(Icons.calendar_today),
                                     validator: _validators.validateDate,
                                   ),
@@ -169,13 +169,13 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                               GlTextFormField(
                                 keyboardType: TextInputType.phone,
 
-                                labelText: 'Número de Telefone',
-                                hintText: '99999-9999',
+                                labelText: locale.labelPhoneNumber,
+                                hintText: locale.hintPhoneNumber,
                                 prefixIcon: Icon(Icons.phone),
                               ),
 
                               CheckboxListTile(
-                                title: Text('Aceitar Termos e Condições'),
+                                title: Text(locale.labelAcceptTerms),
                                 value: _acceptTerms,
                                 onChanged: (bool? value) {
                                   setState(() {
@@ -186,7 +186,7 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                     ListTileControlAffinity.leading,
                               ),
                               CheckboxListTile(
-                                title: Text('Receber Promoções'),
+                                title: Text(locale.labelReceivePromotions),
                                 value: _receivePromotions,
                                 onChanged: (bool? value) {
                                   setState(() {
@@ -202,7 +202,7 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                 child: ElevatedButton(
                                   onPressed:
                                       () => _onRegisterButtonPressed(context),
-                                  child: Text('Registrar Agora'),
+                                  child: Text(locale.buttonRegisterNow),
                                 ),
                               ),
                             ],
