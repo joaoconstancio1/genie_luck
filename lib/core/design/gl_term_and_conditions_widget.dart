@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 class GlTermAndConditionsWidget extends StatelessWidget {
   const GlTermAndConditionsWidget({super.key, this.height});
@@ -29,18 +30,20 @@ class GlTermAndConditionsWidget extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.close),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    context.pop();
                   },
                 ),
               ],
             ),
 
             Expanded(
-              child: SingleChildScrollView(child: Center(child: Placeholder())),
+              child: SingleChildScrollView(child: Center(child: Text(text))),
             ),
           ],
         ),
       ),
     );
   }
+
+  static String text = List.filled(5000, "Teste").join();
 }

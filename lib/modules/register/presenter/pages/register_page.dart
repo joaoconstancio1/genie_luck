@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie_luck/core/design/gl_bottom_sheet.dart';
 import 'package:genie_luck/core/design/gl_check_box_tile.dart';
 import 'package:genie_luck/core/design/gl_term_and_conditions_widget.dart';
-import 'package:genie_luck/core/design/gl_text_button.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
@@ -167,20 +166,22 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                               ),
 
                               GlCheckBoxTile(
-                                title: GlTextButton(
-                                  text: locale.labelAcceptTerms,
-                                  onPressed: () {
+                                title: GestureDetector(
+                                  onTap: () {
                                     GlBottomSheet(
                                       context: context,
                                       child: GlTermAndConditionsWidget(),
-                                    ).call();
+                                    ).showBottomSheet();
                                   },
-                                  color: Colors.blue,
-                                  fontSize: 16,
-                                  textDecoration: TextDecoration.underline,
-                                  underlineColor: Colors.blue,
-                                  buttonPadding: EdgeInsets.zero,
-                                  buttonAlignment: Alignment.centerLeft,
+                                  child: Text(
+                                    locale.labelAcceptTerms,
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 16,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: Colors.blue,
+                                    ),
+                                  ),
                                 ),
                                 value: _acceptTerms,
                                 onChanged: (bool? value) {

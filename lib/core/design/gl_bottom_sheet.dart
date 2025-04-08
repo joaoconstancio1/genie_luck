@@ -12,7 +12,7 @@ class GlBottomSheet {
   final bool? isScrollControlled;
   final Color? backgroundColor;
 
-  void call() {
+  void showBottomSheet() {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
