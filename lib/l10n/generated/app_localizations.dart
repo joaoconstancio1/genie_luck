@@ -192,6 +192,12 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Registrar Agora'**
   String get buttonRegisterNow;
+
+  /// No description provided for @termsTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Termos e Condições'**
+  String get termsTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

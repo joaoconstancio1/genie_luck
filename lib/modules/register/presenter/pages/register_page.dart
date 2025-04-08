@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:genie_luck/core/design/gl_bottom_sheet.dart';
+import 'package:genie_luck/core/design/gl_check_box_tile.dart';
+import 'package:genie_luck/core/design/gl_term_and_conditions_widget.dart';
+import 'package:genie_luck/core/design/gl_text_button.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
@@ -157,14 +161,27 @@ class _RegisterPageView1State extends State<RegisterPageView> {
 
                               GlTextFormField(
                                 keyboardType: TextInputType.phone,
-
                                 labelText: locale.labelPhoneNumber,
                                 hintText: locale.hintPhoneNumber,
                                 prefixIcon: Icon(Icons.phone),
                               ),
 
-                              CheckboxListTile(
-                                title: Text(locale.labelAcceptTerms),
+                              GlCheckBoxTile(
+                                title: GlTextButton(
+                                  text: locale.labelAcceptTerms,
+                                  onPressed: () {
+                                    GlBottomSheet(
+                                      context: context,
+                                      child: GlTermAndConditionsWidget(),
+                                    ).call();
+                                  },
+                                  color: Colors.blue,
+                                  fontSize: 16,
+                                  textDecoration: TextDecoration.underline,
+                                  underlineColor: Colors.blue,
+                                  buttonPadding: EdgeInsets.zero,
+                                  buttonAlignment: Alignment.centerLeft,
+                                ),
                                 value: _acceptTerms,
                                 onChanged: (bool? value) {
                                   setState(() {
@@ -174,7 +191,7 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                 controlAffinity:
                                     ListTileControlAffinity.leading,
                               ),
-                              CheckboxListTile(
+                              GlCheckBoxTile(
                                 title: Text(locale.labelReceivePromotions),
                                 value: _receivePromotions,
                                 onChanged: (bool? value) {

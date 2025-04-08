@@ -14,5 +14,6 @@
     "hintPhoneNumber": "99999-9999",
     "labelAcceptTerms": "Aceptar Términos y Condiciones",
     "labelReceivePromotions": "Recibir Promociones",
-    "buttonRegisterNow": "Registrar Ahora"
+    "buttonRegisterNow": "Registrar Ahora",
+    "termsTitle": "Términos y Condiciones"
 }

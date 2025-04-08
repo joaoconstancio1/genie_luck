@@ -55,4 +55,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get buttonRegisterNow => 'Register Now';
+
+  @override
+  String get termsTitle => 'Terms and Conditions';
 }
