@@ -6,11 +6,11 @@ class F {
   static String get baseUrl {
     switch (appFlavor) {
       case Flavor.dev:
-        return 'http://127.0.0.1:5050';
+        return 'https://genie-luck-backend.onrender.com';
       case Flavor.stg:
-        return 'https://672ba4801600dda5a9f5dcbf.mockapi.io/api/v1';
+        return 'ajustar';
       case Flavor.prod:
-        return 'https://672ba4801600dda5a9f5dcbf.mockapi.io/api/v1';
+        return 'ajustar';
     }
   }
 }
