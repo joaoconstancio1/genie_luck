@@ -1,0 +1,21 @@
+android {
+    flavorDimensions += "flavor-type"
+
+    productFlavors {
+        dev {
+            dimension "flavor-type"
+            applicationId "com.genieluck.dev"
+            resValue "string", "app_name", "Genie Luck dev"
+        }
+        stg {
+            dimension "flavor-type"
+            applicationId "com.genieluck.stg"
+            resValue "string", "app_name", "Genie Luck stg"
+        }
+        prod {
+            dimension "flavor-type"
+            applicationId "com.genieluck"
+            resValue "string", "app_name", "Genie Luck"
+        }
+    }
+}
