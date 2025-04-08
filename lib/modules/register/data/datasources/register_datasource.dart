@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:genie_luck/core/http_client/custom_http_client.dart';
 import 'package:genie_luck/core/http_client/http_client_exception.dart';
+import 'package:genie_luck/flavors.dart';
 import 'package:genie_luck/modules/register/data/models/user_model.dart';
 
 class RegisterDatasource {
@@ -9,7 +10,7 @@ class RegisterDatasource {
   RegisterDatasource(this.client);
 
   Future<UserModel> registerUser(UserModel? userModel) async {
-    final url = 'http://127.0.0.1:5050/users/register';
+    final url = '${F.baseUrl}/users/register';
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode(userModel?.toJson());
 

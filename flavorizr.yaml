@@ -1,0 +1,25 @@
+flavors:
+  dev:
+    app:
+      name: "Genie Luck dev"
+
+    android:
+      applicationId: "com.genieluck.dev"
+    ios:
+      bundleId: "com.genieluck.dev"
+  stg:
+    app:
+      name: "Genie Luck stg"
+
+    android:
+      applicationId: "com.genieluck.stg"
+    ios:
+      bundleId: "com.genieluck.stg"
+  prod:
+    app:
+      name: "Genie Luck"
+
+    android:
+      applicationId: "com.genieluck"
+    ios:
+      bundleId: "com.genieluck"

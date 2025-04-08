@@ -165,3 +165,4 @@ devtools_options.yaml
 .fvm/flutter_sdk
 .fvm/fvm_config.json
 .fvm/release
+.tmp
