@@ -196,35 +196,6 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                               ),
                             ],
                           ),
-                          CheckboxListTile(
-                            title: Text('Aceitar Termos e Condições'),
-                            value: _acceptTerms,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _acceptTerms = value ?? false;
-                              });
-                            },
-                            controlAffinity: ListTileControlAffinity.leading,
-                          ),
-                          CheckboxListTile(
-                            title: Text('Receber Promoções'),
-                            value: _receivePromotions,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _receivePromotions = value ?? false;
-                              });
-                            },
-                            controlAffinity: ListTileControlAffinity.leading,
-                          ),
-
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed:
-                                  () => _onRegisterButtonPressed(context),
-                              child: Text('Registrar Agora'),
-                            ),
-                          ),
                         ],
                       ),
                     ),
