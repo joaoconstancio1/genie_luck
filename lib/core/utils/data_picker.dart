@@ -8,13 +8,14 @@ class DataPicker {
   DataPicker({this.dateController, this.selectedDate});
 
   Future<void> displayDatePicker(BuildContext context) async {
+    DateTime now = DateTime.now();
+    DateTime eighteenYearsAgo = DateTime(now.year - 18, now.month, now.day);
+
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate:
-          selectedDate ?? DateTime.now().subtract(Duration(days: 365 * 18)),
-      firstDate: DateTime.now().subtract(Duration(days: 365 * 100)),
-
-      lastDate: DateTime.now().subtract(Duration(days: 365 * 18)),
+      initialDate: selectedDate ?? eighteenYearsAgo,
+      firstDate: DateTime(now.year - 100, now.month, now.day),
+      lastDate: eighteenYearsAgo,
     );
 
     if (pickedDate != null && pickedDate != selectedDate) {
