@@ -1,23 +1,23 @@
 // app_routes.dart
 import 'package:flutter/material.dart';
+import 'package:genie_luck/modules/genie_slider/presenter/pages/genie_slider.dart';
+import 'package:genie_luck/modules/login/presenter/pages/login_page.dart';
 import 'package:genie_luck/modules/register/presenter/pages/register_page.dart';
 import 'package:go_router/go_router.dart';
-import 'genie_slider.dart';
 
 class AppRoutes {
-  // Defina os caminhos de forma estática para facilitar o uso
   static const String register = '/register';
+  static const String login = '/login';
   static const String genieSlider = '/genie-slider';
   static const String notFound = '/404';
 
-  // Método para criar o GoRouter
   static GoRouter get router {
     return GoRouter(
-      initialLocation: register, // Rota inicial
+      initialLocation: login,
       routes: [
         GoRoute(path: register, builder: (context, state) => RegisterPage()),
+        GoRoute(path: login, builder: (context, state) => LoginPage()),
         GoRoute(path: genieSlider, builder: (context, state) => GenieSlider()),
-        // Rota padrão para páginas não encontradas
         GoRoute(
           path: notFound,
           builder:
