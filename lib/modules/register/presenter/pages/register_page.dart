@@ -154,15 +154,63 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                   ),
                                 ),
                               ),
-
                               GlTextFormField(
                                 keyboardType: TextInputType.phone,
-
                                 labelText: locale.labelPhoneNumber,
                                 hintText: locale.hintPhoneNumber,
-                                prefixIcon: Icon(Icons.phone),
                               ),
-
+                              GlTextFormField(
+                                keyboardType: TextInputType.text,
+                                labelText: locale.labelCountry,
+                                hintText: locale.hintCountry,
+                              ),
+                              GlTextFormField(
+                                keyboardType: TextInputType.text,
+                                labelText: locale.labelZipCode,
+                                hintText: locale.hintZipCode,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: GlTextFormField(
+                                      keyboardType: TextInputType.text,
+                                      labelText: locale.labelAddress,
+                                      hintText: locale.hintAddress,
+                                    ),
+                                  ),
+                                  SizedBox(width: 16),
+                                  Expanded(
+                                    flex: 1,
+                                    child: GlTextFormField(
+                                      keyboardType: TextInputType.number,
+                                      labelText: locale.labelAddressNumber,
+                                      hintText: locale.hintAddressNumber,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: GlTextFormField(
+                                      keyboardType: TextInputType.text,
+                                      labelText: locale.labelCity,
+                                      hintText: locale.hintCity,
+                                    ),
+                                  ),
+                                  SizedBox(width: 16),
+                                  Expanded(
+                                    flex: 1,
+                                    child: GlTextFormField(
+                                      keyboardType: TextInputType.text,
+                                      labelText: locale.labelState,
+                                      hintText: locale.hintState,
+                                    ),
+                                  ),
+                                ],
+                              ),
                               CheckboxListTile(
                                 title: Text(locale.labelAcceptTerms),
                                 value: _acceptTerms,

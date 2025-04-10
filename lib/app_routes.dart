@@ -13,7 +13,7 @@ class AppRoutes {
 
   static GoRouter get router {
     return GoRouter(
-      initialLocation: login,
+      initialLocation: register,
       routes: [
         GoRoute(path: register, builder: (context, state) => RegisterPage()),
         GoRoute(path: login, builder: (context, state) => LoginPage()),

@@ -55,4 +55,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get buttonRegisterNow => 'Register Now';
+
+  @override
+  String get labelZipCode => 'ZIP Code';
+
+  @override
+  String get hintZipCode => 'Enter your ZIP code';
+
+  @override
+  String get labelAddress => 'Address';
+
+  @override
+  String get hintAddress => 'Enter your address';
+
+  @override
+  String get labelAddressNumber => 'Number';
+
+  @override
+  String get hintAddressNumber => '999';
+
+  @override
+  String get labelCity => 'City';
+
+  @override
+  String get hintCity => 'Enter your city';
+
+  @override
+  String get labelState => 'State';
+
+  @override
+  String get hintState => 'Enter your state';
+
+  @override
+  String get labelCountry => 'Country';
+
+  @override
+  String get hintCountry => 'Enter your country';
 }

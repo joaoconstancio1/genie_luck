@@ -192,6 +192,78 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Registrar Agora'**
   String get buttonRegisterNow;
+
+  /// No description provided for @labelZipCode.
+  ///
+  /// In pt, this message translates to:
+  /// **'CEP'**
+  String get labelZipCode;
+
+  /// No description provided for @hintZipCode.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu CEP'**
+  String get hintZipCode;
+
+  /// No description provided for @labelAddress.
+  ///
+  /// In pt, this message translates to:
+  /// **'Endereço'**
+  String get labelAddress;
+
+  /// No description provided for @hintAddress.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu endereço'**
+  String get hintAddress;
+
+  /// No description provided for @labelAddressNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'Número'**
+  String get labelAddressNumber;
+
+  /// No description provided for @hintAddressNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'999'**
+  String get hintAddressNumber;
+
+  /// No description provided for @labelCity.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cidade'**
+  String get labelCity;
+
+  /// No description provided for @hintCity.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite sua cidade'**
+  String get hintCity;
+
+  /// No description provided for @labelState.
+  ///
+  /// In pt, this message translates to:
+  /// **'Estado'**
+  String get labelState;
+
+  /// No description provided for @hintState.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu estado'**
+  String get hintState;
+
+  /// No description provided for @labelCountry.
+  ///
+  /// In pt, this message translates to:
+  /// **'País'**
+  String get labelCountry;
+
+  /// No description provided for @hintCountry.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu país'**
+  String get hintCountry;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

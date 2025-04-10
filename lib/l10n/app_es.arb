@@ -14,5 +14,17 @@
     "hintPhoneNumber": "99999-9999",
     "labelAcceptTerms": "Aceptar Términos y Condiciones",
     "labelReceivePromotions": "Recibir Promociones",
-    "buttonRegisterNow": "Registrar Ahora"
+    "buttonRegisterNow": "Registrar Ahora",
+    "labelZipCode": "Código Postal",
+    "hintZipCode": "Introduce tu código postal",
+    "labelAddress": "Dirección",
+    "hintAddress": "Introduce tu dirección",
+    "labelAddressNumber": "Número",
+    "hintAddressNumber": "999",
+    "labelCity": "Ciudad",
+    "hintCity": "Introduce tu ciudad",
+    "labelState": "Estado",
+    "hintState": "Introduce tu estado",
+    "labelCountry": "País",
+    "hintCountry": "Introduce tu país"
 }
