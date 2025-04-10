@@ -47,8 +47,12 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   );
   final TextEditingController _confirmPasswordController =
       TextEditingController(text: 'Senha123!');
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController(
+    text: '01/01/2000',
+  );
+  final TextEditingController _phoneController = TextEditingController(
+    text: '+5511999999999',
+  );
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
