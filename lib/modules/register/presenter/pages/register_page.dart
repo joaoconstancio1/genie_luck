@@ -53,6 +53,14 @@ class _RegisterPageView1State extends State<RegisterPageView> {
   final TextEditingController _confirmPasswordController =
       TextEditingController(text: 'Senha123!');
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
+  final TextEditingController _zipCodeController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _addressNumberController =
+      TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _stateController = TextEditingController();
 
   final Validators _validators = Validators();
   DataPicker _dataPicker = DataPicker();
@@ -123,7 +131,6 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                 controller: _confirmPasswordController,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-
                                 labelText: locale.labelConfirmPassword,
                                 hintText: locale.hintConfirmPassword,
                                 obscureText: true,
@@ -155,16 +162,19 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                 ),
                               ),
                               GlTextFormField(
+                                controller: _phoneController,
                                 keyboardType: TextInputType.phone,
                                 labelText: locale.labelPhoneNumber,
                                 hintText: locale.hintPhoneNumber,
                               ),
                               GlTextFormField(
+                                controller: _countryController,
                                 keyboardType: TextInputType.text,
                                 labelText: locale.labelCountry,
                                 hintText: locale.hintCountry,
                               ),
                               GlTextFormField(
+                                controller: _zipCodeController,
                                 keyboardType: TextInputType.text,
                                 labelText: locale.labelZipCode,
                                 hintText: locale.hintZipCode,
@@ -174,6 +184,7 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                   Expanded(
                                     flex: 3,
                                     child: GlTextFormField(
+                                      controller: _addressController,
                                       keyboardType: TextInputType.text,
                                       labelText: locale.labelAddress,
                                       hintText: locale.hintAddress,
@@ -183,6 +194,7 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                   Expanded(
                                     flex: 1,
                                     child: GlTextFormField(
+                                      controller: _addressNumberController,
                                       keyboardType: TextInputType.number,
                                       labelText: locale.labelAddressNumber,
                                       hintText: locale.hintAddressNumber,
@@ -195,6 +207,7 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                   Expanded(
                                     flex: 3,
                                     child: GlTextFormField(
+                                      controller: _cityController,
                                       keyboardType: TextInputType.text,
                                       labelText: locale.labelCity,
                                       hintText: locale.hintCity,
@@ -204,6 +217,7 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                   Expanded(
                                     flex: 1,
                                     child: GlTextFormField(
+                                      controller: _stateController,
                                       keyboardType: TextInputType.text,
                                       labelText: locale.labelState,
                                       hintText: locale.hintState,
@@ -233,7 +247,6 @@ class _RegisterPageView1State extends State<RegisterPageView> {
                                 controlAffinity:
                                     ListTileControlAffinity.leading,
                               ),
-
                               SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
@@ -265,13 +278,13 @@ class _RegisterPageView1State extends State<RegisterPageView> {
           email: _emailController.text,
           password: _passwordController.text,
           birthDate: selectedDate,
-          phoneNumber: '111111111',
-          zipCode: '00000-000',
-          address: 'Rua Exemplo',
-          addressNumber: '123',
-          city: 'São Paulo',
-          state: 'SP',
-          country: 'Brasil',
+          phoneNumber: _phoneController.text,
+          zipCode: _zipCodeController.text,
+          address: _addressController.text,
+          addressNumber: _addressNumberController.text,
+          city: _cityController.text,
+          state: _stateController.text,
+          country: _countryController.text,
           termsAccepted: _acceptTerms,
           receivePromotions: _receivePromotions,
         ),
