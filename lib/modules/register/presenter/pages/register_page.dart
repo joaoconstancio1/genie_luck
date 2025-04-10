@@ -16,10 +16,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => RegisterCubit(repository: GetIt.I()),
-          child: RegisterPageView(),
-        ),
+        BlocProvider(create: (context) => RegisterCubit(repository: GetIt.I())),
       ],
       child: const RegisterPageView(),
     );
@@ -30,17 +27,15 @@ class RegisterPageView extends StatefulWidget {
   const RegisterPageView({super.key});
 
   @override
-  State<RegisterPageView> createState() => _RegisterPageView1State();
+  State<RegisterPageView> createState() => _RegisterPageViewState();
 }
 
-class _RegisterPageView1State extends State<RegisterPageView> {
-  @override
-  void initState() {
-    super.initState();
-    _dataPicker = DataPicker(dateController: _dateController);
-  }
-
+class _RegisterPageViewState extends State<RegisterPageView> {
   final _formKey = GlobalKey<FormState>();
+  final PageController _pageController = PageController();
+  late DataPicker _dataPicker;
+
+  // Controllers
   final TextEditingController _nameController = TextEditingController(
     text: 'João Vitor',
   );
@@ -63,10 +58,15 @@ class _RegisterPageView1State extends State<RegisterPageView> {
   final TextEditingController _stateController = TextEditingController();
 
   final Validators _validators = Validators();
-  DataPicker _dataPicker = DataPicker();
   bool _acceptTerms = false;
   bool? _receivePromotions = false;
   DateTime? selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _dataPicker = DataPicker(dateController: _dateController);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,193 +76,19 @@ class _RegisterPageView1State extends State<RegisterPageView> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(centerTitle: true, title: Text(locale.registerTitle)),
-
           body: SafeArea(
-            child: BlocBuilder<RegisterCubit, RegisterState>(
-              builder: (context, state) {
-                if (state is RegisterLoadingState) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (state is RegisterErrorState) {
-                  return Center(
-                    child: Text(
-                      'Erro ao registrar: ${state.exception}',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  );
-                } else if (state is RegisterSuccessState) {
-                  return Center(child: Text('Registro realizado com sucesso!'));
-                }
-                return Center(
-                  child: SizedBox(
-                    width: 600,
-                    child: Form(
-                      key: _formKey,
-                      child: ListView(
-                        padding: const EdgeInsets.all(16.0),
-                        shrinkWrap: true,
-                        children: [
-                          Column(
-                            spacing: 16,
-                            children: [
-                              GlTextFormField(
-                                controller: _nameController,
-                                keyboardType: TextInputType.name,
-                                labelText: locale.labelCompleteName,
-                                hintText: locale.hintCompleteName,
-                                validator: _validators.nameValidator,
-                              ),
-                              GlTextFormField(
-                                controller: _emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                labelText: locale.labelEmail,
-                                hintText: locale.hintEmail,
-                                validator: _validators.validateEmail,
-                              ),
-                              GlTextFormField(
-                                controller: _passwordController,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                labelText: locale.labelPassword,
-                                hintText: locale.hintPassword,
-                                obscureText: true,
-                                validator: _validators.validatePassword,
-                              ),
-                              GlTextFormField(
-                                controller: _confirmPasswordController,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                labelText: locale.labelConfirmPassword,
-                                hintText: locale.hintConfirmPassword,
-                                obscureText: true,
-                                validator:
-                                    (value) =>
-                                        _validators.validateConfirmPassword(
-                                          value,
-                                          _passwordController.text,
-                                        ),
-                              ),
-                              GestureDetector(
-                                onTap:
-                                    () => _dataPicker
-                                        .displayDatePicker(context)
-                                        .then((value) {
-                                          selectedDate =
-                                              _dataPicker.selectedDate;
-                                        }),
-                                child: AbsorbPointer(
-                                  child: GlTextFormField(
-                                    controller: _dateController,
-                                    keyboardType: TextInputType.none,
-                                    readOnly: true,
-                                    labelText: locale.labelBirthDate,
-                                    hintText: locale.hintBirthDate,
-                                    suffixIcon: Icon(Icons.calendar_today),
-                                    validator: _validators.validateDate,
-                                  ),
-                                ),
-                              ),
-                              GlTextFormField(
-                                controller: _phoneController,
-                                keyboardType: TextInputType.phone,
-                                labelText: locale.labelPhoneNumber,
-                                hintText: locale.hintPhoneNumber,
-                              ),
-                              GlTextFormField(
-                                controller: _countryController,
-                                keyboardType: TextInputType.text,
-                                labelText: locale.labelCountry,
-                                hintText: locale.hintCountry,
-                              ),
-                              GlTextFormField(
-                                controller: _zipCodeController,
-                                keyboardType: TextInputType.text,
-                                labelText: locale.labelZipCode,
-                                hintText: locale.hintZipCode,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: GlTextFormField(
-                                      controller: _addressController,
-                                      keyboardType: TextInputType.text,
-                                      labelText: locale.labelAddress,
-                                      hintText: locale.hintAddress,
-                                    ),
-                                  ),
-                                  SizedBox(width: 16),
-                                  Expanded(
-                                    flex: 1,
-                                    child: GlTextFormField(
-                                      controller: _addressNumberController,
-                                      keyboardType: TextInputType.number,
-                                      labelText: locale.labelAddressNumber,
-                                      hintText: locale.hintAddressNumber,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: GlTextFormField(
-                                      controller: _cityController,
-                                      keyboardType: TextInputType.text,
-                                      labelText: locale.labelCity,
-                                      hintText: locale.hintCity,
-                                    ),
-                                  ),
-                                  SizedBox(width: 16),
-                                  Expanded(
-                                    flex: 1,
-                                    child: GlTextFormField(
-                                      controller: _stateController,
-                                      keyboardType: TextInputType.text,
-                                      labelText: locale.labelState,
-                                      hintText: locale.hintState,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              CheckboxListTile(
-                                title: Text(locale.labelAcceptTerms),
-                                value: _acceptTerms,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    _acceptTerms = value ?? false;
-                                  });
-                                },
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                              ),
-                              CheckboxListTile(
-                                title: Text(locale.labelReceivePromotions),
-                                value: _receivePromotions,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    _receivePromotions = value ?? false;
-                                  });
-                                },
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                              ),
-                              SizedBox(
-                                width: double.infinity,
-                                child: ElevatedButton(
-                                  onPressed:
-                                      () => _onRegisterButtonPressed(context),
-                                  child: Text(locale.buttonRegisterNow),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
+            child: Form(
+              key: _formKey,
+              child: PageView(
+                controller: _pageController,
+                physics:
+                    const NeverScrollableScrollPhysics(), // Impede swipe manual
+                children: [
+                  _buildPersonalInfoPage(context, locale),
+                  _buildContactAddressPage(context, locale),
+                  _buildTermsConfirmationPage(context, locale, state),
+                ],
+              ),
             ),
           ),
         );
@@ -270,8 +96,288 @@ class _RegisterPageView1State extends State<RegisterPageView> {
     );
   }
 
+  // Página 1: Informações Pessoais
+  Widget _buildPersonalInfoPage(BuildContext context, AppLocalizations locale) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
+        child: SizedBox(
+          width: 600,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              GlTextFormField(
+                controller: _nameController,
+                keyboardType: TextInputType.name,
+                labelText: locale.labelCompleteName,
+                hintText: locale.hintCompleteName,
+                validator: _validators.nameValidator,
+              ),
+              const SizedBox(height: 16),
+              GlTextFormField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                labelText: locale.labelEmail,
+                hintText: locale.hintEmail,
+                validator: _validators.validateEmail,
+              ),
+              const SizedBox(height: 16),
+              GlTextFormField(
+                controller: _passwordController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                labelText: locale.labelPassword,
+                hintText: locale.hintPassword,
+                obscureText: true,
+                validator: _validators.validatePassword,
+              ),
+              const SizedBox(height: 16),
+              GlTextFormField(
+                controller: _confirmPasswordController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                labelText: locale.labelConfirmPassword,
+                hintText: locale.hintConfirmPassword,
+                obscureText: true,
+                validator:
+                    (value) => _validators.validateConfirmPassword(
+                      value,
+                      _passwordController.text,
+                    ),
+              ),
+              const SizedBox(height: 16),
+              GestureDetector(
+                onTap:
+                    () => _dataPicker.displayDatePicker(context).then((value) {
+                      selectedDate = _dataPicker.selectedDate;
+                    }),
+                child: AbsorbPointer(
+                  child: GlTextFormField(
+                    controller: _dateController,
+                    keyboardType: TextInputType.none,
+                    readOnly: true,
+                    labelText: locale.labelBirthDate,
+                    hintText: locale.hintBirthDate,
+                    suffixIcon: const Icon(Icons.calendar_today),
+                    validator: _validators.validateDate,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              GlTextFormField(
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                labelText: locale.labelPhoneNumber,
+                hintText: locale.hintPhoneNumber,
+                validator: (value) => _validators.validatePhoneNumber(value),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeIn,
+                    );
+                  }
+                },
+                child: Text('Proximo'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Página 2: Contato e Endereço
+  Widget _buildContactAddressPage(
+    BuildContext context,
+    AppLocalizations locale,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
+        child: SizedBox(
+          width: 600,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              GlTextFormField(
+                controller: _countryController,
+                keyboardType: TextInputType.text,
+                labelText: locale.labelCountry,
+                hintText: locale.hintCountry,
+              ),
+              const SizedBox(height: 16),
+              GlTextFormField(
+                controller: _zipCodeController,
+                keyboardType: TextInputType.text,
+                labelText: locale.labelZipCode,
+                hintText: locale.hintZipCode,
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: GlTextFormField(
+                      controller: _addressController,
+                      keyboardType: TextInputType.text,
+                      labelText: locale.labelAddress,
+                      hintText: locale.hintAddress,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    flex: 1,
+                    child: GlTextFormField(
+                      controller: _addressNumberController,
+                      keyboardType: TextInputType.number,
+                      labelText: locale.labelAddressNumber,
+                      hintText: locale.hintAddressNumber,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: GlTextFormField(
+                      controller: _cityController,
+                      keyboardType: TextInputType.text,
+                      labelText: locale.labelCity,
+                      hintText: locale.hintCity,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    flex: 1,
+                    child: GlTextFormField(
+                      controller: _stateController,
+                      keyboardType: TextInputType.text,
+                      labelText: locale.labelState,
+                      hintText: locale.hintState,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      _pageController.previousPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeIn,
+                      );
+                    },
+                    child: Text('Voltar'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      _pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeIn,
+                      );
+                    },
+                    child: Text('Proximo'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Página 3: Termos e Confirmação
+  Widget _buildTermsConfirmationPage(
+    BuildContext context,
+    AppLocalizations locale,
+    RegisterState state,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
+        child: SizedBox(
+          width: 600,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              if (state is RegisterLoadingState)
+                const Center(child: CircularProgressIndicator())
+              else if (state is RegisterErrorState)
+                Center(
+                  child: Text(
+                    'Erro ao registrar: ${state.exception}',
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                )
+              else if (state is RegisterSuccessState)
+                const Center(child: Text('Registro realizado com sucesso!'))
+              else
+                Column(
+                  children: [
+                    CheckboxListTile(
+                      title: Text(locale.labelAcceptTerms),
+                      value: _acceptTerms,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _acceptTerms = value ?? false;
+                        });
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,
+                    ),
+                    CheckboxListTile(
+                      title: Text(locale.labelReceivePromotions),
+                      value: _receivePromotions,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _receivePromotions = value ?? false;
+                        });
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () => _onRegisterButtonPressed(context),
+                        child: Text(locale.buttonRegisterNow),
+                      ),
+                    ),
+                  ],
+                ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  _pageController.previousPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn,
+                  );
+                },
+                child: Text('Voltar'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   void _onRegisterButtonPressed(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
+      if (!_acceptTerms) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Você deve aceitar os termos para continuar.'),
+          ),
+        );
+        return;
+      }
       context.read<RegisterCubit>().registerUser(
         UserModel(
           fullName: _nameController.text,
