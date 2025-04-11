@@ -15,5 +15,17 @@
     "labelAcceptTerms": "Aceitar Termos e Condições",
     "labelReceivePromotions": "Receber Promoções",
     "buttonRegisterNow": "Registrar Agora",
-    "termsTitle": "Termos e Condições"
+    "termsTitle": "Termos e Condições",
+    "labelZipCode": "CEP",
+    "hintZipCode": "Digite seu CEP",
+    "labelAddress": "Endereço",
+    "hintAddress": "Digite seu endereço",
+    "labelAddressNumber": "Número",
+    "hintAddressNumber": "999",
+    "labelCity": "Cidade",
+    "hintCity": "Digite sua cidade",
+    "labelState": "Estado",
+    "hintState": "Digite seu estado",
+    "labelCountry": "País",
+    "hintCountry": "Digite seu país"
 }

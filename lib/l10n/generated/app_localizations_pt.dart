@@ -57,5 +57,41 @@ class AppLocalizationsPt extends AppLocalizations {
   String get buttonRegisterNow => 'Registrar Agora';
 
   @override
+  String get labelZipCode => 'CEP';
+
+  @override
+  String get hintZipCode => 'Digite seu CEP';
+
+  @override
+  String get labelAddress => 'Endereço';
+
+  @override
+  String get hintAddress => 'Digite seu endereço';
+
+  @override
+  String get labelAddressNumber => 'Número';
+
+  @override
+  String get hintAddressNumber => '999';
+
+  @override
+  String get labelCity => 'Cidade';
+
+  @override
+  String get hintCity => 'Digite sua cidade';
+
+  @override
+  String get labelState => 'Estado';
+
+  @override
+  String get hintState => 'Digite seu estado';
+
+  @override
+  String get labelCountry => 'País';
+
+  @override
+  String get hintCountry => 'Digite seu país';
+
+  @override
   String get termsTitle => 'Termos e Condições';
 }

@@ -15,5 +15,17 @@
     "labelAcceptTerms": "Aceptar Términos y Condiciones",
     "labelReceivePromotions": "Recibir Promociones",
     "buttonRegisterNow": "Registrar Ahora",
-    "termsTitle": "Términos y Condiciones"
+    "termsTitle": "Términos y Condiciones",
+    "labelZipCode": "Código Postal",
+    "hintZipCode": "Introduce tu código postal",
+    "labelAddress": "Dirección",
+    "hintAddress": "Introduce tu dirección",
+    "labelAddressNumber": "Número",
+    "hintAddressNumber": "999",
+    "labelCity": "Ciudad",
+    "hintCity": "Introduce tu ciudad",
+    "labelState": "Estado",
+    "hintState": "Introduce tu estado",
+    "labelCountry": "País",
+    "hintCountry": "Introduce tu país"
 }

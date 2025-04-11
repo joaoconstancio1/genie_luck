@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:genie_luck/modules/register/data/models/user_model.dart';
+import 'package:genie_luck/core/models/user_model.dart';
 import 'package:genie_luck/modules/register/data/repositories/register_repository.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/register_states.dart';
 

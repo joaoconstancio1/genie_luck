@@ -63,7 +63,8 @@ import 'app_localizations_pt.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -71,7 +72,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -83,18 +85,19 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('es'),
-    Locale('pt')
+    Locale('pt'),
   ];
 
   /// No description provided for @registerTitle.
@@ -193,6 +196,78 @@ abstract class AppLocalizations {
   /// **'Registrar Agora'**
   String get buttonRegisterNow;
 
+  /// No description provided for @labelZipCode.
+  ///
+  /// In pt, this message translates to:
+  /// **'CEP'**
+  String get labelZipCode;
+
+  /// No description provided for @hintZipCode.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu CEP'**
+  String get hintZipCode;
+
+  /// No description provided for @labelAddress.
+  ///
+  /// In pt, this message translates to:
+  /// **'Endereço'**
+  String get labelAddress;
+
+  /// No description provided for @hintAddress.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu endereço'**
+  String get hintAddress;
+
+  /// No description provided for @labelAddressNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'Número'**
+  String get labelAddressNumber;
+
+  /// No description provided for @hintAddressNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'999'**
+  String get hintAddressNumber;
+
+  /// No description provided for @labelCity.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cidade'**
+  String get labelCity;
+
+  /// No description provided for @hintCity.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite sua cidade'**
+  String get hintCity;
+
+  /// No description provided for @labelState.
+  ///
+  /// In pt, this message translates to:
+  /// **'Estado'**
+  String get labelState;
+
+  /// No description provided for @hintState.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu estado'**
+  String get hintState;
+
+  /// No description provided for @labelCountry.
+  ///
+  /// In pt, this message translates to:
+  /// **'País'**
+  String get labelCountry;
+
+  /// No description provided for @hintCountry.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu país'**
+  String get hintCountry;
+
   /// No description provided for @termsTitle.
   ///
   /// In pt, this message translates to:
@@ -200,7 +275,8 @@ abstract class AppLocalizations {
   String get termsTitle;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -209,26 +285,28 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'es', 'pt'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'es', 'pt'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return AppLocalizationsEn();
-    case 'es': return AppLocalizationsEs();
-    case 'pt': return AppLocalizationsPt();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'pt':
+      return AppLocalizationsPt();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }
