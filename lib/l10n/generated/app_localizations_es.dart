@@ -57,6 +57,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get buttonRegisterNow => 'Registrar Ahora';
 
   @override
+  String get termsTitle => 'Términos y Condiciones';
+
+  @override
   String get labelZipCode => 'Código Postal';
 
   @override
@@ -91,7 +94,4 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get hintCountry => 'Introduce tu país';
-
-  @override
-  String get termsTitle => 'Términos y Condiciones';
 }

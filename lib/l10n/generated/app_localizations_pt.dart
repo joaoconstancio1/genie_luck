@@ -57,6 +57,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get buttonRegisterNow => 'Registrar Agora';
 
   @override
+  String get termsTitle => 'Termos e Condições';
+
+  @override
   String get labelZipCode => 'CEP';
 
   @override
@@ -91,7 +94,4 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get hintCountry => 'Digite seu país';
-
-  @override
-  String get termsTitle => 'Termos e Condições';
 }

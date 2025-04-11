@@ -15,9 +15,7 @@
     "labelAcceptTerms": "Accept Terms and Conditions",
     "labelReceivePromotions": "Receive Promotions",
     "buttonRegisterNow": "Register Now",
-<<<<<<< HEAD
     "termsTitle": "Terms and Conditions",
-=======
     "labelZipCode": "ZIP Code",
     "hintZipCode": "Enter your ZIP code",
     "labelAddress": "Address",
@@ -30,5 +28,4 @@
     "hintState": "Enter your state",
     "labelCountry": "Country",
     "hintCountry": "Enter your country"
->>>>>>> origin/feature/improve_register_page
 }
