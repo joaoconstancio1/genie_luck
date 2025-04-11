@@ -1,145 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_google_maps_webservices/places.dart';
+import 'package:genie_luck/modules/register/data/datasources/address_search_datasource.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-
-class Prediction {
-  final String description;
-  final String placeId;
-
-  Prediction({required this.description, required this.placeId});
-
-  factory Prediction.fromJson(Map<String, dynamic> json) {
-    return Prediction(
-      description: json['description'] as String,
-      placeId: json['place_id'] as String,
-    );
-  }
-}
-
-class PlacesService {
-  final GoogleMapsPlaces _places;
-  final String _backendUrl =
-      'http://localhost:5050/places'; // URL do backend Flask
-
-  PlacesService(String apiKey) : _places = GoogleMapsPlaces(apiKey: apiKey);
-
-  Future<List<Prediction>> searchPlaces(
-    String input,
-    String sessionToken,
-  ) async {
-    if (kIsWeb) {
-      // Chamar o backend no Flutter Web
-      final url = Uri.parse(
-        '$_backendUrl/autocomplete?input=$input&sessiontoken=$sessionToken',
-      );
-      try {
-        final response = await http.get(url);
-        if (response.statusCode == 200) {
-          final data = jsonDecode(response.body) as Map<String, dynamic>;
-          final predictions =
-              (data['predictions'] as List<dynamic>)
-                  .map((p) => Prediction.fromJson(p))
-                  .toList();
-          return predictions;
-        } else {
-          print('Erro na resposta do backend: ${response.statusCode}');
-          return [];
-        }
-      } catch (e) {
-        print('Erro ao buscar lugares via backend: $e');
-        return [];
-      }
-    } else {
-      // Usar flutter_google_maps_webservices no Android/iOS
-      try {
-        final response = await _places.autocomplete(
-          input,
-          sessionToken: sessionToken,
-          language: 'pt-BR',
-          types: ['address'],
-        );
-
-        if (response.isOkay) {
-          return response.predictions
-              .map(
-                (p) => Prediction(
-                  description: p.description ?? '',
-                  placeId: p.placeId ?? '',
-                ),
-              )
-              .toList();
-        } else {
-          print('Erro na API: ${response.errorMessage}');
-          return [];
-        }
-      } catch (e) {
-        print('Erro ao buscar lugares: $e');
-        return [];
-      }
-    }
-  }
-
-  Future<Map<String, dynamic>?> getPlaceDetails(
-    String placeId,
-    String sessionToken,
-  ) async {
-    if (kIsWeb) {
-      // Chamar o backend no Flutter Web
-      final url = Uri.parse(
-        '$_backendUrl/place-details?place_id=$placeId&sessiontoken=$sessionToken',
-      );
-      try {
-        final response = await http.get(url);
-        if (response.statusCode == 200) {
-          final data = jsonDecode(response.body) as Map<String, dynamic>;
-          if (data.containsKey('error')) {
-            print('Erro ao buscar detalhes: ${data['error']}');
-            return null;
-          }
-          return data;
-        } else {
-          print('Erro na resposta do backend: ${response.statusCode}');
-          return null;
-        }
-      } catch (e) {
-        print('Erro ao buscar detalhes via backend: $e');
-        return null;
-      }
-    } else {
-      // Usar flutter_google_maps_webservices no Android/iOS
-      try {
-        final details = await _places.getDetailsByPlaceId(
-          placeId,
-          sessionToken: sessionToken,
-        );
-        if (details.isOkay) {
-          return {
-            'formatted_address': details.result.formattedAddress,
-            'address_components':
-                details.result.addressComponents
-                    .map(
-                      (c) => {
-                        'long_name': c.longName,
-                        'short_name': c.shortName,
-                        'types': c.types,
-                      },
-                    )
-                    .toList(),
-          };
-        } else {
-          print('Erro ao buscar detalhes: ${details.errorMessage}');
-          return null;
-        }
-      } catch (e) {
-        print('Erro ao buscar detalhes: $e');
-        return null;
-      }
-    }
-  }
-}
 
 class AddressPage extends StatefulWidget {
   @override
@@ -148,9 +13,6 @@ class AddressPage extends StatefulWidget {
 
 class _AddressPageState extends State<AddressPage> {
   final TextEditingController _controller = TextEditingController();
-  final PlacesService _placesService = PlacesService(
-    'SUA_CHAVE_API_AQUI',
-  ); // Substitua pela sua chave
   List<Prediction> _predictions = [];
   String _sessionToken = const Uuid().v4();
   Map<String, String> _addressData = {};
@@ -162,11 +24,15 @@ class _AddressPageState extends State<AddressPage> {
     }
 
     try {
-      final predictions = await _placesService.searchPlaces(
+      final predictions = await AddressSearchDatasource().searchPlaces(
         input,
         _sessionToken,
       );
-      setState(() => _predictions = predictions);
+      setState(
+        () =>
+            _predictions =
+                predictions.map((e) => Prediction.fromJson(e)).toList(),
+      );
     } catch (e) {
       print('Erro ao buscar lugares: $e');
       setState(() => _predictions = []);
@@ -175,8 +41,8 @@ class _AddressPageState extends State<AddressPage> {
 
   Future<void> _selectPlace(Prediction prediction) async {
     try {
-      final details = await _placesService.getPlaceDetails(
-        prediction.placeId,
+      final details = await AddressSearchDatasource().getPlaceDetails(
+        prediction.placeId ?? '',
         _sessionToken,
       );
       if (details == null) {
@@ -322,7 +188,9 @@ class _AddressPageState extends State<AddressPage> {
                   itemBuilder: (context, index) {
                     final prediction = _predictions[index];
                     return ListTile(
-                      title: Text(prediction.description),
+                      title: Text(
+                        prediction.description ?? 'Descrição indisponível',
+                      ),
                       onTap: () => _selectPlace(prediction),
                     );
                   },
