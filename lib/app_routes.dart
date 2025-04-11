@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:genie_luck/modules/genie_slider/presenter/pages/genie_slider.dart';
 import 'package:genie_luck/modules/login/presenter/pages/login_page.dart';
+import 'package:genie_luck/modules/register/presenter/pages/addres_search.dart';
 import 'package:genie_luck/modules/register/presenter/pages/register_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,7 +16,7 @@ class AppRoutes {
     return GoRouter(
       initialLocation: register,
       routes: [
-        GoRoute(path: register, builder: (context, state) => RegisterPage()),
+        GoRoute(path: register, builder: (context, state) => AddressPage()),
         GoRoute(path: login, builder: (context, state) => LoginPage()),
         GoRoute(path: genieSlider, builder: (context, state) => GenieSlider()),
         GoRoute(
