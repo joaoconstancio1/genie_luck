@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_google_maps_webservices/places.dart';
 import 'package:genie_luck/modules/register/data/datasources/address_search_datasource.dart';
+import 'package:genie_luck/modules/register/data/datasources/register_datasource.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -24,10 +26,9 @@ class _AddressPageState extends State<AddressPage> {
     }
 
     try {
-      final predictions = await AddressSearchDatasource().searchPlaces(
-        input,
-        _sessionToken,
-      );
+      final predictions = await RegisterDatasource(
+        GetIt.I(),
+      ).searchPlaces(input, _sessionToken);
       setState(
         () =>
             _predictions =
@@ -41,10 +42,9 @@ class _AddressPageState extends State<AddressPage> {
 
   Future<void> _selectPlace(Prediction prediction) async {
     try {
-      final details = await AddressSearchDatasource().getPlaceDetails(
-        prediction.placeId ?? '',
-        _sessionToken,
-      );
+      final details = await RegisterDatasource(
+        GetIt.I(),
+      ).getPlaceDetails(prediction.placeId ?? '', _sessionToken);
       if (details == null) {
         print('Nenhum detalhe retornado para o lugar selecionado');
         return;

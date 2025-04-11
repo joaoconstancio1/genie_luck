@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_google_maps_webservices/places.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
@@ -8,6 +9,7 @@ import 'package:genie_luck/core/models/user_model.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/register_cubit.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/register_states.dart';
 import 'package:get_it/get_it.dart';
+import 'package:uuid/uuid.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -53,6 +55,11 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   final TextEditingController _phoneController = TextEditingController(
     text: '+5511999999999',
   );
+  final TextEditingController _googlePlacesSearchController =
+      TextEditingController();
+  List<Prediction> _predictions = [];
+  String _sessionToken = const Uuid().v4();
+  Map<String, String> _addressData = {};
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -205,6 +212,26 @@ class _RegisterPageViewState extends State<RegisterPageView> {
           child: ListView(
             shrinkWrap: true,
             children: [
+              TextField(
+                controller: _googlePlacesSearchController,
+                decoration: InputDecoration(
+                  hintText: 'Digite o endereço',
+                  prefixIcon: Icon(Icons.location_on, color: Colors.blue),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsets.symmetric(vertical: 0),
+                ),
+                onChanged: (value) {
+                  context.read<RegisterCubit>().searchPlaces(
+                    value,
+                    _sessionToken,
+                  );
+                },
+              ),
+
               GlTextFormField(
                 controller: _countryController,
                 keyboardType: TextInputType.text,

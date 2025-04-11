@@ -16,7 +16,7 @@ class AppRoutes {
     return GoRouter(
       initialLocation: register,
       routes: [
-        GoRoute(path: register, builder: (context, state) => AddressPage()),
+        GoRoute(path: register, builder: (context, state) => RegisterPage()),
         GoRoute(path: login, builder: (context, state) => LoginPage()),
         GoRoute(path: genieSlider, builder: (context, state) => GenieSlider()),
         GoRoute(

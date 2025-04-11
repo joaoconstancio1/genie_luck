@@ -16,4 +16,28 @@ class RegisterRepository {
       return Failure(Exception('Erro ao registrar usuário: $e'));
     }
   }
+
+  Future<Result<List<Map<String, dynamic>>>> searchPlaces(
+    String input,
+    String sessionToken,
+  ) async {
+    try {
+      final result = await datasource.searchPlaces(input, sessionToken);
+      return Success(result);
+    } catch (e) {
+      return Failure(Exception('Erro ao buscar lugares: $e'));
+    }
+  }
+
+  Future<Result<Map<String, dynamic>>> getPlaceDetails(
+    String placeId,
+    String sessionToken,
+  ) async {
+    try {
+      final result = await datasource.getPlaceDetails(placeId, sessionToken);
+      return Success(result!);
+    } catch (e) {
+      return Failure(Exception('Erro ao buscar detalhes do lugar: $e'));
+    }
+  }
 }

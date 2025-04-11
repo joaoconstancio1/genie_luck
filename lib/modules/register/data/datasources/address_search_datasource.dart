@@ -1,16 +1,14 @@
 import 'dart:convert';
+import 'package:genie_luck/flavors.dart';
 import 'package:http/http.dart' as http;
 
 class AddressSearchDatasource {
-  final String _backendUrl =
-      'http://localhost:5050/places'; // URL do backend Flask
-
   Future<List<Map<String, dynamic>>> searchPlaces(
     String input,
     String sessionToken,
   ) async {
     final url = Uri.parse(
-      '$_backendUrl/autocomplete?input=$input&sessiontoken=$sessionToken',
+      '${F.baseUrl}/places/autocomplete?input=$input&sessiontoken=$sessionToken',
     );
     try {
       final response = await http.get(url);
@@ -31,7 +29,7 @@ class AddressSearchDatasource {
     String sessionToken,
   ) async {
     final url = Uri.parse(
-      '$_backendUrl/place-details?place_id=$placeId&sessiontoken=$sessionToken',
+      '${F.baseUrl}/places/place-details?place_id=$placeId&sessiontoken=$sessionToken',
     );
     try {
       final response = await http.get(url);
