@@ -1,18 +1,19 @@
 import 'dart:convert';
+
 import 'package:genie_luck/core/http_client/custom_http_client.dart';
 import 'package:genie_luck/core/http_client/http_client_exception.dart';
-import 'package:genie_luck/flavors.dart';
 import 'package:genie_luck/core/models/user_model.dart';
+import 'package:genie_luck/flavors.dart';
 
-class RegisterDatasource {
+class LoginDatasource {
   final CustomHttpClient client;
 
-  RegisterDatasource(this.client);
+  LoginDatasource(this.client);
 
-  Future<UserModel> registerUser(UserModel? userModel) async {
-    final url = '${F.baseUrl}/users/register';
+  Future<UserModel> login(String email, String password) async {
+    final url = '${F.baseUrl}/users/login';
     final headers = {'Content-Type': 'application/json'};
-    final body = jsonEncode(userModel?.toJson());
+    final body = jsonEncode({'email': email, 'password': password});
 
     try {
       final response = await client.post(url, headers: headers, data: body);
