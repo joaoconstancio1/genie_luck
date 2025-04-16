@@ -91,4 +91,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get hintCountry => 'Introduce tu país';
+
+  @override
+  String get back => 'Regresar';
+
+  @override
+  String get next => 'Siguiente';
 }

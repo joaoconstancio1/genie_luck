@@ -91,4 +91,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get hintCountry => 'Digite seu país';
+
+  @override
+  String get back => 'Voltar';
+
+  @override
+  String get next => 'Próximo';
 }

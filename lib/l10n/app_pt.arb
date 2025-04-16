@@ -26,5 +26,7 @@
     "labelState": "Estado",
     "hintState": "Digite seu estado",
     "labelCountry": "País",
-    "hintCountry": "Digite seu país"
+    "hintCountry": "Digite seu país",
+    "back": "Voltar",
+    "next": "Próximo"
 }

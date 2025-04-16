@@ -26,5 +26,7 @@
     "labelState": "State",
     "hintState": "Enter your state",
     "labelCountry": "Country",
-    "hintCountry": "Enter your country"
+    "hintCountry": "Enter your country",
+    "back": "Back",
+    "next": "Next"
 }

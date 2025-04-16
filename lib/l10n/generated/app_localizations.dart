@@ -264,6 +264,18 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Digite seu país'**
   String get hintCountry;
+
+  /// No description provided for @back.
+  ///
+  /// In pt, this message translates to:
+  /// **'Voltar'**
+  String get back;
+
+  /// No description provided for @next.
+  ///
+  /// In pt, this message translates to:
+  /// **'Próximo'**
+  String get next;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
