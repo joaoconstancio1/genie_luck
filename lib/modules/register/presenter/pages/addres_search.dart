@@ -1,10 +1,6 @@
-import 'dart:convert';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_google_maps_webservices/places.dart';
-import 'package:genie_luck/modules/register/data/datasources/address_search_datasource.dart';
 import 'package:genie_luck/modules/register/data/datasources/register_datasource.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 

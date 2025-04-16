@@ -57,9 +57,9 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   );
   final TextEditingController _googlePlacesSearchController =
       TextEditingController();
-  List<Prediction> _predictions = [];
-  String _sessionToken = const Uuid().v4();
-  Map<String, String> _addressData = {};
+  final List<Prediction> _predictions = [];
+  final String _sessionToken = const Uuid().v4();
+  final Map<String, String> _addressData = {};
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
