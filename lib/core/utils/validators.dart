@@ -1,3 +1,5 @@
+//TODO usar locale para traduzir
+
 class Validators {
   String? nameValidator(String? value) {
     String errorMessage = "Informe seu nome completo";

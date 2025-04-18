@@ -1,4 +1,3 @@
-// app_routes.dart
 import 'package:flutter/material.dart';
 import 'package:genie_luck/modules/genie_slider/presenter/pages/genie_slider.dart';
 import 'package:genie_luck/modules/login/presenter/pages/login_page.dart';
@@ -13,7 +12,7 @@ class AppRoutes {
 
   static GoRouter get router {
     return GoRouter(
-      initialLocation: login,
+      initialLocation: register,
       routes: [
         GoRoute(path: register, builder: (context, state) => RegisterPage()),
         GoRoute(path: login, builder: (context, state) => LoginPage()),
