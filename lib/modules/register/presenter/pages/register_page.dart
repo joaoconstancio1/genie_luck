@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_google_maps_webservices/places.dart';
@@ -57,9 +58,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   );
   final TextEditingController _googlePlacesSearchController =
       TextEditingController();
-  final List<Prediction> _predictions = [];
-  final String _sessionToken = const Uuid().v4();
-  final Map<String, String> _addressData = {};
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -72,6 +70,8 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   bool _acceptTerms = false;
   bool? _receivePromotions = false;
   DateTime? selectedDate;
+  String _sessionToken = const Uuid().v4();
+  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -79,31 +79,56 @@ class _RegisterPageViewState extends State<RegisterPageView> {
     _dataPicker = DataPicker(dateController: _dateController);
   }
 
+  // Debounced search function
+  void _onSearchChanged(String value) {
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 300), () {
+      context.read<RegisterCubit>().searchPlaces(value, _sessionToken);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final AppLocalizations locale = AppLocalizations.of(context)!;
 
-    return BlocBuilder<RegisterCubit, RegisterState>(
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(centerTitle: true, title: Text(locale.registerTitle)),
-          body: SafeArea(
-            child: Form(
-              key: _formKey,
-              child: PageView(
-                controller: _pageController,
-                physics:
-                    const NeverScrollableScrollPhysics(), // Impede swipe manual
-                children: [
-                  _buildPersonalInfoPage(context, locale),
-                  _buildContactAddressPage(context, locale),
-                  _buildTermsConfirmationPage(context, locale, state),
-                ],
+    return BlocListener<RegisterCubit, RegisterState>(
+      listener: (context, state) {
+        if (state is PlaceDetailsSuccessState) {
+          setState(() {
+            _googlePlacesSearchController.text = state.formattedAddress;
+            _countryController.text = state.addressData['country'] ?? '';
+            _zipCodeController.text = state.addressData['postalCode'] ?? '';
+            _addressController.text = state.addressData['street'] ?? '';
+            _cityController.text = state.addressData['city'] ?? '';
+            _stateController.text = state.addressData['state'] ?? '';
+            _sessionToken = const Uuid().v4();
+          });
+        }
+      },
+      child: BlocBuilder<RegisterCubit, RegisterState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(locale.registerTitle),
+            ),
+            body: SafeArea(
+              child: Form(
+                key: _formKey,
+                child: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    _buildPersonalInfoPage(context, locale),
+                    _buildContactAddressPage(context, locale, state),
+                    _buildTermsConfirmationPage(context, locale, state),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -190,7 +215,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     );
                   }
                 },
-                child: Text('Proximo'),
+                child: Text(locale.next),
               ),
             ],
           ),
@@ -203,7 +228,13 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   Widget _buildContactAddressPage(
     BuildContext context,
     AppLocalizations locale,
+    RegisterState state,
   ) {
+    List<Prediction> predictions = [];
+    if (state is SearchPlacesSuccessState) {
+      predictions = state.predictions;
+    }
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Center(
@@ -215,23 +246,59 @@ class _RegisterPageViewState extends State<RegisterPageView> {
               TextField(
                 controller: _googlePlacesSearchController,
                 decoration: InputDecoration(
-                  hintText: 'Digite o endereço',
-                  prefixIcon: Icon(Icons.location_on, color: Colors.blue),
+                  hintText: 'aaa',
+                  prefixIcon: const Icon(Icons.location_on, color: Colors.blue),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                   filled: true,
                   fillColor: Colors.white,
-                  contentPadding: EdgeInsets.symmetric(vertical: 0),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 ),
-                onChanged: (value) {
-                  context.read<RegisterCubit>().searchPlaces(
-                    value,
-                    _sessionToken,
-                  );
-                },
+                onChanged: _onSearchChanged,
               ),
-
+              if (state is SearchPlacesErrorState)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    state.error,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+              if (predictions.isNotEmpty)
+                Container(
+                  constraints: const BoxConstraints(maxHeight: 200),
+                  margin: const EdgeInsets.only(top: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: predictions.length,
+                    itemBuilder: (context, index) {
+                      final prediction = predictions[index];
+                      return ListTile(
+                        title: Text(
+                          prediction.description ?? 'Descrição indisponível',
+                        ),
+                        onTap:
+                            () => context.read<RegisterCubit>().getPlaceDetails(
+                              prediction.placeId ?? '',
+                              _sessionToken,
+                            ),
+                      );
+                    },
+                  ),
+                ),
+              const SizedBox(height: 16),
               GlTextFormField(
                 controller: _countryController,
                 keyboardType: TextInputType.text,
@@ -293,6 +360,27 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                   ),
                 ],
               ),
+              if (state is PlaceDetailsLoadingState)
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              else if (state is PlaceDetailsErrorState)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    state.error,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                )
+              else if (state is PlaceDetailsSuccessState)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'addreselected',
+                    style: const TextStyle(color: Colors.green),
+                  ),
+                ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -304,7 +392,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         curve: Curves.easeIn,
                       );
                     },
-                    child: Text('Voltar'),
+                    child: Text(locale.back),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -313,7 +401,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         curve: Curves.easeIn,
                       );
                     },
-                    child: Text('Proximo'),
+                    child: Text(locale.next),
                   ),
                 ],
               ),
@@ -390,7 +478,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     curve: Curves.easeIn,
                   );
                 },
-                child: Text('Voltar'),
+                child: Text(locale.back),
               ),
             ],
           ),
@@ -427,5 +515,25 @@ class _RegisterPageViewState extends State<RegisterPageView> {
         ),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _dateController.dispose();
+    _phoneController.dispose();
+    _googlePlacesSearchController.dispose();
+    _countryController.dispose();
+    _zipCodeController.dispose();
+    _addressController.dispose();
+    _addressNumberController.dispose();
+    _cityController.dispose();
+    _stateController.dispose();
+    _pageController.dispose();
+    super.dispose();
   }
 }
