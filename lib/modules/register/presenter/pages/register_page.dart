@@ -1,16 +1,12 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_google_maps_webservices/places.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
 import 'package:genie_luck/core/models/user_model.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/register_cubit.dart';
-import 'package:genie_luck/modules/register/presenter/cubit/register_states.dart';
 import 'package:get_it/get_it.dart';
-import 'package:uuid/uuid.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -70,8 +66,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   bool _acceptTerms = false;
   bool? _receivePromotions = false;
   DateTime? selectedDate;
-  String _sessionToken = const Uuid().v4();
-  Timer? _debounceTimer;
 
   @override
   void initState() {
@@ -79,55 +73,25 @@ class _RegisterPageViewState extends State<RegisterPageView> {
     _dataPicker = DataPicker(dateController: _dateController);
   }
 
-  // Debounced search function
-  void _onSearchChanged(String value) {
-    _debounceTimer?.cancel();
-    _debounceTimer = Timer(const Duration(milliseconds: 300), () {
-      context.read<RegisterCubit>().searchPlaces(value, _sessionToken);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final AppLocalizations locale = AppLocalizations.of(context)!;
 
-    return BlocListener<RegisterCubit, RegisterState>(
-      listener: (context, state) {
-        if (state is PlaceDetailsSuccessState) {
-          setState(() {
-            _googlePlacesSearchController.text = state.formattedAddress;
-            _countryController.text = state.addressData['country'] ?? '';
-            _zipCodeController.text = state.addressData['postalCode'] ?? '';
-            _addressController.text = state.addressData['street'] ?? '';
-            _cityController.text = state.addressData['city'] ?? '';
-            _stateController.text = state.addressData['state'] ?? '';
-            _sessionToken = const Uuid().v4();
-          });
-        }
-      },
-      child: BlocBuilder<RegisterCubit, RegisterState>(
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: Text(locale.registerTitle),
-            ),
-            body: SafeArea(
-              child: Form(
-                key: _formKey,
-                child: PageView(
-                  controller: _pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    _buildPersonalInfoPage(context, locale),
-                    _buildContactAddressPage(context, locale, state),
-                    _buildTermsConfirmationPage(context, locale, state),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
+    return Scaffold(
+      appBar: AppBar(centerTitle: true, title: Text(locale.registerTitle)),
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              _buildPersonalInfoPage(context, locale),
+              _buildContactAddressPage(context, locale),
+              _buildTermsConfirmationPage(context, locale),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -215,7 +179,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     );
                   }
                 },
-                child: Text(locale.next),
+                child: const Text('Próximo'),
               ),
             ],
           ),
@@ -228,13 +192,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   Widget _buildContactAddressPage(
     BuildContext context,
     AppLocalizations locale,
-    RegisterState state,
   ) {
-    List<Prediction> predictions = [];
-    if (state is SearchPlacesSuccessState) {
-      predictions = state.predictions;
-    }
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Center(
@@ -243,61 +201,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              TextField(
-                controller: _googlePlacesSearchController,
-                decoration: InputDecoration(
-                  hintText: 'aaa',
-                  prefixIcon: const Icon(Icons.location_on, color: Colors.blue),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                ),
-                onChanged: _onSearchChanged,
-              ),
-              if (state is SearchPlacesErrorState)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    state.error,
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                ),
-              if (predictions.isNotEmpty)
-                Container(
-                  constraints: const BoxConstraints(maxHeight: 200),
-                  margin: const EdgeInsets.only(top: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: predictions.length,
-                    itemBuilder: (context, index) {
-                      final prediction = predictions[index];
-                      return ListTile(
-                        title: Text(
-                          prediction.description ?? 'Descrição indisponível',
-                        ),
-                        onTap:
-                            () => context.read<RegisterCubit>().getPlaceDetails(
-                              prediction.placeId ?? '',
-                              _sessionToken,
-                            ),
-                      );
-                    },
-                  ),
-                ),
               const SizedBox(height: 16),
               GlTextFormField(
                 controller: _countryController,
@@ -360,27 +263,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                   ),
                 ],
               ),
-              if (state is PlaceDetailsLoadingState)
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Center(child: CircularProgressIndicator()),
-                )
-              else if (state is PlaceDetailsErrorState)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    state.error,
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                )
-              else if (state is PlaceDetailsSuccessState)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'addreselected',
-                    style: const TextStyle(color: Colors.green),
-                  ),
-                ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -392,7 +274,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         curve: Curves.easeIn,
                       );
                     },
-                    child: Text(locale.back),
+                    child: const Text('Voltar'),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -401,7 +283,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                         curve: Curves.easeIn,
                       );
                     },
-                    child: Text(locale.next),
+                    child: const Text('Próximo'),
                   ),
                 ],
               ),
@@ -416,7 +298,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   Widget _buildTermsConfirmationPage(
     BuildContext context,
     AppLocalizations locale,
-    RegisterState state,
   ) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -426,50 +307,38 @@ class _RegisterPageViewState extends State<RegisterPageView> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              if (state is RegisterLoadingState)
-                const Center(child: CircularProgressIndicator())
-              else if (state is RegisterErrorState)
-                Center(
-                  child: Text(
-                    'Erro ao registrar: ${state.exception}',
-                    style: const TextStyle(color: Colors.red),
+              Column(
+                children: [
+                  CheckboxListTile(
+                    title: Text(locale.labelAcceptTerms),
+                    value: _acceptTerms,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _acceptTerms = value ?? false;
+                      });
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,
                   ),
-                )
-              else if (state is RegisterSuccessState)
-                const Center(child: Text('Registro realizado com sucesso!'))
-              else
-                Column(
-                  children: [
-                    CheckboxListTile(
-                      title: Text(locale.labelAcceptTerms),
-                      value: _acceptTerms,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _acceptTerms = value ?? false;
-                        });
-                      },
-                      controlAffinity: ListTileControlAffinity.leading,
+                  CheckboxListTile(
+                    title: Text(locale.labelReceivePromotions),
+                    value: _receivePromotions,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _receivePromotions = value ?? false;
+                      });
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => _onRegisterButtonPressed(context),
+                      child: Text(locale.buttonRegisterNow),
                     ),
-                    CheckboxListTile(
-                      title: Text(locale.labelReceivePromotions),
-                      value: _receivePromotions,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _receivePromotions = value ?? false;
-                        });
-                      },
-                      controlAffinity: ListTileControlAffinity.leading,
-                    ),
-                    const SizedBox(height: 16),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () => _onRegisterButtonPressed(context),
-                        child: Text(locale.buttonRegisterNow),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
@@ -478,7 +347,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                     curve: Curves.easeIn,
                   );
                 },
-                child: Text(locale.back),
+                child: const Text('Voltar'),
               ),
             ],
           ),
@@ -491,7 +360,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
     if (_formKey.currentState?.validate() ?? false) {
       if (!_acceptTerms) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Você deve aceitar os termos para continuar.'),
           ),
         );
@@ -519,7 +388,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
 
   @override
   void dispose() {
-    _debounceTimer?.cancel();
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
