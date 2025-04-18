@@ -23,7 +23,6 @@
 .classpath
 .project
 .settings/
-.vscode/*
 .ccls-cache
 
 # This file, on the master branch, should never exist or be checked-in.
@@ -150,7 +149,7 @@ app.*.symbols
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
-!.vscode/settings.json
+!.vscode/
 
 # Monorepo
 .cipd
@@ -166,3 +165,4 @@ devtools_options.yaml
 .fvm/fvm_config.json
 .fvm/release
 .tmp
+*_tmp.*

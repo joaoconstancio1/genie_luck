@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:genie_luck/modules/register/data/models/user_model.dart';
+import 'package:genie_luck/core/models/user_model.dart';
 
 sealed class RegisterState extends Equatable {
   const RegisterState();
