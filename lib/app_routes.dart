@@ -8,21 +8,25 @@ class AppRoutes {
   static const String register = '/register';
   static const String login = '/login';
   static const String genieSlider = '/genie-slider';
-  static const String notFound = '/404';
 
   static GoRouter get router {
     return GoRouter(
       initialLocation: register,
       routes: [
-        GoRoute(path: register, builder: (context, state) => RegisterPage()),
-        GoRoute(path: login, builder: (context, state) => LoginPage()),
-        GoRoute(path: genieSlider, builder: (context, state) => GenieSlider()),
         GoRoute(
-          path: notFound,
-          builder:
-              (context, state) => Scaffold(
-                body: Center(child: Text('Rota inválida: ${state.uri}')),
-              ),
+          path: register,
+          name: 'register',
+          builder: (context, state) => RegisterPage(),
+        ),
+        GoRoute(
+          path: login,
+          name: 'login',
+          builder: (context, state) => LoginPage(),
+        ),
+        GoRoute(
+          path: genieSlider,
+          name: 'genieSlider',
+          builder: (context, state) => GenieSlider(),
         ),
       ],
       errorBuilder: (context, state) {
