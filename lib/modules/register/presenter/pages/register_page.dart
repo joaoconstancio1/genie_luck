@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl_phone_field/intl_phone_field.dart'; // Import intl_phone_field
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
@@ -50,7 +51,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
     text: '01/01/2000',
   );
   final TextEditingController _phoneController = TextEditingController(
-    text: '+5511999999999',
+    text: '999999999',
   );
   final TextEditingController _googlePlacesSearchController =
       TextEditingController();
@@ -66,6 +67,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   bool _acceptTerms = false;
   bool? _receivePromotions = false;
   DateTime? selectedDate;
+  String _selectedCountryCode = '+55'; // Default country code
 
   @override
   void initState() {
@@ -162,12 +164,24 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 ),
               ),
               const SizedBox(height: 16),
-              GlTextFormField(
+              IntlPhoneField(
                 controller: _phoneController,
-                keyboardType: TextInputType.phone,
-                labelText: locale.labelPhoneNumber,
-                hintText: locale.hintPhoneNumber,
-                validator: (value) => _validators.validatePhoneNumber(value),
+                decoration: InputDecoration(
+                  labelText: locale.labelPhoneNumber,
+                  hintText: locale.hintPhoneNumber,
+                  border: const OutlineInputBorder(),
+                ),
+                initialCountryCode: 'BR',
+                onChanged: (phone) {
+                  setState(() {
+                    _selectedCountryCode = phone.countryCode;
+                  });
+                },
+                validator:
+                    (phone) => _validators.validatePhoneNumber(phone?.number),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                showCountryFlag: true,
+                dropdownIcon: const Icon(Icons.arrow_drop_down),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
@@ -366,13 +380,16 @@ class _RegisterPageViewState extends State<RegisterPageView> {
         );
         return;
       }
+      // Combine country code with phone number
+      final String fullPhoneNumber =
+          '$_selectedCountryCode${_phoneController.text}';
       context.read<RegisterCubit>().registerUser(
         UserModel(
           fullName: _nameController.text,
           email: _emailController.text,
           password: _passwordController.text,
           birthDate: selectedDate,
-          phoneNumber: _phoneController.text,
+          phoneNumber: fullPhoneNumber,
           zipCode: _zipCodeController.text,
           address: _addressController.text,
           addressNumber: _addressNumberController.text,
