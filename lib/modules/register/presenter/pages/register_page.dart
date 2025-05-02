@@ -169,7 +169,11 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 decoration: InputDecoration(
                   labelText: locale.labelPhoneNumber,
                   hintText: locale.hintPhoneNumber,
-                  border: const OutlineInputBorder(),
+                  hintStyle: TextStyle(color: Colors.grey),
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 ),
                 initialCountryCode: 'BR',
                 onChanged: (phone) {
