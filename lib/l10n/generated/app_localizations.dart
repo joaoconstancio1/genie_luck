@@ -276,6 +276,12 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Próximo'**
   String get next;
+
+  /// No description provided for @searchCountry.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pesquisar país'**
+  String get searchCountry;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

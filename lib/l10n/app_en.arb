@@ -28,5 +28,6 @@
     "labelCountry": "Country",
     "hintCountry": "Enter your country",
     "back": "Back",
-    "next": "Next"
+    "next": "Next",
+    "searchCountry": "Search country"
 }

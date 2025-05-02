@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart'; // Import intl_phone_field
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/data_picker.dart';
@@ -165,6 +166,11 @@ class _RegisterPageViewState extends State<RegisterPageView> {
               ),
               const SizedBox(height: 16),
               IntlPhoneField(
+                pickerDialogStyle: PickerDialogStyle(
+                  searchFieldInputDecoration: InputDecoration(
+                    labelText: locale.searchCountry,
+                  ),
+                ),
                 controller: _phoneController,
                 decoration: InputDecoration(
                   labelText: locale.labelPhoneNumber,

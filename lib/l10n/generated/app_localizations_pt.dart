@@ -97,4 +97,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get next => 'Próximo';
+
+  @override
+  String get searchCountry => 'Pesquisar país';
 }

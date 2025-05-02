@@ -97,4 +97,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get next => 'Next';
+
+  @override
+  String get searchCountry => 'Search country';
 }
