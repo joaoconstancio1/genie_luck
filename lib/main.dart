@@ -14,7 +14,7 @@ FutureOr<void> main() async {
     MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: AppRoutes.router,
-      // locale: Locale('pt'), // Default locale
+      //locale: Locale('pt'), // Default locale
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
     ),
