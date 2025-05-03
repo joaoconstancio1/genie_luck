@@ -29,5 +29,6 @@
     "hintCountry": "Enter your country",
     "back": "Back",
     "next": "Next",
-    "searchCountry": "Search country"
+    "searchCountry": "Search country",
+    "errorCountryRequired": "The country field is required"
 }

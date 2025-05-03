@@ -32,8 +32,8 @@ class GlTextFormField extends StatelessWidget {
   final bool readOnly;
   final String? labelText;
   final String? hintText;
-  final Icon? prefixIcon;
-  final Icon? suffixIcon;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {

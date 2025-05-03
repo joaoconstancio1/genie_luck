@@ -29,5 +29,6 @@
     "hintCountry": "Digite seu país",
     "back": "Voltar",
     "next": "Próximo",
-    "searchCountry": "Pesquisar país"
+    "searchCountry": "Pesquisar país",
+    "errorCountryRequired": "O campo país é obrigatório"
 }

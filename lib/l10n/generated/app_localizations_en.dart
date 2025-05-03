@@ -100,4 +100,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchCountry => 'Search country';
+
+  @override
+  String get errorCountryRequired => 'The country field is required';
 }

@@ -282,6 +282,12 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Pesquisar país'**
   String get searchCountry;
+
+  /// No description provided for @errorCountryRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo país é obrigatório'**
+  String get errorCountryRequired;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

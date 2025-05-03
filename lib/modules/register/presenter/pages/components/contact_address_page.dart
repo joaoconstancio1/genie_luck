@@ -147,14 +147,29 @@ class _ContactAddressPageState extends State<ContactAddressPage> {
                     keyboardType: TextInputType.none,
                     readOnly: true,
                     labelText: widget.locale.labelCountry,
-                    hintText:
-                        widget.selectedCountry?.name ??
-                        widget.locale.hintCountry,
+                    hintText: widget.locale.hintCountry,
+                    prefixIcon:
+                        widget.selectedCountry != null
+                            ? Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12.0,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    widget.selectedCountry!.flag,
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                            )
+                            : null,
                     suffixIcon: const Icon(Icons.arrow_drop_down),
                     validator:
                         (value) =>
                             value == null || value.isEmpty
-                                ? 'widget.locale.errorCountryRequired'
+                                ? widget.locale.errorCountryRequired
                                 : null,
                   ),
                 ),

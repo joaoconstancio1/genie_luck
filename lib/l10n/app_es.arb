@@ -29,5 +29,6 @@
     "hintCountry": "Introduce tu país",
     "back": "Regresar",
     "next": "Siguiente",
-    "searchCountry": "Buscar país"
+    "searchCountry": "Buscar país",
+    "errorCountryRequired": "El campo de país es obligatorio"
 }
