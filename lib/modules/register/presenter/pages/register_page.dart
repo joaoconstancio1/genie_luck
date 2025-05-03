@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:genie_luck/modules/register/presenter/cubit/cep_cubit.dart';
 import 'package:genie_luck/modules/register/presenter/pages/components/contact_address_page.dart';
 import 'package:genie_luck/modules/register/presenter/pages/components/personal_info_page.dart';
 import 'package:genie_luck/modules/register/presenter/pages/components/terms_conditions_page.dart';
@@ -20,6 +21,7 @@ class RegisterPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => RegisterCubit(repository: GetIt.I())),
+        BlocProvider(create: (context) => CepCubit(repository: GetIt.I())),
       ],
       child: const RegisterPageView(),
     );
