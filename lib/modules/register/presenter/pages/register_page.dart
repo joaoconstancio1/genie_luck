@@ -189,9 +189,11 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 },
                 validator:
                     (phone) => _validators.validatePhoneNumber(phone?.number),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+                invalidNumberMessage: null,
                 showCountryFlag: true,
                 dropdownIcon: const Icon(Icons.arrow_drop_down),
+                disableLengthCheck: true,
+                autovalidateMode: AutovalidateMode.onUnfocus,
               ),
               const SizedBox(height: 16),
               ElevatedButton(
