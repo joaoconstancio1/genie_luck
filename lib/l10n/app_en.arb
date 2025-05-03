@@ -30,5 +30,6 @@
     "back": "Back",
     "next": "Next",
     "searchCountry": "Search country",
-    "errorCountryRequired": "The country field is required"
+    "errorCountryRequired": "The country field is required",
+    "errorInvalidZipCode": "The ZIP code must have 8 digits"
 }

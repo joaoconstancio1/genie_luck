@@ -27,22 +27,15 @@ class RegisterDatasource {
     }
   }
 
-  Future<List<Map<String, dynamic>>> searchPlaces(
-    String input,
-    String sessionToken,
-  ) async {
-    final url =
-        '${F.baseUrl}/places/autocomplete?input=$input&sessiontoken=$sessionToken';
+  Future<List<Map<String, dynamic>>> getCep(String cep) async {
+    final url = 'https://viacep.com.br/ws/$cep/json/';
     final headers = {'Content-Type': 'application/json'};
 
     try {
       final response = await client.get(url, headers: headers);
-      final data =
-          response is String
-              ? jsonDecode(response) as Map<String, dynamic>
-              : response as Map<String, dynamic>;
-      return (data['predictions'] as List<dynamic>)
-          .cast<Map<String, dynamic>>();
+
+      final data = jsonDecode(response.body);
+      return data;
     } catch (e) {
       if (e is HttpClientException) {
         throw Exception('Erro na requisição: ${e.message}');

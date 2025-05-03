@@ -103,4 +103,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorCountryRequired => 'El campo de país es obligatorio';
+
+  @override
+  String get errorInvalidZipCode => 'El código postal debe tener 8 dígitos';
 }

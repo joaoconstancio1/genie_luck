@@ -103,4 +103,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorCountryRequired => 'The country field is required';
+
+  @override
+  String get errorInvalidZipCode => 'The ZIP code must have 8 digits';
 }

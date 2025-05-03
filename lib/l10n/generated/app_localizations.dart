@@ -288,6 +288,12 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'O campo país é obrigatório'**
   String get errorCountryRequired;
+
+  /// No description provided for @errorInvalidZipCode.
+  ///
+  /// In pt, this message translates to:
+  /// **'O CEP deve ter 8 dígitos'**
+  String get errorInvalidZipCode;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

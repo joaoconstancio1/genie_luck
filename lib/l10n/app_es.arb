@@ -30,5 +30,6 @@
     "back": "Regresar",
     "next": "Siguiente",
     "searchCountry": "Buscar país",
-    "errorCountryRequired": "El campo de país es obligatorio"
+    "errorCountryRequired": "El campo de país es obligatorio",
+    "errorInvalidZipCode": "El código postal debe tener 8 dígitos"
 }

@@ -30,5 +30,6 @@
     "back": "Voltar",
     "next": "Próximo",
     "searchCountry": "Pesquisar país",
-    "errorCountryRequired": "O campo país é obrigatório"
+    "errorCountryRequired": "O campo país é obrigatório",
+    "errorInvalidZipCode": "O CEP deve ter 8 dígitos"
 }

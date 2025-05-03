@@ -103,4 +103,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get errorCountryRequired => 'O campo país é obrigatório';
+
+  @override
+  String get errorInvalidZipCode => 'O CEP deve ter 8 dígitos';
 }
