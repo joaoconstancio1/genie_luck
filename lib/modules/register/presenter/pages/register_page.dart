@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
-import 'package:intl_phone_field/intl_phone_field.dart'; // Import intl_phone_field
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
@@ -9,6 +9,7 @@ import 'package:genie_luck/l10n/generated/app_localizations.dart';
 import 'package:genie_luck/core/models/user_model.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/register_cubit.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl_phone_field/countries.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -68,12 +69,24 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   bool _acceptTerms = false;
   bool? _receivePromotions = false;
   DateTime? selectedDate;
-  String _selectedCountryCode = '+55'; // Default country code
-
+  String _selectedCountryCode = '+55';
+  final List<String> _countryFlags = [];
+  List<Country> _countries = [];
   @override
   void initState() {
     super.initState();
     _dataPicker = DataPicker(dateController: _dateController);
+    _countries = countries;
+    _preloadCountryFlags();
+  }
+
+  void _preloadCountryFlags() {
+    for (var country in _countries) {
+      _countryFlags.add(country.flag);
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {});
+    });
   }
 
   @override
@@ -214,7 +227,8 @@ class _RegisterPageViewState extends State<RegisterPageView> {
     );
   }
 
-  // Página 2: Contato e Endereço
+  Country? _selectedCountry;
+
   Widget _buildContactAddressPage(
     BuildContext context,
     AppLocalizations locale,
@@ -228,11 +242,32 @@ class _RegisterPageViewState extends State<RegisterPageView> {
             shrinkWrap: true,
             children: [
               const SizedBox(height: 16),
-              GlTextFormField(
-                controller: _countryController,
-                keyboardType: TextInputType.text,
-                labelText: locale.labelCountry,
-                hintText: locale.hintCountry,
+              Offstage(
+                offstage: true,
+                child: Text(
+                  _countryFlags.join(),
+                  style: const TextStyle(fontSize: 0),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _showCountryPickerDialog(context);
+                },
+                child: AbsorbPointer(
+                  child: GlTextFormField(
+                    controller: _countryController,
+                    keyboardType: TextInputType.none,
+                    readOnly: true,
+                    labelText: locale.labelCountry,
+                    hintText: _selectedCountry?.name ?? locale.hintCountry,
+                    suffixIcon: const Icon(Icons.arrow_drop_down),
+                    validator:
+                        (value) =>
+                            value == null || value.isEmpty
+                                ? 'locale.errorCountryRequired'
+                                : null,
+                  ),
+                ),
               ),
               const SizedBox(height: 16),
               GlTextFormField(
@@ -304,10 +339,12 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      _pageController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeIn,
-                      );
+                      if (_formKey.currentState!.validate()) {
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                        );
+                      }
                     },
                     child: const Text('Próximo'),
                   ),
@@ -413,6 +450,77 @@ class _RegisterPageViewState extends State<RegisterPageView> {
         ),
       );
     }
+  }
+
+  void _showCountryPickerDialog(BuildContext context) {
+    String searchQuery = '';
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            final filteredCountries =
+                _countries
+                    .where(
+                      (country) => country.name.toLowerCase().contains(
+                        searchQuery.toLowerCase(),
+                      ),
+                    )
+                    .toList();
+            return AlertDialog(
+              title: Text(AppLocalizations.of(context)!.searchCountry),
+              content: SizedBox(
+                width: double.maxFinite,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.searchCountry,
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          searchQuery = value;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        cacheExtent: 1000,
+                        itemCount: filteredCountries.length,
+                        itemBuilder: (context, index) {
+                          final country = filteredCountries[index];
+                          return ListTile(
+                            dense: true,
+                            leading: Text(
+                              country.flag,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            title: Text(
+                              country.name,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            onTap: () {
+                              setState(() {
+                                _countryController.text = country.name;
+                              });
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
