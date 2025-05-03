@@ -69,7 +69,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   bool _receivePromotions = false;
   DateTime? _selectedDate;
   String _selectedCountryCode = '+55';
-  Country? _selectedCountry;
 
   @override
   void initState() {
@@ -126,6 +125,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
+    Country brazil = countries.firstWhere((country) => country.code == 'BR');
 
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: Text(locale.registerTitle)),
@@ -153,22 +153,18 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 locale: locale,
               ),
               ContactAddressPage(
-                countryController: _countryController,
-                zipCodeController: _zipCodeController,
-                addressController: _addressController,
-                addressNumberController: _addressNumberController,
-                cityController: _cityController,
-                stateController: _stateController,
-                validators: _validators,
-                selectedCountry: _selectedCountry,
-                onCountrySelected:
-                    (country) => setState(() {
-                      _selectedCountry = country;
-                      _countryController.text = country.name;
-                    }),
+                countryController: TextEditingController(text: brazil.name),
+                zipCodeController: TextEditingController(),
+                addressController: TextEditingController(),
+                addressNumberController: TextEditingController(),
+                cityController: TextEditingController(),
+                stateController: TextEditingController(),
+                validators: Validators(),
+                selectedCountry: brazil,
+                onCountrySelected: (country) {},
                 onNext: _onNextPage,
                 onPrevious: _onPreviousPage,
-                locale: locale,
+                locale: AppLocalizations.of(context)!,
               ),
               TermsConfirmationPage(
                 acceptTerms: _acceptTerms,
