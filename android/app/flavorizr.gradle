@@ -5,12 +5,12 @@ android {
         dev {
             dimension "flavor-type"
             applicationId "com.genieluck.dev"
-            resValue "string", "app_name", "Genie Luck dev"
+            resValue "string", "app_name", "[DEV] Genie Luck"
         }
         stg {
             dimension "flavor-type"
             applicationId "com.genieluck.stg"
-            resValue "string", "app_name", "Genie Luck stg"
+            resValue "string", "app_name", "[STG] Genie Luck"
         }
         prod {
             dimension "flavor-type"
