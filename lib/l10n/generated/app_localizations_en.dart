@@ -106,4 +106,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorInvalidZipCode => 'The ZIP code must have 8 digits';
+
+  @override
+  String get labelComplement => 'Complement';
+
+  @override
+  String get hintComplement => 'Block, Apartment, etc.';
 }

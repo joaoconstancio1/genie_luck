@@ -106,4 +106,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorInvalidZipCode => 'El código postal debe tener 8 dígitos';
+
+  @override
+  String get labelComplement => 'Complemento';
+
+  @override
+  String get hintComplement => 'Bloque, Apartamento, etc.';
 }

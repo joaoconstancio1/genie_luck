@@ -106,4 +106,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get errorInvalidZipCode => 'O CEP deve ter 8 dígitos';
+
+  @override
+  String get labelComplement => 'Complemento';
+
+  @override
+  String get hintComplement => 'Bloco, Apartamento, etc.';
 }

@@ -65,6 +65,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
       TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
+  final TextEditingController _complementController = TextEditingController();
 
   final Validators _validators = Validators();
   bool _acceptTerms = false;
@@ -165,6 +166,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 stateController: _stateController,
                 validators: _validators,
                 selectedCountry: _selectedCountry,
+                complementController: _complementController,
                 onCountrySelected: (Country country) {
                   setState(() {
                     _selectedCountry = country;

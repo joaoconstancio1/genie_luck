@@ -294,6 +294,18 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'O CEP deve ter 8 dígitos'**
   String get errorInvalidZipCode;
+
+  /// No description provided for @labelComplement.
+  ///
+  /// In pt, this message translates to:
+  /// **'Complemento'**
+  String get labelComplement;
+
+  /// No description provided for @hintComplement.
+  ///
+  /// In pt, this message translates to:
+  /// **'Bloco, Apartamento, etc.'**
+  String get hintComplement;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

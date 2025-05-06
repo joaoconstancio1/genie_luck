@@ -31,5 +31,7 @@
     "next": "Próximo",
     "searchCountry": "Pesquisar país",
     "errorCountryRequired": "O campo país é obrigatório",
-    "errorInvalidZipCode": "O CEP deve ter 8 dígitos"
+    "errorInvalidZipCode": "O CEP deve ter 8 dígitos",
+    "labelComplement": "Complemento",
+    "hintComplement": "Bloco, Apartamento, etc."
 }

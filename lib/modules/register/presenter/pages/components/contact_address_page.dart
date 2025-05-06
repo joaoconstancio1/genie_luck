@@ -15,6 +15,7 @@ class ContactAddressPage extends StatefulWidget {
   final TextEditingController addressNumberController;
   final TextEditingController cityController;
   final TextEditingController stateController;
+  final TextEditingController complementController;
   final Validators validators;
   final Country? selectedCountry;
   final ValueChanged<Country> onCountrySelected;
@@ -30,6 +31,7 @@ class ContactAddressPage extends StatefulWidget {
     required this.addressNumberController,
     required this.cityController,
     required this.stateController,
+    required this.complementController,
     required this.validators,
     required this.selectedCountry,
     required this.onCountrySelected,
@@ -290,6 +292,14 @@ class _ContactAddressPageState extends State<ContactAddressPage> {
                         ),
                       ),
                     ],
+                  ),
+
+                  const SizedBox(height: 16),
+                  GlTextFormField(
+                    controller: widget.complementController,
+                    keyboardType: TextInputType.text,
+                    labelText: widget.locale.labelComplement,
+                    hintText: widget.locale.hintComplement,
                   ),
                   const SizedBox(height: 16),
                   Row(
