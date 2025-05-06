@@ -71,11 +71,14 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   bool _receivePromotions = false;
   DateTime? _selectedDate;
   String _selectedCountryCode = '+55';
+  Country? _selectedCountry;
 
   @override
   void initState() {
     super.initState();
     _dataPicker = DataPicker(dateController: _dateController);
+    _selectedCountry = countries.firstWhere((country) => country.code == 'BR');
+    _countryController.text = _selectedCountry!.name;
   }
 
   void _onNextPage() {
@@ -127,7 +130,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    Country brazil = countries.firstWhere((country) => country.code == 'BR');
 
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: Text(locale.registerTitle)),
@@ -155,18 +157,23 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 locale: locale,
               ),
               ContactAddressPage(
-                countryController: TextEditingController(text: brazil.name),
-                zipCodeController: TextEditingController(),
-                addressController: TextEditingController(),
-                addressNumberController: TextEditingController(),
-                cityController: TextEditingController(),
-                stateController: TextEditingController(),
-                validators: Validators(),
-                selectedCountry: brazil,
-                onCountrySelected: (country) {},
+                countryController: _countryController,
+                zipCodeController: _zipCodeController,
+                addressController: _addressController,
+                addressNumberController: _addressNumberController,
+                cityController: _cityController,
+                stateController: _stateController,
+                validators: _validators,
+                selectedCountry: _selectedCountry,
+                onCountrySelected: (Country country) {
+                  setState(() {
+                    _selectedCountry = country;
+                    _countryController.text = country.name;
+                  });
+                },
                 onNext: _onNextPage,
                 onPrevious: _onPreviousPage,
-                locale: AppLocalizations.of(context)!,
+                locale: locale,
               ),
               TermsConfirmationPage(
                 acceptTerms: _acceptTerms,

@@ -88,7 +88,7 @@ class _ContactAddressPageState extends State<ContactAddressPage> {
       context: context,
       builder: (context) {
         return StatefulBuilder(
-          builder: (context, setState) {
+          builder: (context, setStateDialog) {
             final filteredCountries =
                 _countries
                     .where(
@@ -109,7 +109,8 @@ class _ContactAddressPageState extends State<ContactAddressPage> {
                         labelText: widget.locale.searchCountry,
                         border: const OutlineInputBorder(),
                       ),
-                      onChanged: (value) => setState(() => searchQuery = value),
+                      onChanged:
+                          (value) => setStateDialog(() => searchQuery = value),
                     ),
                     const SizedBox(height: 8),
                     Expanded(
@@ -130,13 +131,16 @@ class _ContactAddressPageState extends State<ContactAddressPage> {
                               style: const TextStyle(fontSize: 20),
                             ),
                             onTap: () {
+                              widget.countryController.text = country.name;
                               widget.onCountrySelected(country);
+
                               if (country.code != 'BR') {
                                 widget.zipCodeController.clear();
                                 widget.addressController.clear();
                                 widget.cityController.clear();
                                 widget.stateController.clear();
                               }
+
                               Navigator.pop(context);
                             },
                           );
