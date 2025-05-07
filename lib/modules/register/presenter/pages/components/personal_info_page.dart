@@ -42,101 +42,99 @@ class PersonalInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
 
-    return Padding(
+    return ListView(
       padding: const EdgeInsets.all(16.0),
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          Text(
-            locale.registerTitle,
-            textAlign: TextAlign.center,
-            style: theme.titleLarge,
-          ),
-          SizedBox(height: 16),
-          GlTextFormField(
-            controller: nameController,
-            keyboardType: TextInputType.name,
-            labelText: locale.labelCompleteName,
-            hintText: locale.hintCompleteName,
-            validator: validators.nameValidator,
-          ),
-          const SizedBox(height: 16),
-          GlTextFormField(
-            controller: emailController,
-            keyboardType: TextInputType.emailAddress,
-            labelText: locale.labelEmail,
-            hintText: locale.hintEmail,
-            validator: validators.validateEmail,
-          ),
-          const SizedBox(height: 16),
-          GlTextFormField(
-            controller: passwordController,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            labelText: locale.labelPassword,
-            hintText: locale.hintPassword,
-            obscureText: true,
-            validator: validators.validatePassword,
-          ),
-          const SizedBox(height: 16),
-          GlTextFormField(
-            controller: confirmPasswordController,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            labelText: locale.labelConfirmPassword,
-            hintText: locale.hintConfirmPassword,
-            obscureText: true,
-            validator:
-                (value) => validators.validateConfirmPassword(
-                  value,
-                  passwordController.text,
-                ),
-          ),
-          const SizedBox(height: 16),
-          GestureDetector(
-            onTap:
-                () => dataPicker
-                    .displayDatePicker(context)
-                    .then((value) => onDateSelected(dataPicker.selectedDate)),
-            child: AbsorbPointer(
-              child: GlTextFormField(
-                controller: dateController,
-                keyboardType: TextInputType.none,
-                readOnly: true,
-                labelText: locale.labelBirthDate,
-                hintText: locale.hintBirthDate,
-                suffixIcon: const Icon(Icons.calendar_today),
-                validator: validators.validateDate,
+      shrinkWrap: true,
+      children: [
+        Text(
+          locale.registerTitle,
+          textAlign: TextAlign.center,
+          style: theme.titleLarge,
+        ),
+        SizedBox(height: 16),
+        GlTextFormField(
+          controller: nameController,
+          keyboardType: TextInputType.name,
+          labelText: locale.labelCompleteName,
+          hintText: locale.hintCompleteName,
+          validator: validators.nameValidator,
+        ),
+        const SizedBox(height: 16),
+        GlTextFormField(
+          controller: emailController,
+          keyboardType: TextInputType.emailAddress,
+          labelText: locale.labelEmail,
+          hintText: locale.hintEmail,
+          validator: validators.validateEmail,
+        ),
+        const SizedBox(height: 16),
+        GlTextFormField(
+          controller: passwordController,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          labelText: locale.labelPassword,
+          hintText: locale.hintPassword,
+          obscureText: true,
+          validator: validators.validatePassword,
+        ),
+        const SizedBox(height: 16),
+        GlTextFormField(
+          controller: confirmPasswordController,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          labelText: locale.labelConfirmPassword,
+          hintText: locale.hintConfirmPassword,
+          obscureText: true,
+          validator:
+              (value) => validators.validateConfirmPassword(
+                value,
+                passwordController.text,
               ),
+        ),
+        const SizedBox(height: 16),
+        GestureDetector(
+          onTap:
+              () => dataPicker
+                  .displayDatePicker(context)
+                  .then((value) => onDateSelected(dataPicker.selectedDate)),
+          child: AbsorbPointer(
+            child: GlTextFormField(
+              controller: dateController,
+              keyboardType: TextInputType.none,
+              readOnly: true,
+              labelText: locale.labelBirthDate,
+              hintText: locale.hintBirthDate,
+              suffixIcon: const Icon(Icons.calendar_today),
+              validator: validators.validateDate,
             ),
           ),
-          const SizedBox(height: 16),
-          IntlPhoneField(
-            dropdownTextStyle: theme.bodyMedium,
-            pickerDialogStyle: PickerDialogStyle(
-              searchFieldInputDecoration: InputDecoration(
-                labelText: locale.searchCountry,
-              ),
+        ),
+        const SizedBox(height: 16),
+        IntlPhoneField(
+          dropdownTextStyle: theme.bodyMedium,
+          pickerDialogStyle: PickerDialogStyle(
+            searchFieldInputDecoration: InputDecoration(
+              labelText: locale.searchCountry,
             ),
-            controller: phoneController,
-            decoration: InputDecoration(
-              labelText: locale.labelPhoneNumber,
-              hintText: locale.hintPhoneNumber,
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
-            initialCountryCode: 'BR',
-            onChanged: (phone) => onCountryCodeChanged(phone.countryCode),
-            validator: (phone) => validators.validatePhoneNumber(phone?.number),
-            showCountryFlag: true,
-            dropdownIcon: const Icon(Icons.arrow_drop_down),
-            disableLengthCheck: true,
-            autovalidateMode: AutovalidateMode.onUnfocus,
           ),
-          const SizedBox(height: 16),
-          ElevatedButton(onPressed: onNext, child: Text(locale.next)),
-        ],
-      ),
+          controller: phoneController,
+          decoration: InputDecoration(
+            labelText: locale.labelPhoneNumber,
+            hintText: locale.hintPhoneNumber,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
+          initialCountryCode: 'BR',
+          onChanged: (phone) => onCountryCodeChanged(phone.countryCode),
+          validator: (phone) => validators.validatePhoneNumber(phone?.number),
+          showCountryFlag: true,
+          dropdownIcon: const Icon(Icons.arrow_drop_down),
+          disableLengthCheck: true,
+          autovalidateMode: AutovalidateMode.onUnfocus,
+        ),
+        const SizedBox(height: 16),
+        ElevatedButton(onPressed: onNext, child: Text(locale.next)),
+      ],
     );
   }
 }

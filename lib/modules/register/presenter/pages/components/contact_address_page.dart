@@ -174,151 +174,141 @@ class _ContactAddressPageState extends State<ContactAddressPage> {
         }
       },
       builder: (context, state) {
-        return Padding(
+        return ListView(
           padding: const EdgeInsets.all(16.0),
-          child: Center(
-            child: SizedBox(
-              width: 600,
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  Offstage(
-                    offstage: true,
-                    child: Text(
-                      _countryFlags.join(),
-                      style: const TextStyle(fontSize: 0),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => _showCountryPickerDialog(context),
-                    child: AbsorbPointer(
-                      child: GlTextFormField(
-                        controller: widget.countryController,
-                        keyboardType: TextInputType.none,
-                        readOnly: true,
-                        labelText: widget.locale.labelCountry,
-                        hintText: widget.locale.hintCountry,
-                        prefixIcon:
-                            widget.selectedCountry != null
-                                ? Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12.0,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        widget.selectedCountry!.flag,
-                                        style: const TextStyle(fontSize: 18),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                                : null,
-                        suffixIcon: const Icon(Icons.arrow_drop_down),
-                        validator:
-                            (value) =>
-                                value == null || value.isEmpty
-                                    ? widget.locale.errorCountryRequired
-                                    : null,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  GlTextFormField(
-                    controller: widget.zipCodeController,
-                    keyboardType: TextInputType.number,
-                    labelText: widget.locale.labelZipCode,
-                    hintText: widget.locale.hintZipCode,
-                    validator:
-                        widget.selectedCountry?.code == 'BR'
-                            ? (value) =>
-                                value != null &&
-                                        value
-                                                .replaceAll(
-                                                  RegExp(r'[^0-9]'),
-                                                  '',
-                                                )
-                                                .length ==
-                                            8
-                                    ? null
-                                    : widget.locale.errorInvalidZipCode
-                            : null,
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: GlTextFormField(
-                          controller: widget.addressController,
-                          keyboardType: TextInputType.text,
-                          labelText: widget.locale.labelAddress,
-                          hintText: widget.locale.hintAddress,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        flex: 1,
-                        child: GlTextFormField(
-                          controller: widget.addressNumberController,
-                          keyboardType: TextInputType.number,
-                          labelText: widget.locale.labelAddressNumber,
-                          hintText: widget.locale.hintAddressNumber,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: GlTextFormField(
-                          controller: widget.cityController,
-                          keyboardType: TextInputType.text,
-                          labelText: widget.locale.labelCity,
-                          hintText: widget.locale.hintCity,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        flex: 1,
-                        child: GlTextFormField(
-                          controller: widget.stateController,
-                          keyboardType: TextInputType.text,
-                          labelText: widget.locale.labelState,
-                          hintText: widget.locale.hintState,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 16),
-                  GlTextFormField(
-                    controller: widget.complementController,
-                    keyboardType: TextInputType.text,
-                    labelText: widget.locale.labelComplement,
-                    hintText: widget.locale.hintComplement,
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: widget.onPrevious,
-                        child: Text(widget.locale.back),
-                      ),
-                      ElevatedButton(
-                        onPressed: widget.onNext,
-                        child: Text(widget.locale.next),
-                      ),
-                    ],
-                  ),
-                ],
+          shrinkWrap: true,
+          children: [
+            Offstage(
+              offstage: true,
+              child: Text(
+                _countryFlags.join(),
+                style: const TextStyle(fontSize: 0),
               ),
             ),
-          ),
+            GestureDetector(
+              onTap: () => _showCountryPickerDialog(context),
+              child: AbsorbPointer(
+                child: GlTextFormField(
+                  controller: widget.countryController,
+                  keyboardType: TextInputType.none,
+                  readOnly: true,
+                  labelText: widget.locale.labelCountry,
+                  hintText: widget.locale.hintCountry,
+                  prefixIcon:
+                      widget.selectedCountry != null
+                          ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  widget.selectedCountry!.flag,
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          )
+                          : null,
+                  suffixIcon: const Icon(Icons.arrow_drop_down),
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty
+                              ? widget.locale.errorCountryRequired
+                              : null,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            GlTextFormField(
+              controller: widget.zipCodeController,
+              keyboardType: TextInputType.number,
+              labelText: widget.locale.labelZipCode,
+              hintText: widget.locale.hintZipCode,
+              validator:
+                  widget.selectedCountry?.code == 'BR'
+                      ? (value) =>
+                          value != null &&
+                                  value
+                                          .replaceAll(RegExp(r'[^0-9]'), '')
+                                          .length ==
+                                      8
+                              ? null
+                              : widget.locale.errorInvalidZipCode
+                      : null,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: GlTextFormField(
+                    controller: widget.addressController,
+                    keyboardType: TextInputType.text,
+                    labelText: widget.locale.labelAddress,
+                    hintText: widget.locale.hintAddress,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 1,
+                  child: GlTextFormField(
+                    controller: widget.addressNumberController,
+                    keyboardType: TextInputType.number,
+                    labelText: widget.locale.labelAddressNumber,
+                    hintText: widget.locale.hintAddressNumber,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: GlTextFormField(
+                    controller: widget.cityController,
+                    keyboardType: TextInputType.text,
+                    labelText: widget.locale.labelCity,
+                    hintText: widget.locale.hintCity,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 1,
+                  child: GlTextFormField(
+                    controller: widget.stateController,
+                    keyboardType: TextInputType.text,
+                    labelText: widget.locale.labelState,
+                    hintText: widget.locale.hintState,
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+            GlTextFormField(
+              controller: widget.complementController,
+              keyboardType: TextInputType.text,
+              labelText: widget.locale.labelComplement,
+              hintText: widget.locale.hintComplement,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: widget.onPrevious,
+                  child: Text(widget.locale.back),
+                ),
+                ElevatedButton(
+                  onPressed: widget.onNext,
+                  child: Text(widget.locale.next),
+                ),
+              ],
+            ),
+          ],
         );
       },
     );
