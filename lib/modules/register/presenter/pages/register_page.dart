@@ -131,9 +131,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text(locale.registerTitle)),
       body: SafeArea(
         child: Form(
           key: _formKey,

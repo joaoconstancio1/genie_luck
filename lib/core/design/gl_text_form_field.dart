@@ -41,9 +41,8 @@ class GlTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.grey),
+
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
       ),
