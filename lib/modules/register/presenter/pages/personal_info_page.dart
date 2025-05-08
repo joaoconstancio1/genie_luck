@@ -108,7 +108,7 @@ class PersonalInfoPage extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        CustomPhoneField(
+        PhoneField(
           controller: phoneController,
           validator: validators.validatePhoneNumber,
           selectedCountry: _getSelectedCountry(),

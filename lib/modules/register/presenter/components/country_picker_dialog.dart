@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
 
-class CustomCountryPickerDialog extends StatefulWidget {
+class CountryPickerDialog extends StatefulWidget {
   final List<Country> countries;
   final ValueChanged<Country> onCountrySelected;
   final AppLocalizations locale;
 
-  const CustomCountryPickerDialog({
+  const CountryPickerDialog({
     super.key,
     required this.countries,
     required this.onCountrySelected,
@@ -15,11 +15,10 @@ class CustomCountryPickerDialog extends StatefulWidget {
   });
 
   @override
-  State<CustomCountryPickerDialog> createState() =>
-      _CustomCountryPickerDialogState();
+  State<CountryPickerDialog> createState() => _CountryPickerDialogState();
 }
 
-class _CustomCountryPickerDialogState extends State<CustomCountryPickerDialog> {
+class _CountryPickerDialogState extends State<CountryPickerDialog> {
   String _searchQuery = '';
 
   @override

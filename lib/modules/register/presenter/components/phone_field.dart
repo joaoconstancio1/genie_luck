@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
-import 'package:genie_luck/modules/register/presenter/components/country_pciker_dialog.dart';
+import 'package:genie_luck/modules/register/presenter/components/country_picker_dialog.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
 
-class CustomPhoneField extends StatelessWidget {
+class PhoneField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final Country? selectedCountry;
   final ValueChanged<Country> onCountryChanged;
   final AppLocalizations locale;
 
-  const CustomPhoneField({
+  const PhoneField({
     super.key,
     required this.controller,
     this.validator,
@@ -24,7 +24,7 @@ class CustomPhoneField extends StatelessWidget {
     showDialog(
       context: context,
       builder:
-          (context) => CustomCountryPickerDialog(
+          (context) => CountryPickerDialog(
             countries: countries,
             onCountrySelected: (country) {
               onCountryChanged(country);
