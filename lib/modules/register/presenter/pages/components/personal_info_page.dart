@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
-import 'package:genie_luck/core/utils/data_picker.dart';
+import 'package:genie_luck/core/design/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl_phone_field/country_picker_dialog.dart';
+import 'package:genie_luck/modules/register/presenter/pages/components/phone_field.dart';
+import 'package:intl_phone_field/countries.dart';
 
 class PersonalInfoPage extends StatelessWidget {
   final TextEditingController nameController;
@@ -108,33 +108,25 @@ class PersonalInfoPage extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        IntlPhoneField(
-          dropdownTextStyle: theme.bodyMedium,
-          pickerDialogStyle: PickerDialogStyle(
-            searchFieldInputDecoration: InputDecoration(
-              labelText: locale.searchCountry,
-            ),
-          ),
+        CustomPhoneField(
           controller: phoneController,
-          decoration: InputDecoration(
-            labelText: locale.labelPhoneNumber,
-            hintText: locale.hintPhoneNumber,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-          ),
-          initialCountryCode: 'BR',
-          onChanged: (phone) => onCountryCodeChanged(phone.countryCode),
-          validator: (phone) => validators.validatePhoneNumber(phone?.number),
-          showCountryFlag: true,
-          dropdownIcon: const Icon(Icons.arrow_drop_down),
-          disableLengthCheck: true,
-          autovalidateMode: AutovalidateMode.onUnfocus,
+          validator: validators.validatePhoneNumber,
+          selectedCountry: _getSelectedCountry(),
+          onCountryChanged: (country) => onCountryCodeChanged(country.code),
+          locale: locale,
         ),
+
         const SizedBox(height: 16),
         ElevatedButton(onPressed: onNext, child: Text(locale.next)),
       ],
+    );
+  }
+
+  Country? _getSelectedCountry() {
+    if (selectedCountryCode.isEmpty) return null;
+    return countries.firstWhere(
+      (country) => country.code == selectedCountryCode,
+      orElse: () => countries.firstWhere((country) => country.code == 'BR'),
     );
   }
 }

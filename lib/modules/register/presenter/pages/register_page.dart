@@ -5,7 +5,7 @@ import 'package:genie_luck/modules/register/presenter/pages/components/contact_a
 import 'package:genie_luck/modules/register/presenter/pages/components/personal_info_page.dart';
 import 'package:genie_luck/modules/register/presenter/pages/components/terms_conditions_page.dart';
 
-import 'package:genie_luck/core/utils/data_picker.dart';
+import 'package:genie_luck/core/design/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
 import 'package:genie_luck/core/models/user_model.dart';
