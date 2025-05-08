@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:genie_luck/core/http_client/custom_http_client.dart';
 import 'package:genie_luck/core/http_client/http_client_exception.dart';
-import 'package:genie_luck/flavors.dart';
+import 'package:genie_luck/flavors/flavors.dart';
 import 'package:genie_luck/core/models/user_model.dart';
 import 'package:genie_luck/modules/register/data/models/cep_model.dart';
 

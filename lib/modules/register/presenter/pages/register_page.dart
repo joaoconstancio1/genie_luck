@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/cep_cubit.dart';
-import 'package:genie_luck/modules/register/presenter/pages/contact_address_page.dart';
+import 'package:genie_luck/modules/register/presenter/pages/address_page.dart';
 import 'package:genie_luck/modules/register/presenter/pages/personal_info_page.dart';
 import 'package:genie_luck/modules/register/presenter/pages/terms_conditions_page.dart';
 
@@ -155,7 +155,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 onNext: _onNextPage,
                 locale: locale,
               ),
-              ContactAddressPage(
+              AddressPage(
                 countryController: _countryController,
                 zipCodeController: _zipCodeController,
                 addressController: _addressController,

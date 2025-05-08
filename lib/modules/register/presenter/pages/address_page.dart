@@ -8,7 +8,7 @@ import 'package:genie_luck/modules/register/presenter/cubit/cep_state.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'dart:async';
 
-class ContactAddressPage extends StatefulWidget {
+class AddressPage extends StatefulWidget {
   final TextEditingController countryController;
   final TextEditingController zipCodeController;
   final TextEditingController addressController;
@@ -23,7 +23,7 @@ class ContactAddressPage extends StatefulWidget {
   final VoidCallback onPrevious;
   final AppLocalizations locale;
 
-  const ContactAddressPage({
+  const AddressPage({
     super.key,
     required this.countryController,
     required this.zipCodeController,
@@ -41,10 +41,10 @@ class ContactAddressPage extends StatefulWidget {
   });
 
   @override
-  State<ContactAddressPage> createState() => _ContactAddressPageState();
+  State<AddressPage> createState() => _AddressPageState();
 }
 
-class _ContactAddressPageState extends State<ContactAddressPage> {
+class _AddressPageState extends State<AddressPage> {
   final List<String> _countryFlags = [];
   final List<Country> _countries = countries;
   Timer? _debounce;
@@ -142,7 +142,6 @@ class _ContactAddressPageState extends State<ContactAddressPage> {
                                 widget.cityController.clear();
                                 widget.stateController.clear();
                               }
-
                               Navigator.pop(context);
                             },
                           );
