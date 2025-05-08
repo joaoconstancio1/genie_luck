@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
-import 'package:genie_luck/modules/register/presenter/pages/components/country_pciker_dialog.dart';
+import 'package:genie_luck/modules/register/presenter/components/country_pciker_dialog.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
 

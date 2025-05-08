@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/cep_cubit.dart';
-import 'package:genie_luck/modules/register/presenter/pages/components/contact_address_page.dart';
-import 'package:genie_luck/modules/register/presenter/pages/components/personal_info_page.dart';
-import 'package:genie_luck/modules/register/presenter/pages/components/terms_conditions_page.dart';
+import 'package:genie_luck/modules/register/presenter/pages/contact_address_page.dart';
+import 'package:genie_luck/modules/register/presenter/pages/personal_info_page.dart';
+import 'package:genie_luck/modules/register/presenter/pages/terms_conditions_page.dart';
 
 import 'package:genie_luck/core/design/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';

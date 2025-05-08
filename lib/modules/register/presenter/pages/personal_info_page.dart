@@ -3,7 +3,7 @@ import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/design/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
-import 'package:genie_luck/modules/register/presenter/pages/components/phone_field.dart';
+import 'package:genie_luck/modules/register/presenter/components/phone_field.dart';
 import 'package:intl_phone_field/countries.dart';
 
 class PersonalInfoPage extends StatelessWidget {
