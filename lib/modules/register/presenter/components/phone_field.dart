@@ -3,6 +3,7 @@ import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/modules/register/presenter/components/country_picker_dialog.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PhoneField extends StatelessWidget {
   final TextEditingController controller;
@@ -19,6 +20,19 @@ class PhoneField extends StatelessWidget {
     required this.onCountryChanged,
     required this.locale,
   });
+  static final Map<String, String> _countryPhoneMasks = {
+    'BR': '(##) #####-####',
+    'US': '(###) ###-####',
+    'GB': '#### ######',
+    'IN': '#####-#####',
+  };
+
+  static const String _defaultMask = '#############';
+
+  String _getMask() {
+    if (selectedCountry == null) return _defaultMask;
+    return _countryPhoneMasks[selectedCountry!.code] ?? _defaultMask;
+  }
 
   void _showCountryPickerDialog(BuildContext context) {
     showDialog(
@@ -28,6 +42,7 @@ class PhoneField extends StatelessWidget {
             countries: countries,
             onCountrySelected: (country) {
               onCountryChanged(country);
+              controller.clear();
             },
             locale: locale,
           ),
@@ -38,6 +53,12 @@ class PhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    final maskFormatter = MaskTextInputFormatter(
+      mask: _getMask(),
+      filter: {'#': RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy,
+    );
+
     return GlTextFormField(
       controller: controller,
       keyboardType: TextInputType.phone,
@@ -45,6 +66,7 @@ class PhoneField extends StatelessWidget {
       validator: validator,
       labelText: locale.labelPhoneNumber,
       hintText: locale.hintPhoneNumber,
+      inputFormatters: [maskFormatter],
       prefixIcon: GestureDetector(
         onTap: () => _showCountryPickerDialog(context),
         child: Padding(

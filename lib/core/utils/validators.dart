@@ -59,10 +59,7 @@ class Validators {
     if (value == null || value.isEmpty) {
       return 'Informe um número de telefone';
     }
-    final phoneRegex = RegExp(r'^\+?[1-9]\d{1,14}$');
-    if (!phoneRegex.hasMatch(value)) {
-      return 'Número de telefone inválido';
-    }
+
     return null;
   }
 }
