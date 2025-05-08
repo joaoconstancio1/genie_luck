@@ -8,36 +8,36 @@
       "name": "Launch development",
       "request": "launch",
       "type": "dart",
-      "program": "lib/main_dev.dart",
+      "program": "lib/flavors/main_dev.dart",
       "args": [
         "--flavor",
         "dev",
         "--target",
-        "lib/main_dev.dart"
+        "lib/flavors/main_dev.dart"
       ]
     },
     {
       "name": "Launch staging",
       "request": "launch",
       "type": "dart",
-      "program": "lib/main_stg.dart",
+      "program": "lib/flavors/main_stg.dart",
       "args": [
         "--flavor",
         "stg",
         "--target",
-        "lib/main_stg.dart"
+        "lib/flavors/main_stg.dart"
       ]
     },
     {
       "name": "Launch production",
       "request": "launch",
       "type": "dart",
-      "program": "lib/main_prod.dart",
+      "program": "lib/flavors/main_prod.dart",
       "args": [
         "--flavor",
         "prod",
         "--target",
-        "lib/main_prod.dart"
+        "lib/flavors/main_prod.dart"
       ]
     },
   ]

@@ -6,6 +6,7 @@ import 'package:genie_luck/l10n/generated/app_localizations.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/cep_cubit.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/cep_state.dart';
 import 'package:intl_phone_field/countries.dart';
+import 'package:genie_luck/modules/register/presenter/components/country_picker_dialog.dart';
 import 'dart:async';
 
 class AddressPage extends StatefulWidget {
@@ -45,14 +46,12 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
-  final List<String> _countryFlags = [];
   final List<Country> _countries = countries;
   Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
-    _preloadCountryFlags();
     widget.zipCodeController.addListener(() => _onZipCodeChanged(context));
   }
 
@@ -61,15 +60,6 @@ class _AddressPageState extends State<AddressPage> {
     _debounce?.cancel();
     widget.zipCodeController.removeListener(() => _onZipCodeChanged(context));
     super.dispose();
-  }
-
-  void _preloadCountryFlags() {
-    for (var country in _countries) {
-      _countryFlags.add(country.flag);
-    }
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {});
-    });
   }
 
   void _onZipCodeChanged(BuildContext context) {
@@ -85,76 +75,23 @@ class _AddressPageState extends State<AddressPage> {
   }
 
   void _showCountryPickerDialog(BuildContext context) {
-    String searchQuery = '';
     showDialog(
       context: context,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setStateDialog) {
-            final filteredCountries =
-                _countries
-                    .where(
-                      (country) => country.name.toLowerCase().contains(
-                        searchQuery.toLowerCase(),
-                      ),
-                    )
-                    .toList();
-            return AlertDialog(
-              title: Text(widget.locale.searchCountry),
-              content: SizedBox(
-                width: double.maxFinite,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: widget.locale.searchCountry,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged:
-                          (value) => setStateDialog(() => searchQuery = value),
-                    ),
-                    const SizedBox(height: 8),
-                    Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        cacheExtent: 1000,
-                        itemCount: filteredCountries.length,
-                        itemBuilder: (context, index) {
-                          final country = filteredCountries[index];
-                          return ListTile(
-                            dense: true,
-                            leading: Text(
-                              country.flag,
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                            title: Text(
-                              country.name,
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                            onTap: () {
-                              widget.countryController.text = country.name;
-                              widget.onCountrySelected(country);
-
-                              if (country.code != 'BR') {
-                                widget.zipCodeController.clear();
-                                widget.addressController.clear();
-                                widget.cityController.clear();
-                                widget.stateController.clear();
-                              }
-                              Navigator.pop(context);
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
+      builder:
+          (context) => CountryPickerDialog(
+            countries: _countries,
+            onCountrySelected: (country) {
+              widget.countryController.text = country.name;
+              widget.onCountrySelected(country);
+              if (country.code != 'BR') {
+                widget.zipCodeController.clear();
+                widget.addressController.clear();
+                widget.cityController.clear();
+                widget.stateController.clear();
+              }
+            },
+            locale: widget.locale,
+          ),
     );
   }
 
@@ -177,13 +114,6 @@ class _AddressPageState extends State<AddressPage> {
           padding: const EdgeInsets.all(16.0),
           shrinkWrap: true,
           children: [
-            Offstage(
-              offstage: true,
-              child: Text(
-                _countryFlags.join(),
-                style: const TextStyle(fontSize: 0),
-              ),
-            ),
             GestureDetector(
               onTap: () => _showCountryPickerDialog(context),
               child: AbsorbPointer(
@@ -285,7 +215,6 @@ class _AddressPageState extends State<AddressPage> {
                 ),
               ],
             ),
-
             const SizedBox(height: 16),
             GlTextFormField(
               controller: widget.complementController,
