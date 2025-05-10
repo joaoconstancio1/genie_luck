@@ -2,7 +2,6 @@ import 'package:genie_luck/modules/register/data/datasources/register_datasource
 import 'package:genie_luck/core/models/user_model.dart';
 import 'package:genie_luck/modules/register/data/models/address_details_model.dart';
 import 'package:genie_luck/modules/register/data/models/address_sugestions_model.dart';
-import 'package:genie_luck/modules/register/data/models/cep_model.dart';
 import 'package:result_dart/result_dart.dart';
 
 class RegisterRepository {
@@ -17,15 +16,6 @@ class RegisterRepository {
       return Success((result));
     } catch (e) {
       return Failure(Exception('Erro ao registrar usuário: $e'));
-    }
-  }
-
-  Future<Result<CepModel>> fetchCepData(String cep) async {
-    try {
-      final result = await datasource.getCep(cep);
-      return Success(result);
-    } catch (e) {
-      return Failure(Exception('Erro ao buscar CEP: $e'));
     }
   }
 

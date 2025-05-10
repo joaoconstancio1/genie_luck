@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:genie_luck/modules/register/presenter/cubit/cep_cubit.dart';
+import 'package:genie_luck/modules/register/presenter/cubit/address_search_cubit.dart';
 import 'package:genie_luck/modules/register/presenter/pages/address_page.dart';
 import 'package:genie_luck/modules/register/presenter/pages/personal_info_page.dart';
 import 'package:genie_luck/modules/register/presenter/pages/terms_conditions_page.dart';
@@ -21,7 +21,9 @@ class RegisterPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => RegisterCubit(repository: GetIt.I())),
-        BlocProvider(create: (context) => CepCubit(repository: GetIt.I())),
+        BlocProvider(
+          create: (context) => AddressSearchCubit(repository: GetIt.I()),
+        ),
       ],
       child: const RegisterPageView(),
     );
@@ -66,6 +68,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _complementController = TextEditingController();
+  final TextEditingController _neighborhoodController = TextEditingController();
 
   final Validators _validators = Validators();
   bool _acceptTerms = false;
@@ -162,6 +165,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 addressNumberController: _addressNumberController,
                 cityController: _cityController,
                 stateController: _stateController,
+                neighborhoodController: _neighborhoodController,
                 validators: _validators,
                 complementController: _complementController,
                 onNext: _onNextPage,

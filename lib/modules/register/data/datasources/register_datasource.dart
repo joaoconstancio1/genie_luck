@@ -5,7 +5,6 @@ import 'package:genie_luck/flavors/flavors.dart';
 import 'package:genie_luck/core/models/user_model.dart';
 import 'package:genie_luck/modules/register/data/models/address_details_model.dart';
 import 'package:genie_luck/modules/register/data/models/address_sugestions_model.dart';
-import 'package:genie_luck/modules/register/data/models/cep_model.dart';
 
 class RegisterDatasource {
   final CustomHttpClient client;
@@ -20,24 +19,6 @@ class RegisterDatasource {
     try {
       final response = await client.post(url, headers: headers, data: body);
       final result = UserModel.fromJson(response as Map<String, dynamic>);
-      return result;
-    } catch (e) {
-      if (e is HttpClientException) {
-        throw Exception('Erro na requisição: ${e.message}');
-      } else {
-        throw Exception('Erro inesperado: $e');
-      }
-    }
-  }
-
-  Future<CepModel> getCep(String cep) async {
-    final url = 'https://viacep.com.br/ws/$cep/json/';
-    final headers = {'Content-Type': 'application/json'};
-
-    try {
-      final response = await client.get(url, headers: headers);
-
-      final result = CepModel.fromJson(response as Map<String, dynamic>);
       return result;
     } catch (e) {
       if (e is HttpClientException) {
