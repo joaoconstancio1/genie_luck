@@ -33,5 +33,7 @@
     "errorCountryRequired": "The country field is required",
     "errorInvalidZipCode": "The ZIP code must have 8 digits",
     "labelComplement": "Complement",
-    "hintComplement": "Block, Apartment, etc."
+    "hintComplement": "Block, Apartment, etc.",
+    "labelNeighborhood": "Neighborhood",
+    "hintNeighborhood": "Enter your neighborhood"
 }

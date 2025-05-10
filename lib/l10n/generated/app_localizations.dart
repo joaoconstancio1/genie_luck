@@ -306,6 +306,18 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Bloco, Apartamento, etc.'**
   String get hintComplement;
+
+  /// No description provided for @labelNeighborhood.
+  ///
+  /// In pt, this message translates to:
+  /// **'Bairro'**
+  String get labelNeighborhood;
+
+  /// No description provided for @hintNeighborhood.
+  ///
+  /// In pt, this message translates to:
+  /// **'Digite seu bairro'**
+  String get hintNeighborhood;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

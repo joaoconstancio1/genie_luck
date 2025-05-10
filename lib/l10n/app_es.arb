@@ -33,5 +33,7 @@
     "errorCountryRequired": "El campo de país es obligatorio",
     "errorInvalidZipCode": "El código postal debe tener 8 dígitos",
     "labelComplement": "Complemento",
-    "hintComplement": "Bloque, Apartamento, etc."
+    "hintComplement": "Bloque, Apartamento, etc.",
+    "labelNeighborhood": "Barrio",
+    "hintNeighborhood": "Introduce tu barrio"
 }

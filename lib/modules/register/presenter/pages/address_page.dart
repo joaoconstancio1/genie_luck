@@ -14,7 +14,7 @@ class AddressPage extends StatefulWidget {
   final TextEditingController cityController;
   final TextEditingController stateController;
   final TextEditingController complementController;
-  final TextEditingController neighborhoodController; // Added for neighborhood
+  final TextEditingController neighborhoodController;
   final Validators validators;
   final VoidCallback onNext;
   final VoidCallback onPrevious;
@@ -80,6 +80,34 @@ class _AddressPageState extends State<AddressPage> {
                         (value) => context
                             .read<AddressSearchCubit>()
                             .searchPlaces(value),
+                    decoration: InputDecoration(
+                      labelText: widget.locale.labelAddress,
+                      hintText: widget.locale.hintAddress,
+                      prefixIcon: const Icon(Icons.search, color: Colors.blue),
+                      filled: true,
+                      fillColor: Colors.blue[50],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(
+                          color: Colors.blue,
+                          width: 2,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(
+                          color: Colors.blue,
+                          width: 2,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(
+                          color: Colors.blue,
+                          width: 2,
+                        ),
+                      ),
+                    ),
                   ),
                   if (state is AddressSearchLoadingState)
                     const Padding(
@@ -142,7 +170,6 @@ class _AddressPageState extends State<AddressPage> {
                         keyboardType: TextInputType.text,
                         labelText: widget.locale.labelAddress,
                         hintText: widget.locale.hintAddress,
-                        enabled: false,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -161,9 +188,8 @@ class _AddressPageState extends State<AddressPage> {
                 GlTextFormField(
                   controller: widget.neighborhoodController,
                   keyboardType: TextInputType.text,
-                  labelText: 'widget.locale.labelNeighborhood',
-                  hintText: ' widget.locale.hintNeighborhood',
-                  enabled: false,
+                  labelText: widget.locale.labelNeighborhood,
+                  hintText: widget.locale.hintNeighborhood,
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -175,7 +201,6 @@ class _AddressPageState extends State<AddressPage> {
                         keyboardType: TextInputType.text,
                         labelText: widget.locale.labelCity,
                         hintText: widget.locale.hintCity,
-                        enabled: false,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -186,7 +211,6 @@ class _AddressPageState extends State<AddressPage> {
                         keyboardType: TextInputType.text,
                         labelText: widget.locale.labelState,
                         hintText: widget.locale.hintState,
-                        enabled: false,
                       ),
                     ),
                   ],
@@ -197,7 +221,6 @@ class _AddressPageState extends State<AddressPage> {
                   keyboardType: TextInputType.number,
                   labelText: widget.locale.labelZipCode,
                   hintText: widget.locale.hintZipCode,
-                  enabled: false,
                 ),
                 const SizedBox(height: 16),
                 GlTextFormField(
@@ -205,7 +228,6 @@ class _AddressPageState extends State<AddressPage> {
                   keyboardType: TextInputType.text,
                   labelText: widget.locale.labelCountry,
                   hintText: widget.locale.hintCountry,
-                  enabled: false,
                 ),
                 const SizedBox(height: 16),
                 GlTextFormField(

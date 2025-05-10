@@ -112,4 +112,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get hintComplement => 'Bloco, Apartamento, etc.';
+
+  @override
+  String get labelNeighborhood => 'Bairro';
+
+  @override
+  String get hintNeighborhood => 'Digite seu bairro';
 }

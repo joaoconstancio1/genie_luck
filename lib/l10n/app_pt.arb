@@ -33,5 +33,7 @@
     "errorCountryRequired": "O campo país é obrigatório",
     "errorInvalidZipCode": "O CEP deve ter 8 dígitos",
     "labelComplement": "Complemento",
-    "hintComplement": "Bloco, Apartamento, etc."
+    "hintComplement": "Bloco, Apartamento, etc.",
+    "labelNeighborhood": "Bairro",
+    "hintNeighborhood": "Digite seu bairro"
 }
