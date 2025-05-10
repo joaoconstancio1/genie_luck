@@ -1,6 +1,7 @@
 import 'package:genie_luck/core/http_client/custom_http_client.dart';
 import 'package:genie_luck/modules/register/data/datasources/register_datasource.dart';
 import 'package:genie_luck/modules/register/data/repositories/register_repository.dart';
+import 'package:genie_luck/modules/register/presenter/cubit/register_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 class RegisterInjector {
@@ -13,6 +14,9 @@ class RegisterInjector {
 
     getIt.registerSingleton<RegisterRepository>(
       RegisterRepository(getIt<RegisterDatasource>()),
+    );
+    getIt.registerSingleton<RegisterCubit>(
+      RegisterCubit(repository: getIt<RegisterRepository>()),
     );
   }
 }

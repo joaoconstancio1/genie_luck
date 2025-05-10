@@ -1,8 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:genie_luck/core/http_client/custom_http_client.dart';
 import 'package:genie_luck/modules/register/data/datasources/address_search_datasource.dart';
+import 'package:genie_luck/modules/register/data/datasources/register_datasource.dart';
 import 'package:genie_luck/modules/register/data/models/address_details_model.dart';
 import 'package:genie_luck/modules/register/data/models/address_sugestions_model.dart';
+import 'package:genie_luck/modules/register/presenter/cubit/register_cubit.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 import 'package:genie_luck/flavors/flavors.dart'; // Assuming this is your flavor config
@@ -16,9 +20,10 @@ class AddressSearchScreen extends StatefulWidget {
 
 class _AddressSearchScreenState extends State<AddressSearchScreen> {
   final TextEditingController _controller = TextEditingController();
-  final AddressSearchDatasource _datasource = AddressSearchDatasource();
+
   final String _sessionToken = const Uuid().v4();
   List<AddressSuggestionModel> _suggestions = [];
+  final RegisterCubit _cubit = GetIt.I<RegisterCubit>();
   AddressDetailsModel? _selectedPlaceDetails;
   bool _isLoading = false;
   String? _errorMessage;
@@ -38,7 +43,7 @@ class _AddressSearchScreenState extends State<AddressSearchScreen> {
     });
 
     try {
-      final results = await _datasource.searchPlaces(input, _sessionToken);
+      final results = await _cubit.searchPlaces(input, _sessionToken);
       setState(() {
         _suggestions = results;
         _isLoading = false;
@@ -58,7 +63,7 @@ class _AddressSearchScreenState extends State<AddressSearchScreen> {
     });
 
     try {
-      final details = await _datasource.getPlaceDetails(placeId, _sessionToken);
+      final details = await _cubit.getPlaceDetails(placeId, _sessionToken);
       setState(() {
         _selectedPlaceDetails = details;
         _suggestions = [];
