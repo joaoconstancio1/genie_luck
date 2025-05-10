@@ -18,6 +18,7 @@ class GlTextFormField extends StatelessWidget {
     this.hintText,
     this.prefixIcon,
     this.suffixIcon,
+    this.onChanged,
   });
 
   final TextEditingController? controller;
@@ -34,6 +35,7 @@ class GlTextFormField extends StatelessWidget {
   final String? hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class GlTextFormField extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
       ),
+      onChanged: onChanged,
       controller: controller,
       keyboardType: keyboardType,
       readOnly: readOnly,

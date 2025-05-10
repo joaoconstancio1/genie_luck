@@ -163,14 +163,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 cityController: _cityController,
                 stateController: _stateController,
                 validators: _validators,
-                selectedCountry: _selectedCountry,
                 complementController: _complementController,
-                onCountrySelected: (Country country) {
-                  setState(() {
-                    _selectedCountry = country;
-                    _countryController.text = country.name;
-                  });
-                },
                 onNext: _onNextPage,
                 onPrevious: _onPreviousPage,
                 locale: locale,
