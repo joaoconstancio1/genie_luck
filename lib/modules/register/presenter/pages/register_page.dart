@@ -87,12 +87,10 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   }
 
   void _onNextPage() {
-    if (_formKey.currentState!.validate()) {
-      _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-      );
-    }
+    _pageController.nextPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    );
   }
 
   void _onPreviousPage() {

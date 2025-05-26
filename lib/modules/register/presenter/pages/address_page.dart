@@ -154,21 +154,21 @@ class _AddressPageState extends State<AddressPage> {
                   hintText: widget.locale.hintComplement,
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: widget.onPrevious,
-                      child: Text(widget.locale.back),
-                    ),
-                    ElevatedButton(
-                      onPressed: widget.onNext,
-                      child: Text(widget.locale.next),
-                    ),
-                  ],
-                ),
               ],
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                onPressed: widget.onPrevious,
+                child: Text(widget.locale.back),
+              ),
+              ElevatedButton(
+                onPressed: widget.onNext,
+                child: Text(widget.locale.next),
+              ),
+            ],
           ),
         ],
       ),
