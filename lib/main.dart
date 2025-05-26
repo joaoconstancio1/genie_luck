@@ -16,8 +16,8 @@ FutureOr<void> main() async {
       routerConfig: AppRoutes.router,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      //TODO: remove fixed theme
       darkTheme: AppTheme.darkTheme,
+      //TODO: remove fixed theme
       themeMode: ThemeMode.light,
       locale: Locale('pt'), // Default locale
       supportedLocales: AppLocalizations.supportedLocales,
