@@ -19,6 +19,8 @@
     "hintZipCode": "Digite seu CEP",
     "labelAddress": "Endereço",
     "hintAddress": "Digite seu endereço",
+    "labelSearchAddress": "Pesquise seu endereço",
+    "hintSearchAddress": "Avenida ABC 123",
     "labelAddressNumber": "Número",
     "hintAddressNumber": "999",
     "labelCity": "Cidade",

@@ -217,6 +217,18 @@ abstract class AppLocalizations {
   /// **'Digite seu endereço'**
   String get hintAddress;
 
+  /// No description provided for @labelSearchAddress.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pesquise seu endereço'**
+  String get labelSearchAddress;
+
+  /// No description provided for @hintSearchAddress.
+  ///
+  /// In pt, this message translates to:
+  /// **'Avenida ABC 123'**
+  String get hintSearchAddress;
+
   /// No description provided for @labelAddressNumber.
   ///
   /// In pt, this message translates to:

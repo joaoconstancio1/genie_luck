@@ -10,6 +10,7 @@ class AddressPage extends StatefulWidget {
   final TextEditingController countryController;
   final TextEditingController zipCodeController;
   final TextEditingController addressController;
+  final TextEditingController searchController;
   final TextEditingController addressNumberController;
   final TextEditingController cityController;
   final TextEditingController stateController;
@@ -25,6 +26,7 @@ class AddressPage extends StatefulWidget {
     required this.countryController,
     required this.zipCodeController,
     required this.addressController,
+    required this.searchController,
     required this.addressNumberController,
     required this.cityController,
     required this.stateController,
@@ -72,42 +74,14 @@ class _AddressPageState extends State<AddressPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GlTextFormField(
-                    controller: widget.addressController,
+                    controller: widget.searchController,
                     keyboardType: TextInputType.text,
-                    labelText: widget.locale.labelAddress,
-                    hintText: widget.locale.hintAddress,
+                    labelText: widget.locale.labelSearchAddress,
+                    hintText: widget.locale.hintSearchAddress,
                     onChanged:
                         (value) => context
                             .read<AddressSearchCubit>()
                             .searchPlaces(value),
-                    decoration: InputDecoration(
-                      labelText: widget.locale.labelAddress,
-                      hintText: widget.locale.hintAddress,
-                      prefixIcon: const Icon(Icons.search, color: Colors.blue),
-                      filled: true,
-                      fillColor: Colors.blue[50],
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(
-                          color: Colors.blue,
-                          width: 2,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(
-                          color: Colors.blue,
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(
-                          color: Colors.blue,
-                          width: 2,
-                        ),
-                      ),
-                    ),
                   ),
                   if (state is AddressSearchLoadingState)
                     const Padding(

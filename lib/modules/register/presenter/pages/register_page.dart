@@ -63,6 +63,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   final TextEditingController _addressNumberController =
       TextEditingController();
   final TextEditingController _cityController = TextEditingController();
@@ -162,6 +163,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 countryController: _countryController,
                 zipCodeController: _zipCodeController,
                 addressController: _addressController,
+                searchController: _searchController,
                 addressNumberController: _addressNumberController,
                 cityController: _cityController,
                 stateController: _stateController,

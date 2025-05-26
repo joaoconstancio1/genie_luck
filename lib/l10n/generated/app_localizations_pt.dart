@@ -69,6 +69,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get hintAddress => 'Digite seu endereço';
 
   @override
+  String get labelSearchAddress => 'Pesquise seu endereço';
+
+  @override
+  String get hintSearchAddress => 'Avenida ABC 123';
+
+  @override
   String get labelAddressNumber => 'Número';
 
   @override

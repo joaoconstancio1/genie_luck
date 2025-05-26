@@ -19,6 +19,8 @@
     "hintZipCode": "Introduce tu código postal",
     "labelAddress": "Dirección",
     "hintAddress": "Introduce tu dirección",
+    "labelSearchAddress": "Busca tu dirección",
+    "hintSearchAddress": "Avenida ABC 123",
     "labelAddressNumber": "Número",
     "hintAddressNumber": "999",
     "labelCity": "Ciudad",

@@ -19,6 +19,8 @@
     "hintZipCode": "Enter your ZIP code",
     "labelAddress": "Address",
     "hintAddress": "Enter your address",
+    "labelSearchAddress": "Search your address",
+    "hintSearchAddress": "Example: ABC Avenue 123",
     "labelAddressNumber": "Number",
     "hintAddressNumber": "999",
     "labelCity": "City",

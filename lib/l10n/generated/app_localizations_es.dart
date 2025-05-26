@@ -69,6 +69,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get hintAddress => 'Introduce tu dirección';
 
   @override
+  String get labelSearchAddress => 'Busca tu dirección';
+
+  @override
+  String get hintSearchAddress => 'Avenida ABC 123';
+
+  @override
   String get labelAddressNumber => 'Número';
 
   @override
