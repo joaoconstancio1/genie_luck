@@ -17,15 +17,15 @@ class AddressSearchCubit extends Cubit<AddressSearchState> {
     }
 
     emit(const AddressSearchLoadingState());
-    // try {
-    //   final result = await repository.searchPlaces(input, _sessionToken);
-    //   result.fold(
-    //     (s) => emit(AddressSearchSuggestionsState(suggestions: s)),
-    //     (f) => emit(AddressSearchErrorState(Exception(f))),
-    //   );
-    // } catch (error) {
-    //   emit(AddressSearchErrorState(Exception(error.toString())));
-    // }
+    try {
+      final result = await repository.searchPlaces(input, _sessionToken);
+      result.fold(
+        (s) => emit(AddressSearchSuggestionsState(suggestions: s)),
+        (f) => emit(AddressSearchErrorState(Exception(f))),
+      );
+    } catch (error) {
+      emit(AddressSearchErrorState(Exception(error.toString())));
+    }
   }
 
   Future<void> getPlaceDetails(String placeId) async {
