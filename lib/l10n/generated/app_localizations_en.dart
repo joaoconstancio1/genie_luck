@@ -124,4 +124,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hintNeighborhood => 'Enter your neighborhood';
+
+  @override
+  String get loading => 'Loading...';
 }

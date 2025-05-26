@@ -37,5 +37,6 @@
     "labelComplement": "Complemento",
     "hintComplement": "Bloque, Apartamento, etc.",
     "labelNeighborhood": "Barrio",
-    "hintNeighborhood": "Introduce tu barrio"
+    "hintNeighborhood": "Introduce tu barrio",
+    "loading": "Cargando..."
 }

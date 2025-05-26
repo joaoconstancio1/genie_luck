@@ -330,6 +330,12 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Digite seu bairro'**
   String get hintNeighborhood;
+
+  /// No description provided for @loading.
+  ///
+  /// In pt, this message translates to:
+  /// **'Carregando...'**
+  String get loading;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

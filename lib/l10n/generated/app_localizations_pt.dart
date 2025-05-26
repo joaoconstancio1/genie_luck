@@ -124,4 +124,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get hintNeighborhood => 'Digite seu bairro';
+
+  @override
+  String get loading => 'Carregando...';
 }

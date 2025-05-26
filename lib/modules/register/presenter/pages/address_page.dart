@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/validators.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
+import 'package:genie_luck/modules/register/presenter/components/search_address_field.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/address_search_cubit.dart';
 import 'package:genie_luck/modules/register/presenter/cubit/address_search_state.dart';
 
@@ -68,67 +69,9 @@ class _AddressPageState extends State<AddressPage> {
         shrinkWrap: true,
         children: [
           const SizedBox(height: 16),
-          BlocBuilder<AddressSearchCubit, AddressSearchState>(
-            builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GlTextFormField(
-                    controller: widget.searchController,
-                    keyboardType: TextInputType.text,
-                    labelText: widget.locale.labelSearchAddress,
-                    hintText: widget.locale.hintSearchAddress,
-                    onChanged:
-                        (value) => context
-                            .read<AddressSearchCubit>()
-                            .searchPlaces(value),
-                  ),
-                  if (state is AddressSearchLoadingState)
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: Center(child: CircularProgressIndicator()),
-                    ),
-                  if (state is AddressSearchErrorState)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        state.error.toString(),
-                        style: const TextStyle(color: Colors.red, fontSize: 14),
-                      ),
-                    ),
-                  if (state is AddressSearchSuggestionsState &&
-                      state.suggestions.isNotEmpty)
-                    Container(
-                      constraints: const BoxConstraints(maxHeight: 200),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.suggestions.length,
-                        itemBuilder: (context, index) {
-                          final suggestion = state.suggestions[index];
-                          return ListTile(
-                            title: Text(suggestion.description),
-                            subtitle:
-                                suggestion.secondaryText != null
-                                    ? Text(suggestion.secondaryText!)
-                                    : null,
-                            onTap: () {
-                              context
-                                  .read<AddressSearchCubit>()
-                                  .getPlaceDetails(suggestion.placeId);
-                              FocusScope.of(context).unfocus();
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                ],
-              );
-            },
+          SearchAddressField(
+            searchController: widget.searchController,
+            locale: widget.locale,
           ),
           Visibility(
             visible: _showFormFields,
