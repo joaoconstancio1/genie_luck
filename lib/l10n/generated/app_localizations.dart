@@ -190,7 +190,7 @@ abstract class AppLocalizations {
   /// No description provided for @buttonRegisterNow.
   ///
   /// In pt, this message translates to:
-  /// **'Registrar Agora'**
+  /// **'Registrar'**
   String get buttonRegisterNow;
 
   /// No description provided for @labelZipCode.

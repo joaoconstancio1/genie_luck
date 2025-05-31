@@ -54,7 +54,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get labelReceivePromotions => 'Receber Promoções';
 
   @override
-  String get buttonRegisterNow => 'Registrar Agora';
+  String get buttonRegisterNow => 'Registrar';
 
   @override
   String get labelZipCode => 'CEP';

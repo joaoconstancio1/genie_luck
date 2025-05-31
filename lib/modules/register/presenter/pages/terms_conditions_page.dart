@@ -40,15 +40,17 @@ class TermsConfirmationPage extends StatelessWidget {
           controlAffinity: ListTileControlAffinity.leading,
         ),
         const SizedBox(height: 16),
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: onRegister,
-            child: Text(locale.buttonRegisterNow),
-          ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ElevatedButton(onPressed: onPrevious, child: Text(locale.back)),
+            ElevatedButton(
+              onPressed: acceptTerms ? onRegister : null,
+              child: Text(locale.buttonRegisterNow),
+            ),
+          ],
         ),
-        const SizedBox(height: 16),
-        ElevatedButton(onPressed: onPrevious, child: Text(locale.back)),
       ],
     );
   }
