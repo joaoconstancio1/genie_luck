@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:genie_luck/app_routes.dart';
+import 'package:genie_luck/core/app_routes.dart';
 import 'package:genie_luck/core/app_initializer.dart.dart';
+import 'package:genie_luck/core/design/theme.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
 
 FutureOr<void> main() async {
@@ -12,9 +13,13 @@ FutureOr<void> main() async {
 
   runApp(
     MaterialApp.router(
-      debugShowCheckedModeBanner: false,
       routerConfig: AppRoutes.router,
-      // locale: Locale('pt'), // Default locale
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      //TODO: remove fixed theme
+      themeMode: ThemeMode.light,
+      locale: Locale('pt'), // Default locale
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
     ),

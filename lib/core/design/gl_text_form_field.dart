@@ -18,6 +18,8 @@ class GlTextFormField extends StatelessWidget {
     this.hintText,
     this.prefixIcon,
     this.suffixIcon,
+    this.onChanged,
+    this.enabled = true,
   });
 
   final TextEditingController? controller;
@@ -32,8 +34,10 @@ class GlTextFormField extends StatelessWidget {
   final bool readOnly;
   final String? labelText;
   final String? hintText;
-  final Icon? prefixIcon;
-  final Icon? suffixIcon;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final Function(String)? onChanged;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +45,12 @@ class GlTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.grey),
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
       ),
+      enabled: enabled,
+      onChanged: onChanged,
       controller: controller,
       keyboardType: keyboardType,
       readOnly: readOnly,

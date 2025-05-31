@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:genie_luck/core/http_client/custom_http_client.dart';
 import 'package:genie_luck/core/http_client/http_client_exception.dart';
-import 'package:genie_luck/flavors.dart';
+import 'package:genie_luck/flavors/flavors.dart';
 import 'package:genie_luck/core/models/user_model.dart';
+import 'package:genie_luck/modules/register/data/models/address_details_model.dart';
+import 'package:genie_luck/modules/register/data/models/address_sugestions_model.dart';
 
 class RegisterDatasource {
   final CustomHttpClient client;
@@ -27,7 +29,7 @@ class RegisterDatasource {
     }
   }
 
-  Future<List<Map<String, dynamic>>> searchPlaces(
+  Future<List<AddressSuggestionModel>> searchPlaces(
     String input,
     String sessionToken,
   ) async {
@@ -37,22 +39,21 @@ class RegisterDatasource {
 
     try {
       final response = await client.get(url, headers: headers);
-      final data =
-          response is String
-              ? jsonDecode(response) as Map<String, dynamic>
-              : response as Map<String, dynamic>;
-      return (data['predictions'] as List<dynamic>)
-          .cast<Map<String, dynamic>>();
+      final data = response as Map<String, dynamic>;
+      final predictions = data['predictions'] as List<dynamic>;
+      return predictions
+          .map((json) => AddressSuggestionModel.fromJson(json))
+          .toList();
     } catch (e) {
       if (e is HttpClientException) {
         throw Exception('Erro na requisição: ${e.message}');
       } else {
-        throw Exception('Erro inesperado: $e');
+        throw Exception('Erro ao buscar lugares: $e');
       }
     }
   }
 
-  Future<Map<String, dynamic>?> getPlaceDetails(
+  Future<AddressDetailsModel> getPlaceDetails(
     String placeId,
     String sessionToken,
   ) async {
@@ -66,12 +67,12 @@ class RegisterDatasource {
       if (data.containsKey('error')) {
         throw Exception('Erro ao buscar detalhes: ${data['error']}');
       }
-      return data;
+      return AddressDetailsModel.fromJson(data);
     } catch (e) {
       if (e is HttpClientException) {
         throw Exception('Erro na requisição: ${e.message}');
       } else {
-        throw Exception('Erro inesperado: $e');
+        throw Exception('Erro ao buscar detalhes: $e');
       }
     }
   }

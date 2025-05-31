@@ -1,7 +1,7 @@
 flavors:
   dev:
     app:
-      name: "Genie Luck dev"
+      name: "[DEV] Genie Luck"
 
     android:
       applicationId: "com.genieluck.dev"
@@ -9,7 +9,7 @@ flavors:
       bundleId: "com.genieluck.dev"
   stg:
     app:
-      name: "Genie Luck stg"
+      name: "[STG] Genie Luck"
 
     android:
       applicationId: "com.genieluck.stg"

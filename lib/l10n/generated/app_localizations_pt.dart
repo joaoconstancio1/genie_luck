@@ -54,7 +54,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get labelReceivePromotions => 'Receber Promoções';
 
   @override
-  String get buttonRegisterNow => 'Registrar Agora';
+  String get buttonRegisterNow => 'Registrar';
 
   @override
   String get labelZipCode => 'CEP';
@@ -67,6 +67,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get hintAddress => 'Digite seu endereço';
+
+  @override
+  String get labelSearchAddress => 'Pesquise seu endereço';
+
+  @override
+  String get hintSearchAddress => 'Avenida ABC 123';
 
   @override
   String get labelAddressNumber => 'Número';
@@ -93,8 +99,95 @@ class AppLocalizationsPt extends AppLocalizations {
   String get hintCountry => 'Digite seu país';
 
   @override
+  String get labelComplement => 'Complemento';
+
+  @override
+  String get hintComplement => 'Bloco, Apartamento, etc.';
+
+  @override
+  String get labelNeighborhood => 'Bairro';
+
+  @override
+  String get hintNeighborhood => 'Digite seu bairro';
+
+  @override
   String get back => 'Voltar';
 
   @override
   String get next => 'Próximo';
+
+  @override
+  String get searchCountry => 'Pesquisar país';
+
+  @override
+  String get loading => 'Carregando...';
+
+  @override
+  String get errorNameRequired => 'O campo nome completo é obrigatório';
+
+  @override
+  String get errorFullNameRequired => 'O nome deve conter pelo menos duas palavras';
+
+  @override
+  String get errorEmailRequired => 'O campo e-mail é obrigatório';
+
+  @override
+  String get errorInvalidEmail => 'E-mail inválido';
+
+  @override
+  String get errorPasswordRequired => 'O campo senha é obrigatório';
+
+  @override
+  String get errorPasswordMinLength => 'A senha deve ter no mínimo 8 caracteres';
+
+  @override
+  String get errorPasswordUppercase => 'A senha deve ter uma letra maiúscula';
+
+  @override
+  String get errorPasswordLowercase => 'A senha deve ter uma letra minúscula';
+
+  @override
+  String get errorPasswordNumber => 'A senha deve ter um número';
+
+  @override
+  String get errorPasswordSpecialChar => 'A senha deve ter um caractere especial';
+
+  @override
+  String get errorConfirmPasswordRequired => 'O campo confirmação de senha é obrigatório';
+
+  @override
+  String get errorPasswordsDoNotMatch => 'As senhas não coincidem';
+
+  @override
+  String get errorDateRequired => 'O campo data de nascimento é obrigatório';
+
+  @override
+  String get errorPhoneRequired => 'O campo número de telefone é obrigatório';
+
+  @override
+  String get errorAddressRequired => 'O campo endereço é obrigatório';
+
+  @override
+  String get errorAddressNumberRequired => 'O campo número do endereço é obrigatório';
+
+  @override
+  String get errorNeighborhoodRequired => 'O campo bairro é obrigatório';
+
+  @override
+  String get errorCityRequired => 'O campo cidade é obrigatório';
+
+  @override
+  String get errorStateRequired => 'O campo estado é obrigatório';
+
+  @override
+  String get errorZipCodeRequired => 'O campo CEP é obrigatório';
+
+  @override
+  String get errorInvalidZipCode => 'O CEP deve ter 8 dígitos';
+
+  @override
+  String get errorCountryRequired => 'O campo país é obrigatório';
+
+  @override
+  String get errorAddressSearchRequired => 'Por favor, busque e selecione um endereço';
 }

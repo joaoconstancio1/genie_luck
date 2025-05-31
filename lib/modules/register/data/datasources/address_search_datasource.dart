@@ -1,9 +1,12 @@
 // import 'dart:convert';
-// import 'package:genie_luck/flavors.dart';
+
+// import 'package:genie_luck/flavors/flavors.dart';
+// import 'package:genie_luck/modules/register/data/models/address_details_model.dart';
+// import 'package:genie_luck/modules/register/data/models/address_sugestions_model.dart';
 // import 'package:http/http.dart' as http;
 
 // class AddressSearchDatasource {
-//   Future<List<Map<String, dynamic>>> searchPlaces(
+//   Future<List<AddressSuggestionModel>> searchPlaces(
 //     String input,
 //     String sessionToken,
 //   ) async {
@@ -14,8 +17,10 @@
 //       final response = await http.get(url);
 //       if (response.statusCode == 200) {
 //         final data = jsonDecode(response.body) as Map<String, dynamic>;
-//         return (data['predictions'] as List<dynamic>)
-//             .cast<Map<String, dynamic>>();
+//         final predictions = data['predictions'] as List<dynamic>;
+//         return predictions
+//             .map((json) => AddressSuggestionModel.fromJson(json))
+//             .toList();
 //       } else {
 //         throw Exception('Erro na resposta do backend: ${response.statusCode}');
 //       }
@@ -24,7 +29,7 @@
 //     }
 //   }
 
-//   Future<Map<String, dynamic>?> getPlaceDetails(
+//   Future<AddressDetailsModel?> getPlaceDetails(
 //     String placeId,
 //     String sessionToken,
 //   ) async {
@@ -38,7 +43,7 @@
 //         if (data.containsKey('error')) {
 //           throw Exception('Erro ao buscar detalhes: ${data['error']}');
 //         }
-//         return data;
+//         return AddressDetailsModel.fromJson(data);
 //       } else {
 //         throw Exception('Erro na resposta do backend: ${response.statusCode}');
 //       }

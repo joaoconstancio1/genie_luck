@@ -1,5 +1,7 @@
 import 'package:genie_luck/modules/register/data/datasources/register_datasource.dart';
 import 'package:genie_luck/core/models/user_model.dart';
+import 'package:genie_luck/modules/register/data/models/address_details_model.dart';
+import 'package:genie_luck/modules/register/data/models/address_sugestions_model.dart';
 import 'package:result_dart/result_dart.dart';
 
 class RegisterRepository {
@@ -17,7 +19,7 @@ class RegisterRepository {
     }
   }
 
-  Future<Result<List<Map<String, dynamic>>>> searchPlaces(
+  Future<Result<List<AddressSuggestionModel>>> searchPlaces(
     String input,
     String sessionToken,
   ) async {
@@ -29,13 +31,13 @@ class RegisterRepository {
     }
   }
 
-  Future<Result<Map<String, dynamic>>> getPlaceDetails(
+  Future<Result<AddressDetailsModel>> getPlaceDetails(
     String placeId,
     String sessionToken,
   ) async {
     try {
       final result = await datasource.getPlaceDetails(placeId, sessionToken);
-      return Success(result!);
+      return Success(result);
     } catch (e) {
       return Failure(Exception('Erro ao buscar detalhes do lugar: $e'));
     }
