@@ -79,30 +79,33 @@ class _AddressPageState extends State<AddressPage> {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: GlTextFormField(
-                        controller: widget.addressController,
-                        keyboardType: TextInputType.text,
-                        labelText: widget.locale.labelAddress,
-                        hintText: widget.locale.hintAddress,
-                        validator: widget.validators.validateAddress,
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: GlTextFormField(
+                          controller: widget.addressController,
+                          keyboardType: TextInputType.text,
+                          labelText: widget.locale.labelAddress,
+                          hintText: widget.locale.hintAddress,
+                          validator: widget.validators.validateAddress,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      flex: 1,
-                      child: GlTextFormField(
-                        controller: widget.addressNumberController,
-                        keyboardType: TextInputType.number,
-                        labelText: widget.locale.labelAddressNumber,
-                        hintText: widget.locale.hintAddressNumber,
-                        validator: widget.validators.validateAddressNumber,
+                      const SizedBox(width: 16),
+                      Expanded(
+                        flex: 1,
+                        child: GlTextFormField(
+                          controller: widget.addressNumberController,
+                          keyboardType: TextInputType.number,
+                          labelText: widget.locale.labelAddressNumber,
+                          hintText: widget.locale.hintAddressNumber,
+                          validator: widget.validators.validateAddressNumber,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 16),
                 GlTextFormField(
@@ -113,30 +116,33 @@ class _AddressPageState extends State<AddressPage> {
                   validator: widget.validators.validateNeighborhood,
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: GlTextFormField(
-                        controller: widget.cityController,
-                        keyboardType: TextInputType.text,
-                        labelText: widget.locale.labelCity,
-                        hintText: widget.locale.hintCity,
-                        validator: widget.validators.validateCity,
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: GlTextFormField(
+                          controller: widget.cityController,
+                          keyboardType: TextInputType.text,
+                          labelText: widget.locale.labelCity,
+                          hintText: widget.locale.hintCity,
+                          validator: widget.validators.validateCity,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      flex: 1,
-                      child: GlTextFormField(
-                        controller: widget.stateController,
-                        keyboardType: TextInputType.text,
-                        labelText: widget.locale.labelState,
-                        hintText: widget.locale.hintState,
-                        validator: widget.validators.validateState,
+                      const SizedBox(width: 16),
+                      Expanded(
+                        flex: 1,
+                        child: GlTextFormField(
+                          controller: widget.stateController,
+                          keyboardType: TextInputType.text,
+                          labelText: widget.locale.labelState,
+                          hintText: widget.locale.hintState,
+                          validator: widget.validators.validateState,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 16),
                 GlTextFormField(
