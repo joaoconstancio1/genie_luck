@@ -20,10 +20,9 @@ class SearchAddressField extends StatelessWidget {
     return BlocBuilder<AddressSearchCubit, AddressSearchState>(
       builder: (context, state) {
         return Container(
-          margin: const EdgeInsets.symmetric(vertical: 16.0),
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.grey[100],
+            color: Colors.grey[200],
             borderRadius: BorderRadius.circular(12.0),
             boxShadow: [
               BoxShadow(

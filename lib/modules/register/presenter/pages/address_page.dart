@@ -73,11 +73,12 @@ class _AddressPageState extends State<AddressPage> {
             searchController: widget.searchController,
             locale: widget.locale,
           ),
+          const SizedBox(height: 16),
           Visibility(
             visible: _showFormFields,
             child: Column(
               children: [
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
                 Row(
                   children: [
                     Expanded(
