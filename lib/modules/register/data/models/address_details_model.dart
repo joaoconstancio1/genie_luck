@@ -24,11 +24,17 @@ class AddressDetailsModel {
   });
 
   factory AddressDetailsModel.fromJson(Map<String, dynamic> json) {
-    String? getComponent(List<dynamic> components, List<String> types) {
+    String? getComponent(
+      List<dynamic> components,
+      List<String> types, {
+      bool useShortName = false,
+    }) {
       for (var component in components) {
         final componentTypes = component['types'] as List<dynamic>;
         if (types.any((type) => componentTypes.contains(type))) {
-          return component['long_name'] as String;
+          return useShortName
+              ? component['short_name'] as String?
+              : component['long_name'] as String?;
         }
       }
       return null;
@@ -45,7 +51,9 @@ class AddressDetailsModel {
         'sublocality_level_1',
       ]),
       city: getComponent(components, ['administrative_area_level_2']),
-      state: getComponent(components, ['administrative_area_level_1']),
+      state: getComponent(components, [
+        'administrative_area_level_1',
+      ], useShortName: true),
       country: getComponent(components, ['country']),
       postalCode: getComponent(components, ['postal_code']),
       formattedAddress: json['formatted_address'] as String?,

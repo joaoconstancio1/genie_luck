@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:genie_luck/core/design/gl_primary_button.dart';
+import 'package:genie_luck/core/design/gl_secondary_button.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/utils/validators.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
@@ -45,6 +47,21 @@ class AddressPage extends StatefulWidget {
 
 class _AddressPageState extends State<AddressPage> {
   bool _showFormFields = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Verifica se algum controlador tem dados preenchidos
+    _showFormFields =
+        widget.addressController.text.isNotEmpty ||
+        widget.addressNumberController.text.isNotEmpty ||
+        widget.neighborhoodController.text.isNotEmpty ||
+        widget.cityController.text.isNotEmpty ||
+        widget.stateController.text.isNotEmpty ||
+        widget.zipCodeController.text.isNotEmpty ||
+        widget.countryController.text.isNotEmpty ||
+        widget.complementController.text.isNotEmpty;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -174,11 +191,11 @@ class _AddressPageState extends State<AddressPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton(
+              GlSecondaryButton(
                 onPressed: widget.onPrevious,
-                child: Text(widget.locale.back),
+                text: widget.locale.back,
               ),
-              ElevatedButton(
+              GlPrimaryButton(
                 onPressed:
                     _showFormFields
                         ? () {
@@ -187,7 +204,7 @@ class _AddressPageState extends State<AddressPage> {
                           }
                         }
                         : null,
-                child: Text(widget.locale.next),
+                text: widget.locale.next,
               ),
             ],
           ),

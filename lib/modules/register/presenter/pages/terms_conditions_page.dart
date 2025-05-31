@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:genie_luck/core/design/gl_primary_button.dart';
+import 'package:genie_luck/core/design/gl_secondary_button.dart';
 import 'package:genie_luck/l10n/generated/app_localizations.dart';
 
 class TermsConfirmationPage extends StatelessWidget {
@@ -44,10 +46,10 @@ class TermsConfirmationPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(onPressed: onPrevious, child: Text(locale.back)),
-            ElevatedButton(
+            GlSecondaryButton(onPressed: onPrevious, text: locale.back),
+            GlPrimaryButton(
               onPressed: acceptTerms ? onRegister : null,
-              child: Text(locale.buttonRegisterNow),
+              text: locale.buttonRegisterNow,
             ),
           ],
         ),

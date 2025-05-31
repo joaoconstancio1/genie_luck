@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genie_luck/core/design/gl_primary_button.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
 import 'package:genie_luck/core/design/data_picker.dart';
 import 'package:genie_luck/core/utils/validators.dart';
@@ -117,7 +118,7 @@ class PersonalInfoPage extends StatelessWidget {
         ),
 
         const SizedBox(height: 16),
-        ElevatedButton(onPressed: onNext, child: Text(locale.next)),
+        GlPrimaryButton(onPressed: onNext, text: locale.next),
       ],
     );
   }
