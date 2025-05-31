@@ -126,7 +126,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get errorNameRequired => 'O campo nome completo é obrigatório';
 
   @override
-  String get errorFullNameRequired => 'O nome deve conter pelo menos duas palavras';
+  String get errorFullNameRequired =>
+      'O nome deve conter pelo menos duas palavras';
 
   @override
   String get errorEmailRequired => 'O campo e-mail é obrigatório';
@@ -138,7 +139,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get errorPasswordRequired => 'O campo senha é obrigatório';
 
   @override
-  String get errorPasswordMinLength => 'A senha deve ter no mínimo 8 caracteres';
+  String get errorPasswordMinLength =>
+      'A senha deve ter no mínimo 8 caracteres';
 
   @override
   String get errorPasswordUppercase => 'A senha deve ter uma letra maiúscula';
@@ -150,10 +152,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get errorPasswordNumber => 'A senha deve ter um número';
 
   @override
-  String get errorPasswordSpecialChar => 'A senha deve ter um caractere especial';
+  String get errorPasswordSpecialChar =>
+      'A senha deve ter um caractere especial';
 
   @override
-  String get errorConfirmPasswordRequired => 'O campo confirmação de senha é obrigatório';
+  String get errorConfirmPasswordRequired =>
+      'O campo confirmação de senha é obrigatório';
 
   @override
   String get errorPasswordsDoNotMatch => 'As senhas não coincidem';
@@ -168,7 +172,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get errorAddressRequired => 'O campo endereço é obrigatório';
 
   @override
-  String get errorAddressNumberRequired => 'O campo número do endereço é obrigatório';
+  String get errorAddressNumberRequired =>
+      'O campo número do endereço é obrigatório';
 
   @override
   String get errorNeighborhoodRequired => 'O campo bairro é obrigatório';
@@ -189,5 +194,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get errorCountryRequired => 'O campo país é obrigatório';
 
   @override
-  String get errorAddressSearchRequired => 'Por favor, busque e selecione um endereço';
+  String get errorAddressSearchRequired =>
+      'Por favor, busque e selecione um endereço';
 }

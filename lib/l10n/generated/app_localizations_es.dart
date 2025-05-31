@@ -126,10 +126,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get errorNameRequired => 'El campo de nombre completo es obligatorio';
 
   @override
-  String get errorFullNameRequired => 'El nombre debe contener al menos dos palabras';
+  String get errorFullNameRequired =>
+      'El nombre debe contener al menos dos palabras';
 
   @override
-  String get errorEmailRequired => 'El campo de correo electrónico es obligatorio';
+  String get errorEmailRequired =>
+      'El campo de correo electrónico es obligatorio';
 
   @override
   String get errorInvalidEmail => 'Correo electrónico inválido';
@@ -138,37 +140,45 @@ class AppLocalizationsEs extends AppLocalizations {
   String get errorPasswordRequired => 'El campo de contraseña es obligatorio';
 
   @override
-  String get errorPasswordMinLength => 'La contraseña debe tener al menos 8 caracteres';
+  String get errorPasswordMinLength =>
+      'La contraseña debe tener al menos 8 caracteres';
 
   @override
-  String get errorPasswordUppercase => 'La contraseña debe tener una letra mayúscula';
+  String get errorPasswordUppercase =>
+      'La contraseña debe tener una letra mayúscula';
 
   @override
-  String get errorPasswordLowercase => 'La contraseña debe tener una letra minúscula';
+  String get errorPasswordLowercase =>
+      'La contraseña debe tener una letra minúscula';
 
   @override
   String get errorPasswordNumber => 'La contraseña debe tener un número';
 
   @override
-  String get errorPasswordSpecialChar => 'La contraseña debe tener un carácter especial';
+  String get errorPasswordSpecialChar =>
+      'La contraseña debe tener un carácter especial';
 
   @override
-  String get errorConfirmPasswordRequired => 'El campo de confirmación de contraseña es obligatorio';
+  String get errorConfirmPasswordRequired =>
+      'El campo de confirmación de contraseña es obligatorio';
 
   @override
   String get errorPasswordsDoNotMatch => 'Las contraseñas no coinciden';
 
   @override
-  String get errorDateRequired => 'El campo de fecha de nacimiento es obligatorio';
+  String get errorDateRequired =>
+      'El campo de fecha de nacimiento es obligatorio';
 
   @override
-  String get errorPhoneRequired => 'El campo de número de teléfono es obligatorio';
+  String get errorPhoneRequired =>
+      'El campo de número de teléfono es obligatorio';
 
   @override
   String get errorAddressRequired => 'El campo de dirección es obligatorio';
 
   @override
-  String get errorAddressNumberRequired => 'El campo de número de dirección es obligatorio';
+  String get errorAddressNumberRequired =>
+      'El campo de número de dirección es obligatorio';
 
   @override
   String get errorNeighborhoodRequired => 'El campo de barrio es obligatorio';
@@ -189,5 +199,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get errorCountryRequired => 'El campo de país es obligatorio';
 
   @override
-  String get errorAddressSearchRequired => 'Por favor, busca y selecciona una dirección';
+  String get errorAddressSearchRequired =>
+      'Por favor, busca y selecciona una dirección';
 }

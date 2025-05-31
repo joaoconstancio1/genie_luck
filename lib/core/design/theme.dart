@@ -103,7 +103,7 @@ class AppTheme {
       ),
 
       // Estilos de Card
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: surfaceColor,
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -204,7 +204,7 @@ class AppTheme {
       ),
 
       // Estilos de Card
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: Colors.grey.shade800,
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
