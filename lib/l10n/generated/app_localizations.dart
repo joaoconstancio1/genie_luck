@@ -277,36 +277,6 @@ abstract class AppLocalizations {
   /// **'Digite seu país'**
   String get hintCountry;
 
-  /// No description provided for @back.
-  ///
-  /// In pt, this message translates to:
-  /// **'Voltar'**
-  String get back;
-
-  /// No description provided for @next.
-  ///
-  /// In pt, this message translates to:
-  /// **'Próximo'**
-  String get next;
-
-  /// No description provided for @searchCountry.
-  ///
-  /// In pt, this message translates to:
-  /// **'Pesquisar país'**
-  String get searchCountry;
-
-  /// No description provided for @errorCountryRequired.
-  ///
-  /// In pt, this message translates to:
-  /// **'O campo país é obrigatório'**
-  String get errorCountryRequired;
-
-  /// No description provided for @errorInvalidZipCode.
-  ///
-  /// In pt, this message translates to:
-  /// **'O CEP deve ter 8 dígitos'**
-  String get errorInvalidZipCode;
-
   /// No description provided for @labelComplement.
   ///
   /// In pt, this message translates to:
@@ -331,11 +301,167 @@ abstract class AppLocalizations {
   /// **'Digite seu bairro'**
   String get hintNeighborhood;
 
+  /// No description provided for @back.
+  ///
+  /// In pt, this message translates to:
+  /// **'Voltar'**
+  String get back;
+
+  /// No description provided for @next.
+  ///
+  /// In pt, this message translates to:
+  /// **'Próximo'**
+  String get next;
+
+  /// No description provided for @searchCountry.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pesquisar país'**
+  String get searchCountry;
+
   /// No description provided for @loading.
   ///
   /// In pt, this message translates to:
   /// **'Carregando...'**
   String get loading;
+
+  /// No description provided for @errorNameRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo nome completo é obrigatório'**
+  String get errorNameRequired;
+
+  /// No description provided for @errorFullNameRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O nome deve conter pelo menos duas palavras'**
+  String get errorFullNameRequired;
+
+  /// No description provided for @errorEmailRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo e-mail é obrigatório'**
+  String get errorEmailRequired;
+
+  /// No description provided for @errorInvalidEmail.
+  ///
+  /// In pt, this message translates to:
+  /// **'E-mail inválido'**
+  String get errorInvalidEmail;
+
+  /// No description provided for @errorPasswordRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo senha é obrigatório'**
+  String get errorPasswordRequired;
+
+  /// No description provided for @errorPasswordMinLength.
+  ///
+  /// In pt, this message translates to:
+  /// **'A senha deve ter no mínimo 8 caracteres'**
+  String get errorPasswordMinLength;
+
+  /// No description provided for @errorPasswordUppercase.
+  ///
+  /// In pt, this message translates to:
+  /// **'A senha deve ter uma letra maiúscula'**
+  String get errorPasswordUppercase;
+
+  /// No description provided for @errorPasswordLowercase.
+  ///
+  /// In pt, this message translates to:
+  /// **'A senha deve ter uma letra minúscula'**
+  String get errorPasswordLowercase;
+
+  /// No description provided for @errorPasswordNumber.
+  ///
+  /// In pt, this message translates to:
+  /// **'A senha deve ter um número'**
+  String get errorPasswordNumber;
+
+  /// No description provided for @errorPasswordSpecialChar.
+  ///
+  /// In pt, this message translates to:
+  /// **'A senha deve ter um caractere especial'**
+  String get errorPasswordSpecialChar;
+
+  /// No description provided for @errorConfirmPasswordRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo confirmação de senha é obrigatório'**
+  String get errorConfirmPasswordRequired;
+
+  /// No description provided for @errorPasswordsDoNotMatch.
+  ///
+  /// In pt, this message translates to:
+  /// **'As senhas não coincidem'**
+  String get errorPasswordsDoNotMatch;
+
+  /// No description provided for @errorDateRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo data de nascimento é obrigatório'**
+  String get errorDateRequired;
+
+  /// No description provided for @errorPhoneRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo número de telefone é obrigatório'**
+  String get errorPhoneRequired;
+
+  /// No description provided for @errorAddressRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo endereço é obrigatório'**
+  String get errorAddressRequired;
+
+  /// No description provided for @errorAddressNumberRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo número do endereço é obrigatório'**
+  String get errorAddressNumberRequired;
+
+  /// No description provided for @errorNeighborhoodRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo bairro é obrigatório'**
+  String get errorNeighborhoodRequired;
+
+  /// No description provided for @errorCityRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo cidade é obrigatório'**
+  String get errorCityRequired;
+
+  /// No description provided for @errorStateRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo estado é obrigatório'**
+  String get errorStateRequired;
+
+  /// No description provided for @errorZipCodeRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo CEP é obrigatório'**
+  String get errorZipCodeRequired;
+
+  /// No description provided for @errorInvalidZipCode.
+  ///
+  /// In pt, this message translates to:
+  /// **'O CEP deve ter 8 dígitos'**
+  String get errorInvalidZipCode;
+
+  /// No description provided for @errorCountryRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'O campo país é obrigatório'**
+  String get errorCountryRequired;
+
+  /// No description provided for @errorAddressSearchRequired.
+  ///
+  /// In pt, this message translates to:
+  /// **'Por favor, busque e selecione um endereço'**
+  String get errorAddressSearchRequired;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

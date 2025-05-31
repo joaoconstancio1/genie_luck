@@ -99,21 +99,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hintCountry => 'Enter your country';
 
   @override
-  String get back => 'Back';
-
-  @override
-  String get next => 'Next';
-
-  @override
-  String get searchCountry => 'Search country';
-
-  @override
-  String get errorCountryRequired => 'The country field is required';
-
-  @override
-  String get errorInvalidZipCode => 'The ZIP code must have 8 digits';
-
-  @override
   String get labelComplement => 'Complement';
 
   @override
@@ -126,5 +111,83 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hintNeighborhood => 'Enter your neighborhood';
 
   @override
+  String get back => 'Back';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get searchCountry => 'Search country';
+
+  @override
   String get loading => 'Loading...';
+
+  @override
+  String get errorNameRequired => 'The full name field is required';
+
+  @override
+  String get errorFullNameRequired => 'The name must contain at least two words';
+
+  @override
+  String get errorEmailRequired => 'The email field is required';
+
+  @override
+  String get errorInvalidEmail => 'Invalid email';
+
+  @override
+  String get errorPasswordRequired => 'The password field is required';
+
+  @override
+  String get errorPasswordMinLength => 'The password must have at least 8 characters';
+
+  @override
+  String get errorPasswordUppercase => 'The password must have an uppercase letter';
+
+  @override
+  String get errorPasswordLowercase => 'The password must have a lowercase letter';
+
+  @override
+  String get errorPasswordNumber => 'The password must have a number';
+
+  @override
+  String get errorPasswordSpecialChar => 'The password must have a special character';
+
+  @override
+  String get errorConfirmPasswordRequired => 'The confirm password field is required';
+
+  @override
+  String get errorPasswordsDoNotMatch => 'The passwords do not match';
+
+  @override
+  String get errorDateRequired => 'The birth date field is required';
+
+  @override
+  String get errorPhoneRequired => 'The phone number field is required';
+
+  @override
+  String get errorAddressRequired => 'The address field is required';
+
+  @override
+  String get errorAddressNumberRequired => 'The address number field is required';
+
+  @override
+  String get errorNeighborhoodRequired => 'The neighborhood field is required';
+
+  @override
+  String get errorCityRequired => 'The city field is required';
+
+  @override
+  String get errorStateRequired => 'The state field is required';
+
+  @override
+  String get errorZipCodeRequired => 'The ZIP code field is required';
+
+  @override
+  String get errorInvalidZipCode => 'The ZIP code must have 8 digits';
+
+  @override
+  String get errorCountryRequired => 'The country field is required';
+
+  @override
+  String get errorAddressSearchRequired => 'Please search and select an address';
 }

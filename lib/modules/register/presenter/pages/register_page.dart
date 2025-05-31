@@ -43,23 +43,13 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   late DataPicker _dataPicker;
 
   // Controllers
-  final TextEditingController _nameController = TextEditingController(
-    text: 'João Vitor',
-  );
-  final TextEditingController _emailController = TextEditingController(
-    text: 'joao.vitor@example.com',
-  );
-  final TextEditingController _passwordController = TextEditingController(
-    text: 'Senha123!',
-  );
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-      TextEditingController(text: 'Senha123!');
-  final TextEditingController _dateController = TextEditingController(
-    text: '01/01/2000',
-  );
-  final TextEditingController _phoneController = TextEditingController(
-    text: '999999999',
-  );
+      TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -71,7 +61,6 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   final TextEditingController _complementController = TextEditingController();
   final TextEditingController _neighborhoodController = TextEditingController();
 
-  final Validators _validators = Validators();
   bool _acceptTerms = false;
   bool _receivePromotions = false;
   DateTime? _selectedDate;
@@ -87,10 +76,12 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   }
 
   void _onNextPage() {
-    _pageController.nextPage(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeIn,
-    );
+    if (_formKey.currentState!.validate()) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    }
   }
 
   void _onPreviousPage() {
@@ -132,6 +123,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
 
   @override
   Widget build(BuildContext context) {
+    final Validators validators = Validators(AppLocalizations.of(context)!);
     final locale = AppLocalizations.of(context)!;
     return Scaffold(
       body: SafeArea(
@@ -148,7 +140,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 confirmPasswordController: _confirmPasswordController,
                 dateController: _dateController,
                 phoneController: _phoneController,
-                validators: _validators,
+                validators: validators,
                 dataPicker: _dataPicker,
                 selectedCountryCode: _selectedCountryCode,
                 onCountryCodeChanged:
@@ -166,7 +158,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
                 cityController: _cityController,
                 stateController: _stateController,
                 neighborhoodController: _neighborhoodController,
-                validators: _validators,
+                validators: validators,
                 complementController: _complementController,
                 onNext: _onNextPage,
                 onPrevious: _onPreviousPage,

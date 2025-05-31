@@ -88,6 +88,7 @@ class _AddressPageState extends State<AddressPage> {
                         keyboardType: TextInputType.text,
                         labelText: widget.locale.labelAddress,
                         hintText: widget.locale.hintAddress,
+                        validator: widget.validators.validateAddress,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -98,6 +99,7 @@ class _AddressPageState extends State<AddressPage> {
                         keyboardType: TextInputType.number,
                         labelText: widget.locale.labelAddressNumber,
                         hintText: widget.locale.hintAddressNumber,
+                        validator: widget.validators.validateAddressNumber,
                       ),
                     ),
                   ],
@@ -108,6 +110,7 @@ class _AddressPageState extends State<AddressPage> {
                   keyboardType: TextInputType.text,
                   labelText: widget.locale.labelNeighborhood,
                   hintText: widget.locale.hintNeighborhood,
+                  validator: widget.validators.validateNeighborhood,
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -119,6 +122,7 @@ class _AddressPageState extends State<AddressPage> {
                         keyboardType: TextInputType.text,
                         labelText: widget.locale.labelCity,
                         hintText: widget.locale.hintCity,
+                        validator: widget.validators.validateCity,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -129,6 +133,7 @@ class _AddressPageState extends State<AddressPage> {
                         keyboardType: TextInputType.text,
                         labelText: widget.locale.labelState,
                         hintText: widget.locale.hintState,
+                        validator: widget.validators.validateState,
                       ),
                     ),
                   ],
@@ -139,6 +144,7 @@ class _AddressPageState extends State<AddressPage> {
                   keyboardType: TextInputType.number,
                   labelText: widget.locale.labelZipCode,
                   hintText: widget.locale.hintZipCode,
+                  validator: widget.validators.validateZipCode,
                 ),
                 const SizedBox(height: 16),
                 GlTextFormField(
@@ -146,6 +152,7 @@ class _AddressPageState extends State<AddressPage> {
                   keyboardType: TextInputType.text,
                   labelText: widget.locale.labelCountry,
                   hintText: widget.locale.hintCountry,
+                  validator: widget.validators.validateCountry,
                 ),
                 const SizedBox(height: 16),
                 GlTextFormField(
@@ -166,7 +173,11 @@ class _AddressPageState extends State<AddressPage> {
                 child: Text(widget.locale.back),
               ),
               ElevatedButton(
-                onPressed: widget.onNext,
+                onPressed: () {
+                  if (Form.of(context).validate()) {
+                    widget.onNext();
+                  }
+                },
                 child: Text(widget.locale.next),
               ),
             ],
