@@ -114,10 +114,7 @@ class Validators {
     if (value == null || value.isEmpty) {
       return locale.errorZipCodeRequired;
     }
-    final zipCodeRegex = RegExp(r'^\d{8}$');
-    if (!zipCodeRegex.hasMatch(value)) {
-      return locale.errorInvalidZipCode;
-    }
+
     return null;
   }
 

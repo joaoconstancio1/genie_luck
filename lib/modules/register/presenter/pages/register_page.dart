@@ -42,14 +42,24 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   final PageController _pageController = PageController();
   late DataPicker _dataPicker;
 
-  // Controllers
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  // TODO: remover valores fixos
+  final TextEditingController _nameController = TextEditingController(
+    text: 'João Vitor',
+  );
+  final TextEditingController _emailController = TextEditingController(
+    text: 'joao@email.com',
+  );
+  final TextEditingController _passwordController = TextEditingController(
+    text: 'Senha123!',
+  );
   final TextEditingController _confirmPasswordController =
-      TextEditingController();
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+      TextEditingController(text: 'Senha123!');
+  final TextEditingController _dateController = TextEditingController(
+    text: '01/01/2000',
+  );
+  final TextEditingController _phoneController = TextEditingController(
+    text: '999999999',
+  );
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();

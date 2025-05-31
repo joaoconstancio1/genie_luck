@@ -173,11 +173,14 @@ class _AddressPageState extends State<AddressPage> {
                 child: Text(widget.locale.back),
               ),
               ElevatedButton(
-                onPressed: () {
-                  if (Form.of(context).validate()) {
-                    widget.onNext();
-                  }
-                },
+                onPressed:
+                    _showFormFields
+                        ? () {
+                          if (Form.of(context).validate()) {
+                            widget.onNext();
+                          }
+                        }
+                        : null,
                 child: Text(widget.locale.next),
               ),
             ],
