@@ -2,23 +2,22 @@ flavors:
   dev:
     app:
       name: "[DEV] Genie Luck"
-
     android:
       applicationId: "com.genieluck.dev"
     ios:
       bundleId: "com.genieluck.dev"
+
   stg:
     app:
       name: "[STG] Genie Luck"
-
     android:
       applicationId: "com.genieluck.stg"
     ios:
       bundleId: "com.genieluck.stg"
-  prod:
+
+  prd:
     app:
       name: "Genie Luck"
-
     android:
       applicationId: "com.genieluck"
     ios:

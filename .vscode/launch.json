@@ -32,12 +32,12 @@
       "name": "Launch production",
       "request": "launch",
       "type": "dart",
-      "program": "lib/flavors/main_prod.dart",
+      "program": "lib/flavors/main_prd.dart",
       "args": [
         "--flavor",
         "prod",
         "--target",
-        "lib/flavors/main_prod.dart"
+        "lib/flavors/main_prd.dart"
       ]
     },
   ]

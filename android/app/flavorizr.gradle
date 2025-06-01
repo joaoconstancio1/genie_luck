@@ -12,7 +12,7 @@ android {
             applicationId "com.genieluck.stg"
             resValue "string", "app_name", "[STG] Genie Luck"
         }
-        prod {
+        prd {
             dimension "flavor-type"
             applicationId "com.genieluck"
             resValue "string", "app_name", "Genie Luck"
