@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:genie_luck/core/design/gl_primary_button.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
