@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:genie_luck/core/design/gl_primary_button.dart';
 import 'package:genie_luck/core/design/gl_text_form_field.dart';
@@ -42,7 +43,7 @@ class PersonalInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-
+    final app = Firebase.app();
     return ListView(
       padding: const EdgeInsets.all(16.0),
       shrinkWrap: true,

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "663290606209",
+    "project_id": "genie-luck-prd",
+    "storage_bucket": "genie-luck-prd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663290606209:android:0aa34beefde8b6e71e9380",
+        "android_client_info": {
+          "package_name": "com.genieluck.prd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAyVaLYHFtXAC6zNACr6kkgfwRx0_BRfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

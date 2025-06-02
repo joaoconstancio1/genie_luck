@@ -2,5 +2,5 @@
 #include "Generated.xcconfig"
 
 ASSET_PREFIX=stg
-BUNDLE_NAME=Genie Luck stg
-BUNDLE_DISPLAY_NAME=Genie Luck stg
+BUNDLE_NAME=[STG] Genie Luck
+BUNDLE_DISPLAY_NAME=[STG] Genie Luck

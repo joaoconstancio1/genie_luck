@@ -1,3 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:genie_luck/firebase/dev/firebase_options.dart' as dev;
+import 'package:genie_luck/firebase/prd/firebase_options.dart' as prod;
+import 'package:genie_luck/firebase/stg/firebase_options.dart' as stg;
+
 enum Flavor { dev, stg, prod }
 
 class F {
@@ -11,6 +16,17 @@ class F {
         return 'ajustar';
       case Flavor.prod:
         return 'ajustar';
+    }
+  }
+
+  static FirebaseOptions get firebaseConfigOptions {
+    switch (appFlavor) {
+      case Flavor.dev:
+        return dev.DefaultFirebaseOptions.currentPlatform;
+      case Flavor.prod:
+        return prod.DefaultFirebaseOptions.currentPlatform;
+      case Flavor.stg:
+        return stg.DefaultFirebaseOptions.currentPlatform;
     }
   }
 }
