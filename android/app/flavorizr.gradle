@@ -14,7 +14,7 @@ android {
         }
         prd {
             dimension "flavor-type"
-            applicationId "com.genieluck"
+            applicationId "com.genieluck.prd"
             resValue "string", "app_name", "Genie Luck"
         }
     }

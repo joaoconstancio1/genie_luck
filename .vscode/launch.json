@@ -35,7 +35,7 @@
       "program": "lib/flavors/main_prd.dart",
       "args": [
         "--flavor",
-        "prod",
+        "prd",
         "--target",
         "lib/flavors/main_prd.dart"
       ]

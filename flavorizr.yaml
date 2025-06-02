@@ -5,31 +5,38 @@ flavors:
     android:
       applicationId: "com.genieluck.dev"
       firebase:
-        config: ".firebase/dev/google-services.json"
+        config: "lib/firebase/dev/google-services.json"
     ios:
       bundleId: "com.genieluck.dev"
       firebase:
-        config: ".firebase/dev/GoogleService-Info.plist"
+        config: "lib/firebase/dev/GoogleService-Info.plist"
   stg:
     app:
       name: "[STG] Genie Luck"
     android:
       applicationId: "com.genieluck.stg"
       firebase:
-        config: ".firebase/stg/google-services.json"
+        config: "lib/firebase/stg/google-services.json"
     ios:
       bundleId: "com.genieluck.stg"
       firebase:
-        config: ".firebase/stg/GoogleService-Info.plist"
+        config: "lib/firebase/stg/GoogleService-Info.plist"
 
   prd:
     app:
       name: "Genie Luck"
     android:
-      applicationId: "com.genieluck"
+      applicationId: "com.genieluck.prd"
       firebase:
-        config: ".firebase/prd/google-services.json"
+        config: "lib/firebase/prd/google-services.json"
     ios:
-      bundleId: "com.genieluck"
+      bundleId: "com.genieluck.prd"
       firebase:
-        config: ".firebase/prd/GoogleService-Info.plist"
+        config: "lib/firebase/prd/GoogleService-Info.plist"
+
+scripts:
+  android:
+    post:
+      - echo "Copiando google-services.json para o flavor $(flavor)"
+      - mkdir -p android/app/src/$(flavor)
+      - cp lib/firebase/$(flavor)/google-services.json android/app/src/$(flavor)/google-services.json

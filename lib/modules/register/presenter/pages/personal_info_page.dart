@@ -43,7 +43,6 @@ class PersonalInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final app = Firebase.app();
     return ListView(
       padding: const EdgeInsets.all(16.0),
       shrinkWrap: true,
