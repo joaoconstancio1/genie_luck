@@ -126,7 +126,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorNameRequired => 'The full name field is required';
 
   @override
-  String get errorFullNameRequired => 'The name must contain at least two words';
+  String get errorFullNameRequired =>
+      'The name must contain at least two words';
 
   @override
   String get errorEmailRequired => 'The email field is required';
@@ -138,22 +139,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorPasswordRequired => 'The password field is required';
 
   @override
-  String get errorPasswordMinLength => 'The password must have at least 8 characters';
+  String get errorPasswordMinLength =>
+      'The password must have at least 8 characters';
 
   @override
-  String get errorPasswordUppercase => 'The password must have an uppercase letter';
+  String get errorPasswordUppercase =>
+      'The password must have an uppercase letter';
 
   @override
-  String get errorPasswordLowercase => 'The password must have a lowercase letter';
+  String get errorPasswordLowercase =>
+      'The password must have a lowercase letter';
 
   @override
   String get errorPasswordNumber => 'The password must have a number';
 
   @override
-  String get errorPasswordSpecialChar => 'The password must have a special character';
+  String get errorPasswordSpecialChar =>
+      'The password must have a special character';
 
   @override
-  String get errorConfirmPasswordRequired => 'The confirm password field is required';
+  String get errorConfirmPasswordRequired =>
+      'The confirm password field is required';
 
   @override
   String get errorPasswordsDoNotMatch => 'The passwords do not match';
@@ -168,7 +174,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorAddressRequired => 'The address field is required';
 
   @override
-  String get errorAddressNumberRequired => 'The address number field is required';
+  String get errorAddressNumberRequired =>
+      'The address number field is required';
 
   @override
   String get errorNeighborhoodRequired => 'The neighborhood field is required';
@@ -189,5 +196,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorCountryRequired => 'The country field is required';
 
   @override
-  String get errorAddressSearchRequired => 'Please search and select an address';
+  String get errorAddressSearchRequired =>
+      'Please search and select an address';
 }

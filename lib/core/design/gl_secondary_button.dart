@@ -22,14 +22,16 @@ class GlSecondaryButton extends StatelessWidget {
         minimumSize: const Size(140, 50),
       ).copyWith(
         overlayColor: WidgetStateProperty.all(
-          Theme.of(context).colorScheme.secondary.withOpacity(0.1),
-        ), // Efeito de prensa
+          Theme.of(
+            context,
+          ).colorScheme.secondary.withAlpha((0.1 * 255).toInt()),
+        ),
         backgroundColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.hovered) ||
               states.contains(WidgetState.pressed)) {
-            return Theme.of(context).colorScheme.secondary.withOpacity(
-              0.1,
-            ); // Fundo sutil ao interagir
+            return Theme.of(
+              context,
+            ).colorScheme.secondary.withAlpha((0.1 * 255).toInt());
           }
           return Colors.transparent;
         }),
@@ -37,10 +39,7 @@ class GlSecondaryButton extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-          color:
-              Theme.of(
-                context,
-              ).colorScheme.secondary, // Verde-azulado para texto
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
     );
