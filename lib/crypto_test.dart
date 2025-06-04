@@ -14,33 +14,35 @@ class CryptoTest extends StatefulWidget {
 
 class _CryptoTestState extends State<CryptoTest> {
   final PaymentRepository paymentRepository = GetIt.I<PaymentRepository>();
+  final email = 'joaovitorconstancio@hotmail.com';
   @override
   Widget build(BuildContext context) {
-    final TextEditingController amountController = TextEditingController(
-      text: '30',
-    );
     return Scaffold(
       body: ListView(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: amountController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Valor',
-                border: OutlineInputBorder(),
-              ),
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            ),
-          ),
+          SizedBox(height: 60),
           GlPrimaryButton(
-            text: 'Teste',
+            text: 'Testar Todos',
+            onPressed: () {
+              paymentRepository.testAllProviders(amount: 30, email: email);
+            },
+          ),
+          SizedBox(height: 60),
+          GlPrimaryButton(
+            text: 'Testar individual ',
             onPressed: () {
               paymentRepository.createPayment(
-                amount: double.tryParse(amountController.text) ?? 0.0,
-                email: 'genieluck26@gmail.com',
+                provider: Providers.alchemypay,
+                amount: 50,
+                email: email,
               );
+            },
+          ),
+          SizedBox(height: 60),
+          GlPrimaryButton(
+            text: 'Testar em ordem',
+            onPressed: () {
+              paymentRepository.openNextProvider(amount: 30, email: email);
             },
           ),
         ],
