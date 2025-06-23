@@ -15,6 +15,22 @@ class AppRoutes {
       initialLocation: register,
       routes: [
         GoRoute(
+          path: '/payment-redirect',
+          name: 'paymentRedirect',
+          builder: (context, state) {
+            final id = state.uri.queryParameters['id'];
+            final value_coin = state.uri.queryParameters['value_coin'];
+            return Scaffold(
+              appBar: AppBar(title: Text('Payment Redirect')),
+              body: Center(
+                child: Text(
+                  'Payment callback received. ID: $id, Value Coin: $value_coin',
+                ),
+              ),
+            );
+          },
+        ),
+        GoRoute(
           path: register,
           name: 'register',
           builder: (context, state) => CryptoTest(),

@@ -28,6 +28,7 @@ dependencies:
   http: ^1.2.2
   url_launcher: ^6.3.0
   webview_flutter: ^4.9.0
+  app_links: ^6.4.0
 
   flutter_localizations:
     sdk: flutter

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:genie_luck/core/app_routes.dart';
 import 'package:genie_luck/core/app_initializer.dart.dart';
@@ -10,6 +11,17 @@ FutureOr<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await AppInitializer.initializeDependencies();
+
+  final appLinks = AppLinks();
+
+  final sub = appLinks.uriLinkStream.listen((uri) {
+    print('Received URI: $uri');
+    final id = uri.queryParameters['id'];
+    final valueCoin = uri.queryParameters['value_coin'];
+    if (id != null && valueCoin != null) {
+      AppRoutes.router.go('/payment-redirect?id=$id&value_coin=$valueCoin');
+    }
+  });
 
   runApp(
     MaterialApp.router(

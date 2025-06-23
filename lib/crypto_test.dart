@@ -21,20 +21,15 @@ class _CryptoTestState extends State<CryptoTest> {
       body: ListView(
         children: [
           SizedBox(height: 60),
-          GlPrimaryButton(
-            text: 'Testar Todos',
-            onPressed: () {
-              paymentRepository.testAllProviders(amount: 30, email: email);
-            },
-          ),
-          SizedBox(height: 60),
+
           GlPrimaryButton(
             text: 'Testar individual ',
             onPressed: () {
               paymentRepository.createPayment(
-                provider: Providers.alchemypay,
-                amount: 50,
+                provider: Providers.topper,
+                amount: 70,
                 email: email,
+                id: 111,
               );
             },
           ),
@@ -42,7 +37,20 @@ class _CryptoTestState extends State<CryptoTest> {
           GlPrimaryButton(
             text: 'Testar em ordem',
             onPressed: () {
-              paymentRepository.openNextProvider(amount: 30, email: email);
+              paymentRepository.openNextProvider(
+                amount: 30,
+                email: email,
+              );
+            },
+          ),
+          SizedBox(height: 60),
+          GlPrimaryButton(
+            text: 'Testar Todos',
+            onPressed: () {
+              paymentRepository.testAllProviders(
+                amount: 60,
+                email: email,
+              );
             },
           ),
         ],
